@@ -3,19 +3,21 @@
 Reusable examples for planning, maintenance, procurement and equipment telemetry.
 Data is synthetic and generated with a fixed seed. Contoso is fictional.
 
-**Private review candidate.** This repository has new Git history and a limited
-file allowlist. Do not change its visibility without owner approval.
+The repository contains a reviewed subset of reusable samples. An explicit
+file allowlist keeps delivery documents separate.
 
 ## Included
 
 - Eighteen source tables, gold transformations and three Direct Lake models.
 - Eventstream, Eventhouse, dashboard and a bounded telemetry producer.
 - Three subject-area data agents and an evaluation notebook.
+- [Prep for AI instructions](docs/ai-instructions/README.md) for the planning,
+  maintenance and procurement semantic models.
 - Deployment helpers, local tests and [setup instructions](docs/setup.md).
 
 No customer documents, slides, agendas, delivery notes or session recap are part
 of this repository. Plan, ontology, graph, Foundry and approval-flow configuration
-are not included in this candidate.
+are not included in this repository.
 
 ## Setup
 

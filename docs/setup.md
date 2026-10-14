@@ -57,6 +57,10 @@ If refresh fails on credentials, check the model's **Gateway and cloud
 connections** settings as its owner, sign in to the OneLake connection, refresh,
 then rerun preflight.
 
+Apply the corresponding [Prep for AI instructions](ai-instructions/README.md)
+in each semantic model. The files identify the target model and contain a
+plain-text block to paste. Setup does not apply these settings automatically.
+
 ## 3. Deploy and test streaming
 
 ```bash

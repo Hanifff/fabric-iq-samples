@@ -24,6 +24,10 @@ data/silver/supplier.parquet
 data/silver/tag.parquet
 data/silver/work_order.parquet
 data/silver/work_package.parquet
+docs/ai-instructions/README.md
+docs/ai-instructions/maintenance.md
+docs/ai-instructions/planning.md
+docs/ai-instructions/procurement.md
 docs/setup.md
 fabric/Agents/da_contoso_dev_swc_maintenance_01.DataAgent/.platform
 fabric/Agents/da_contoso_dev_swc_maintenance_01.DataAgent/Files/Config/data_agent.json
