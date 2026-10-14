@@ -1,0 +1,773 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "__ID:sm_contoso_dev_swc_planning_01__",
+  "workspaceId": "__WORKSPACE_ID__",
+  "dataSourceInstructions": "Use for hours booked, progress against plan, activities behind plan and forecast hours at completion. Hours Booked To Date, Baseline Hours, Earned Hours and Forecast Hours At Completion count each activity once.",
+  "displayName": "sm_contoso_dev_swc_planning_01",
+  "type": "semantic_model",
+  "userDescription": "Project planning: weekly progress of activities against plan, hours booked and earned-value forecast.",
+  "metadata": {},
+  "elements": [
+    {
+      "id": "cd94f0c9-efcc-51ec-aee4-a3824ab66801",
+      "is_selected": true,
+      "display_name": "Date",
+      "type": "semantic_model.table",
+      "description": "Calendar table with one row per day from 2022 to 2029. Use it to slice every fact by day, week, month, quarter and year.",
+      "children": [
+        {
+          "id": "306fcbd6-7ec2-5754-af1c-43e6346122ea",
+          "is_selected": true,
+          "display_name": "Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Calendar date.",
+          "children": []
+        },
+        {
+          "id": "4d42d742-ef1b-5cd3-a932-a2cc3dd814f7",
+          "is_selected": true,
+          "display_name": "Year",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar year, for example 2026.",
+          "children": []
+        },
+        {
+          "id": "10b5f45c-8c5e-5ad5-8062-387e2487d23c",
+          "is_selected": true,
+          "display_name": "Quarter Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar quarter number from 1 to 4.",
+          "children": []
+        },
+        {
+          "id": "4f8e514a-94ec-562e-ac29-8d3aed56db61",
+          "is_selected": true,
+          "display_name": "Quarter",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Calendar quarter label such as 2026 Q3.",
+          "children": []
+        },
+        {
+          "id": "100916bb-0eb3-5137-8a7d-ea423be01c67",
+          "is_selected": true,
+          "display_name": "Month Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar month number from 1 (January) to 12 (December).",
+          "children": []
+        },
+        {
+          "id": "e61975fd-637a-52db-ae19-dce945ea42a2",
+          "is_selected": true,
+          "display_name": "Month",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Full month name, for example September.",
+          "children": []
+        },
+        {
+          "id": "1ea8d7ea-a408-5985-82cc-a2a5107d9746",
+          "is_selected": true,
+          "display_name": "Month Short Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Three-letter month name, for example Sep.",
+          "children": []
+        },
+        {
+          "id": "7f02ad7c-2744-5add-b56f-07fd45b6c41a",
+          "is_selected": true,
+          "display_name": "Year Month",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Year and month in yyyy-mm form. Sorts correctly as text.",
+          "children": []
+        },
+        {
+          "id": "3d528d4a-5480-55e4-b945-e5acd069ddaf",
+          "is_selected": true,
+          "display_name": "Week Of Year",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "ISO week number from 1 to 53.",
+          "children": []
+        },
+        {
+          "id": "bdb7ff5f-9ed7-59d4-928d-986962a2b578",
+          "is_selected": true,
+          "display_name": "Day Of Week Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Day of week where Monday is 1 and Sunday is 7.",
+          "children": []
+        },
+        {
+          "id": "68c85ae6-f5eb-5fb5-a3de-91edef06f270",
+          "is_selected": true,
+          "display_name": "Day",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Day name, for example Monday.",
+          "children": []
+        },
+        {
+          "id": "d44cd7d6-6e37-5aa7-8f60-e8f06056076a",
+          "is_selected": true,
+          "display_name": "Is Weekend",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": "True when the day is a Saturday or Sunday.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "61a12a83-3534-5e6d-883b-8ed9c3844b4f",
+      "is_selected": true,
+      "display_name": "Project",
+      "type": "semantic_model.table",
+      "description": "One row per Contoso project: a fabrication, modification, maintenance or study contract for a client. Shared by planning and procurement.",
+      "children": [
+        {
+          "id": "563259db-647d-5243-817a-7c664d67ee3f",
+          "is_selected": true,
+          "display_name": "Project ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the project in the source system, for example PRJ-2210.",
+          "children": []
+        },
+        {
+          "id": "c568a1c5-68e8-5f20-89ce-43ea403cec71",
+          "is_selected": true,
+          "display_name": "Project Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Short project code used on documents and work packages, for example CON-2403.",
+          "children": []
+        },
+        {
+          "id": "7ffecfc8-57e9-5b8d-9c21-e439a09765db",
+          "is_selected": true,
+          "display_name": "Project Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the project, built from the asset name and the project type.",
+          "children": []
+        },
+        {
+          "id": "3a4af570-48c8-5497-9cff-4a16fcbb19f1",
+          "is_selected": true,
+          "display_name": "Segment",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business segment: New Build for new facilities or Life Cycle for work on producing assets.",
+          "children": []
+        },
+        {
+          "id": "fb51b4e8-0884-5fd3-b050-08f916dc6380",
+          "is_selected": true,
+          "display_name": "Project Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Kind of project, for example Jacket Fabrication, Subsea Tie-in or Maintenance Frame Agreement.",
+          "children": []
+        },
+        {
+          "id": "6527386f-f3fb-56da-a350-733135dc554e",
+          "is_selected": true,
+          "display_name": "Client Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the client that owns the facility and awards the contract.",
+          "children": []
+        },
+        {
+          "id": "f39a73ab-fee0-5e76-ac91-35ab60433315",
+          "is_selected": true,
+          "display_name": "Installation Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Installation the project works on. Not applicable for new build projects.",
+          "children": []
+        },
+        {
+          "id": "01d4668a-a6d6-56e0-8c32-f9d4d371fae1",
+          "is_selected": true,
+          "display_name": "Yard Location",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Fabrication yard or work location of the project.",
+          "children": []
+        },
+        {
+          "id": "ff90d7d1-45a5-5cbb-81b4-ea16b4c66bde",
+          "is_selected": true,
+          "display_name": "Country Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Two-letter country code where the work is delivered.",
+          "children": []
+        },
+        {
+          "id": "8ce41989-3ac8-54c1-8e4a-21c0a5003c8a",
+          "is_selected": true,
+          "display_name": "Contract Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Commercial form of the contract, for example EPC, EPCI, Reimbursable or Frame agreement.",
+          "children": []
+        },
+        {
+          "id": "3dd6cb56-11b5-52c7-8c7b-6079c53e4dc4",
+          "is_selected": true,
+          "display_name": "Contract Value (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Contract value in Norwegian kroner. One value per project, so do not sum it across rows of other tables.",
+          "children": []
+        },
+        {
+          "id": "de7c9c3a-3e28-504c-ad42-ef1f3cab00d5",
+          "is_selected": true,
+          "display_name": "Project Start Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Planned start date of the project.",
+          "children": []
+        },
+        {
+          "id": "13b1b579-4b8a-566f-a663-7709f6d0ee60",
+          "is_selected": true,
+          "display_name": "Planned Finish Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Planned finish date of the project.",
+          "children": []
+        },
+        {
+          "id": "3870a711-88f9-5fd6-8042-d4ff6febf862",
+          "is_selected": true,
+          "display_name": "Actual Finish Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Actual finish date. Empty while the project is not finished.",
+          "children": []
+        },
+        {
+          "id": "2c996dba-9cef-587c-b950-b3f9e75da9f6",
+          "is_selected": true,
+          "display_name": "Project Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Current status: Planning, Execution, On Hold or Completed.",
+          "children": []
+        },
+        {
+          "id": "00fb5e68-e401-556d-bf9d-d3df0b90d0f1",
+          "is_selected": true,
+          "display_name": "Project Manager Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the responsible project manager.",
+          "children": []
+        },
+        {
+          "id": "e793e26e-305c-5c86-a2ca-a8536f417951",
+          "is_selected": true,
+          "display_name": "Planned Total Hours",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Total planned hours over all activities of the project.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "ec74993c-8a88-5867-b3b7-d0023fe8f6a0",
+      "is_selected": true,
+      "display_name": "Discipline",
+      "type": "semantic_model.table",
+      "description": "Engineering and construction disciplines such as Piping or Electrical. Shared by planning and maintenance.",
+      "children": [
+        {
+          "id": "3b6167c7-2ce8-5df1-9e69-c1a29abdccea",
+          "is_selected": true,
+          "display_name": "Discipline ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the discipline, for example DSC-04.",
+          "children": []
+        },
+        {
+          "id": "d0d5a0c0-da34-50fe-84cc-7c72081b2c6d",
+          "is_selected": true,
+          "display_name": "Discipline Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Three-letter discipline code, for example PIP.",
+          "children": []
+        },
+        {
+          "id": "a0890b6a-d6d2-51cf-812d-04325e857d38",
+          "is_selected": true,
+          "display_name": "Discipline Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Full name of the discipline.",
+          "children": []
+        },
+        {
+          "id": "d3c3d59a-3e65-57d4-8c2d-8ec759377dcb",
+          "is_selected": true,
+          "display_name": "Discipline Group",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Higher level grouping: Engineering, Fabrication, Construction, Commissioning or Project Support.",
+          "children": []
+        },
+        {
+          "id": "50528266-2b8f-5dc3-aa4f-f4a80f5bed85",
+          "is_selected": true,
+          "display_name": "Standard Hourly Rate (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Standard cost rate per hour for the discipline in Norwegian kroner.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "55ce13c4-146e-54ec-9613-5ce948524b81",
+      "is_selected": true,
+      "display_name": "Resource",
+      "type": "semantic_model.table",
+      "description": "People who plan and execute work, with role, discipline and rate.",
+      "children": [
+        {
+          "id": "2454db99-da7d-5556-b3be-7b560d5c29ec",
+          "is_selected": true,
+          "display_name": "Resource ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the resource, for example RES-0042. Unassigned for activities without an owner.",
+          "children": []
+        },
+        {
+          "id": "83c943cc-9878-52d2-994f-d8198dac171b",
+          "is_selected": true,
+          "display_name": "Resource Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Full name of the person.",
+          "children": []
+        },
+        {
+          "id": "714ec310-ae84-55bd-a005-4088fa73c72f",
+          "is_selected": true,
+          "display_name": "Role Title",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Role title combining seniority, discipline and role.",
+          "children": []
+        },
+        {
+          "id": "17694527-d75e-5020-9e92-b6a5e40fe882",
+          "is_selected": true,
+          "display_name": "Discipline Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Discipline the resource belongs to.",
+          "children": []
+        },
+        {
+          "id": "0820c425-b02b-528e-bff0-dacc6796c890",
+          "is_selected": true,
+          "display_name": "Seniority Level",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Seniority: Junior, Intermediate, Senior or Lead.",
+          "children": []
+        },
+        {
+          "id": "509f2349-598e-5717-b8de-c51391c22177",
+          "is_selected": true,
+          "display_name": "Employment Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Employee or Contractor.",
+          "children": []
+        },
+        {
+          "id": "f6a99bc3-2b77-5502-933c-6fec419a0590",
+          "is_selected": true,
+          "display_name": "Home Location",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Home office or yard of the resource.",
+          "children": []
+        },
+        {
+          "id": "0be5957e-52eb-5782-9a24-d28e87f9ca7a",
+          "is_selected": true,
+          "display_name": "Hourly Rate (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Hourly cost rate in Norwegian kroner.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "1263f5ae-763f-5194-b1d5-43178fcdf385",
+      "is_selected": true,
+      "display_name": "Activity",
+      "type": "semantic_model.table",
+      "description": "Planned work activity within a work package, with its schedule, type and status. Work package attributes are included.",
+      "children": [
+        {
+          "id": "985939d9-affe-5711-b35b-19814955a335",
+          "is_selected": true,
+          "display_name": "Activity ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the activity, for example ACT-004512.",
+          "children": []
+        },
+        {
+          "id": "b831976e-f02d-5a5b-9667-5ef73fb15fd1",
+          "is_selected": true,
+          "display_name": "Activity Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Structured activity code made of the work package code and a sequence number.",
+          "children": []
+        },
+        {
+          "id": "68a6956e-0160-5f41-9265-66acc6bd809f",
+          "is_selected": true,
+          "display_name": "Activity Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Short description of the work, for example Weld spool 21-PA-1043.",
+          "children": []
+        },
+        {
+          "id": "862590ab-bbab-53bb-9733-fde563bf8453",
+          "is_selected": true,
+          "display_name": "Activity Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Type of work: Design, Document, Procure, Fabricate, Install, Test or Inspect.",
+          "children": []
+        },
+        {
+          "id": "4270c18e-bfb3-5649-8451-f7642b681bd8",
+          "is_selected": true,
+          "display_name": "Activity Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Current status: Not started, In progress or Completed.",
+          "children": []
+        },
+        {
+          "id": "21a3ffed-bd76-57c2-a6d5-cb425e56e199",
+          "is_selected": true,
+          "display_name": "Is Critical Path",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": "True when the activity is on the critical path of the schedule.",
+          "children": []
+        },
+        {
+          "id": "03fbc72d-f8b7-5f70-95bc-e27d8816735e",
+          "is_selected": true,
+          "display_name": "Planned Start Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Planned start date of the activity.",
+          "children": []
+        },
+        {
+          "id": "ad11b200-13d2-50ed-96c1-abfb017088b7",
+          "is_selected": true,
+          "display_name": "Planned Finish Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Planned finish date of the activity.",
+          "children": []
+        },
+        {
+          "id": "fc0d7165-abc7-5d14-8175-649724a621cd",
+          "is_selected": true,
+          "display_name": "Actual Start Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Actual start date. Empty when the activity has not started.",
+          "children": []
+        },
+        {
+          "id": "4d475d57-6ce5-51b2-8c86-7cfb0052f436",
+          "is_selected": true,
+          "display_name": "Actual Finish Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Actual finish date. Empty when the activity has not finished.",
+          "children": []
+        },
+        {
+          "id": "42aba02c-9a97-5c12-a7e7-ad9800780e6c",
+          "is_selected": true,
+          "display_name": "Planned Hours",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Planned hours for the activity. One value per activity.",
+          "children": []
+        },
+        {
+          "id": "7e4e79f6-6bdb-5146-843f-7f8ef7a7e00b",
+          "is_selected": true,
+          "display_name": "Actual Hours",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Hours booked on the activity up to the as-of date. One value per activity.",
+          "children": []
+        },
+        {
+          "id": "a2f8916b-fe40-5654-af82-fa8b53880d69",
+          "is_selected": true,
+          "display_name": "Percent Complete",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Latest reported percent complete from 0 to 100.",
+          "children": []
+        },
+        {
+          "id": "8c32a164-b749-57f4-ab6c-e3c665a31a2a",
+          "is_selected": true,
+          "display_name": "Tag Number",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Tag number of the equipment the activity works on. Not applicable when the work is not tied to a tag.",
+          "children": []
+        },
+        {
+          "id": "03d94026-8173-545c-ba91-b26f99330e58",
+          "is_selected": true,
+          "display_name": "Work Package ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the work package the activity belongs to.",
+          "children": []
+        },
+        {
+          "id": "d1abcba1-c7de-574d-9df7-291228e3ab1b",
+          "is_selected": true,
+          "display_name": "Work Package Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Structured code of the work package.",
+          "children": []
+        },
+        {
+          "id": "bd993f37-6e3c-5711-8f58-997bb5b5e87b",
+          "is_selected": true,
+          "display_name": "Work Package Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the work package.",
+          "children": []
+        },
+        {
+          "id": "6ed808ae-07ba-5b1e-93d3-5d02c5b25faf",
+          "is_selected": true,
+          "display_name": "Work Package Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Work package type: Engineering, Procurement, Fabrication, Installation, Hook-up, Commissioning, Inspection or Project Controls.",
+          "children": []
+        },
+        {
+          "id": "5333dd0b-f57e-5e01-91e0-2fa1bdae40bb",
+          "is_selected": true,
+          "display_name": "Work Package Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Status of the work package derived from its activities.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "d159340b-73fe-5c4e-9f4c-a928fcda33b4",
+      "is_selected": true,
+      "display_name": "Activity Progress",
+      "type": "semantic_model.table",
+      "description": "Weekly progress snapshot per activity: planned versus actual percent complete and hours booked. One row per activity and week ending date.",
+      "children": [
+        {
+          "id": "722fccc7-307d-5b05-9051-f013be5844e4",
+          "is_selected": true,
+          "display_name": "Planned Percent Complete",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Percent complete according to the baseline plan at the week ending date, from 0 to 100.",
+          "children": []
+        },
+        {
+          "id": "5aa4025c-746a-554a-92db-aa291c1930ac",
+          "is_selected": true,
+          "display_name": "Actual Percent Complete",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Reported percent complete at the week ending date, from 0 to 100.",
+          "children": []
+        },
+        {
+          "id": "e0a296df-8528-5010-a85c-0a54486a9e1a",
+          "is_selected": true,
+          "display_name": "Percent Complete Variance",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Actual minus planned percent complete. Negative values mean behind plan.",
+          "children": []
+        },
+        {
+          "id": "232b181e-c65b-54a3-b51d-57cb88f0cd55",
+          "is_selected": true,
+          "display_name": "Is Behind Plan",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "1 when actual percent complete is more than 15 points below plan at the week ending date, otherwise 0.",
+          "children": []
+        },
+        {
+          "id": "60ad32e1-5ef1-5966-981b-c7a7fbe695b0",
+          "is_selected": true,
+          "display_name": "Hours Booked In Week",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Hours booked on the activity during the week.",
+          "children": []
+        },
+        {
+          "id": "ac0f4589-ee74-5790-bc9f-436872a44ed6",
+          "is_selected": true,
+          "display_name": "Cumulative Hours Booked",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Hours booked on the activity from the start up to the week ending date. Not additive over weeks.",
+          "children": []
+        },
+        {
+          "id": "754ccbbe-834e-518e-a2ef-51c0b393e4f0",
+          "is_selected": true,
+          "display_name": "Total Hours Booked",
+          "type": "semantic_model.measure",
+          "description": "Hours booked on activities in the selected period.",
+          "children": []
+        },
+        {
+          "id": "c8754ee2-9e34-54cf-881e-ff968d399194",
+          "is_selected": true,
+          "display_name": "Activities Tracked",
+          "type": "semantic_model.measure",
+          "description": "Number of distinct activities with a progress snapshot in the selection.",
+          "children": []
+        },
+        {
+          "id": "3ee21c9c-e2d4-579c-93a2-6f5083cea977",
+          "is_selected": true,
+          "display_name": "Activities Behind Plan",
+          "type": "semantic_model.measure",
+          "description": "Number of distinct activities more than 15 percentage points behind plan in the selection.",
+          "children": []
+        },
+        {
+          "id": "1a3d98ed-92ba-5c9c-9d75-30ba535714d6",
+          "is_selected": true,
+          "display_name": "Percent Activities Behind Plan",
+          "type": "semantic_model.measure",
+          "description": "Share of tracked activities that are behind plan.",
+          "children": []
+        },
+        {
+          "id": "f59e7952-9ee9-59a1-af50-1ac8fcd7fadb",
+          "is_selected": true,
+          "display_name": "Average Planned Percent Complete",
+          "type": "semantic_model.measure",
+          "description": "Average baseline percent complete over the selected snapshots.",
+          "children": []
+        },
+        {
+          "id": "fe1b6616-826a-52aa-a8ea-4e294f68a655",
+          "is_selected": true,
+          "display_name": "Average Actual Percent Complete",
+          "type": "semantic_model.measure",
+          "description": "Average reported percent complete over the selected snapshots.",
+          "children": []
+        },
+        {
+          "id": "2028a1a5-0454-5987-9f0c-7c461274e8c3",
+          "is_selected": true,
+          "display_name": "Average Percent Complete Variance",
+          "type": "semantic_model.measure",
+          "description": "Average of actual minus planned percent complete. Negative means behind plan.",
+          "children": []
+        },
+        {
+          "id": "6cb8d4bf-9b12-5932-9a61-a90dd90255e9",
+          "is_selected": true,
+          "display_name": "Baseline Hours",
+          "type": "semantic_model.measure",
+          "description": "Planned hours of the activities in the selection. The baseline budget. Counts each activity once, whatever the number of weekly snapshots.",
+          "children": []
+        },
+        {
+          "id": "5bada196-3475-56ba-abf8-6dd0b6bcc906",
+          "is_selected": true,
+          "display_name": "Hours Booked To Date",
+          "type": "semantic_model.measure",
+          "description": "Hours booked on the activities in the selection up to the as-of date. Counts each activity once.",
+          "children": []
+        },
+        {
+          "id": "ee0dfa3a-f732-5592-a570-82244eeda597",
+          "is_selected": true,
+          "display_name": "Earned Hours",
+          "type": "semantic_model.measure",
+          "description": "Planned hours times percent complete, added up over the activities. The planned value of the work done.",
+          "children": []
+        },
+        {
+          "id": "f917d20a-afda-53fc-9fd4-d504e33723e5",
+          "is_selected": true,
+          "display_name": "Weighted Percent Complete",
+          "type": "semantic_model.measure",
+          "description": "Earned hours divided by baseline hours. Weighted by planned hours.",
+          "children": []
+        },
+        {
+          "id": "550c3e8e-c61b-5169-8879-d53d205428ed",
+          "is_selected": true,
+          "display_name": "Forecast Hours At Completion",
+          "type": "semantic_model.measure",
+          "description": "Earned value forecast of total hours at completion: baseline hours times hours booked divided by earned hours. Equals the baseline when no work is done yet.",
+          "children": []
+        },
+        {
+          "id": "6a7c0566-ca41-5f08-a666-57852982c529",
+          "is_selected": true,
+          "display_name": "Forecast Overrun Rate",
+          "type": "semantic_model.measure",
+          "description": "Forecast hours at completion minus baseline hours, as a share of baseline hours. Positive means overrun.",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

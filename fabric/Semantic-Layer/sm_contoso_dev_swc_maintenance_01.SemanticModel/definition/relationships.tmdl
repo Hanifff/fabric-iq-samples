@@ -1,0 +1,24 @@
+relationship 85d1068b-8520-5e1a-a328-7c003bf95edf
+	fromColumn: 'Work Orders'.'Reported Date Key'
+	toColumn: Date.'Date Key'
+
+relationship a4f29f2f-f3d0-5878-86c3-4fadbe2259bc
+	isActive: false
+	fromColumn: 'Work Orders'.'Actual Finish Date Key'
+	toColumn: Date.'Date Key'
+
+relationship 1ea2ef80-b37c-52f1-9c43-f9e3271a3940
+	fromColumn: 'Work Orders'.'Installation Key'
+	toColumn: Installation.'Installation Key'
+
+relationship 79aa85fd-7e75-5581-9f62-3b71dd05341c
+	fromColumn: 'Work Orders'.'Equipment Key'
+	toColumn: Equipment.'Equipment Key'
+
+relationship 3365976c-75a4-5bc1-b3a0-bae7b02b7ece
+	fromColumn: 'Work Orders'.'Discipline Key'
+	toColumn: Discipline.'Discipline Key'
+
+relationship 788da17d-91a9-5ce7-b968-2c8dc3de4a37
+	fromColumn: 'Work Orders'.'Contractor Supplier Key'
+	toColumn: Contractor.'Supplier Key'

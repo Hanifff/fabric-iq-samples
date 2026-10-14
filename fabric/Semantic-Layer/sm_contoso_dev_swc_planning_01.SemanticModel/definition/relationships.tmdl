@@ -1,0 +1,19 @@
+relationship 2b0ddb98-b3f7-528e-a479-3e830aef6152
+	fromColumn: 'Activity Progress'.'Week Ending Date Key'
+	toColumn: Date.'Date Key'
+
+relationship 26e1ae6a-842e-5492-bfae-0a9701954148
+	fromColumn: 'Activity Progress'.'Project Key'
+	toColumn: Project.'Project Key'
+
+relationship 375f074e-29fb-5761-8b59-685425dff96b
+	fromColumn: 'Activity Progress'.'Discipline Key'
+	toColumn: Discipline.'Discipline Key'
+
+relationship 1f9cc29f-df7e-5ee2-a7ec-037d3834eea2
+	fromColumn: 'Activity Progress'.'Resource Key'
+	toColumn: Resource.'Resource Key'
+
+relationship f5e9f2b0-6072-5a56-8424-49b03e675eb2
+	fromColumn: 'Activity Progress'.'Activity Key'
+	toColumn: Activity.'Activity Key'

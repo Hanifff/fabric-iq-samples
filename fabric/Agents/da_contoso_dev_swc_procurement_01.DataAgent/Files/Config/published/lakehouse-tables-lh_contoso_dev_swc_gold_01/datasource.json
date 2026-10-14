@@ -1,0 +1,831 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "__ID:lh_contoso_dev_swc_gold_01__",
+  "workspaceId": "__WORKSPACE_ID__",
+  "dataSourceInstructions": "Use for order-line detail: purchase order and line lists, buyers, incoterms, and lines past their promised delivery date. The as-of date for open lines is 2026-10-08.",
+  "displayName": "lh_contoso_dev_swc_gold_01",
+  "type": "lakehouse_tables",
+  "userDescription": "Gold star schema tables behind the semantic model, at row level.",
+  "metadata": {},
+  "elements": [
+    {
+      "id": "af54c370-8d4b-5870-9d8b-a7e1d7245a16",
+      "is_selected": true,
+      "display_name": "Schemas",
+      "type": "schema_grouping",
+      "description": null,
+      "children": [
+        {
+          "id": "d50dc29c-4127-56c7-a1a3-e0c472b46854",
+          "is_selected": true,
+          "display_name": "dbo",
+          "type": "lakehouse_tables.schema",
+          "description": null,
+          "children": [
+            {
+              "id": "2c8e6512-5b59-57a0-965e-64b75343c239",
+              "is_selected": true,
+              "display_name": "Tables",
+              "type": "table_grouping",
+              "description": null,
+              "children": [
+                {
+                  "id": "3d7248e6-5f93-553a-b8a7-258f1c91065c",
+                  "is_selected": true,
+                  "display_name": "dim_date",
+                  "type": "lakehouse_tables.table",
+                  "description": "Calendar table with one row per day from 2022 to 2029. Use it to slice every fact by day, week, month, quarter and year.",
+                  "children": [
+                    {
+                      "id": "f483bffd-3947-5e3e-a9be-20caf897c203",
+                      "is_selected": true,
+                      "display_name": "date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key for the day in yyyymmdd form. Used by fact tables to join to the calendar.",
+                      "children": []
+                    },
+                    {
+                      "id": "719c4186-dbf7-5e6a-8f6e-b3124c8eeb0f",
+                      "is_selected": true,
+                      "display_name": "date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Calendar date.",
+                      "children": []
+                    },
+                    {
+                      "id": "aba0a8e3-542a-5fb6-b859-d1cd833f9667",
+                      "is_selected": true,
+                      "display_name": "year",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar year, for example 2026.",
+                      "children": []
+                    },
+                    {
+                      "id": "1e524eac-c922-56f6-ba48-27293925a3b9",
+                      "is_selected": true,
+                      "display_name": "quarter_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar quarter number from 1 to 4.",
+                      "children": []
+                    },
+                    {
+                      "id": "1784b5b0-6f29-587e-a546-83ad1e9bd846",
+                      "is_selected": true,
+                      "display_name": "quarter_label",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Calendar quarter label such as 2026 Q3.",
+                      "children": []
+                    },
+                    {
+                      "id": "34e7745b-60c2-53d2-b4e0-836943bdd889",
+                      "is_selected": true,
+                      "display_name": "month_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar month number from 1 (January) to 12 (December).",
+                      "children": []
+                    },
+                    {
+                      "id": "20d0a140-47e3-5ab9-9042-fb3b8e41c0b8",
+                      "is_selected": true,
+                      "display_name": "month_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Full month name, for example September.",
+                      "children": []
+                    },
+                    {
+                      "id": "7e6597cf-77e8-55cf-8bc6-0d8e13c41247",
+                      "is_selected": true,
+                      "display_name": "month_short_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Three-letter month name, for example Sep.",
+                      "children": []
+                    },
+                    {
+                      "id": "aa303760-5c8d-5c2f-9ea7-4b86ce7aacf1",
+                      "is_selected": true,
+                      "display_name": "year_month",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Year and month in yyyy-mm form. Sorts correctly as text.",
+                      "children": []
+                    },
+                    {
+                      "id": "6690c9e7-0167-5b24-b11a-8adab201ccf7",
+                      "is_selected": true,
+                      "display_name": "week_of_year",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "ISO week number from 1 to 53.",
+                      "children": []
+                    },
+                    {
+                      "id": "0c4bfed6-e6b9-5c33-9819-6f0f34b88671",
+                      "is_selected": true,
+                      "display_name": "day_of_week_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Day of week where Monday is 1 and Sunday is 7.",
+                      "children": []
+                    },
+                    {
+                      "id": "654cc85e-fbce-58e8-8b2b-b318071eb9c6",
+                      "is_selected": true,
+                      "display_name": "day_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Day name, for example Monday.",
+                      "children": []
+                    },
+                    {
+                      "id": "da429e1e-ba21-5ee0-a56d-8d395e7ef8e6",
+                      "is_selected": true,
+                      "display_name": "is_weekend",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bit",
+                      "description": "True when the day is a Saturday or Sunday.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "4914ad7e-b552-5cc3-9896-40f28cbbaa97",
+                  "is_selected": true,
+                  "display_name": "dim_project",
+                  "type": "lakehouse_tables.table",
+                  "description": "One row per Contoso project: a fabrication, modification, maintenance or study contract for a client. Shared by planning and procurement.",
+                  "children": [
+                    {
+                      "id": "29999d15-2f13-5c44-ad76-f2cbc58e5e8b",
+                      "is_selected": true,
+                      "display_name": "project_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the project.",
+                      "children": []
+                    },
+                    {
+                      "id": "c7946d4e-80f6-5fee-8014-8af5f4b2cb6d",
+                      "is_selected": true,
+                      "display_name": "project_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the project in the source system, for example PRJ-2210.",
+                      "children": []
+                    },
+                    {
+                      "id": "4ae1557c-a6fe-53fc-a960-e8ff70559877",
+                      "is_selected": true,
+                      "display_name": "project_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Short project code used on documents and work packages, for example CON-2403.",
+                      "children": []
+                    },
+                    {
+                      "id": "7abfbd44-62f0-5a45-ad1f-bcc8b8314bef",
+                      "is_selected": true,
+                      "display_name": "project_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the project, built from the asset name and the project type.",
+                      "children": []
+                    },
+                    {
+                      "id": "50e1f597-5deb-5f06-92cf-86b9746df40e",
+                      "is_selected": true,
+                      "display_name": "segment",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business segment: New Build for new facilities or Life Cycle for work on producing assets.",
+                      "children": []
+                    },
+                    {
+                      "id": "fcaac88f-a2f4-5960-b16b-5bf86d9c84f9",
+                      "is_selected": true,
+                      "display_name": "project_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Kind of project, for example Jacket Fabrication, Subsea Tie-in or Maintenance Frame Agreement.",
+                      "children": []
+                    },
+                    {
+                      "id": "4c2fb966-a5e2-5c8c-83dd-a0c4a1a06f85",
+                      "is_selected": true,
+                      "display_name": "client_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the client that owns the facility and awards the contract.",
+                      "children": []
+                    },
+                    {
+                      "id": "01b1b7cf-094c-573e-b54b-71b961291aa3",
+                      "is_selected": true,
+                      "display_name": "installation_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Installation the project works on. Not applicable for new build projects.",
+                      "children": []
+                    },
+                    {
+                      "id": "a528e656-679b-5192-beef-dedaf9fbb5c4",
+                      "is_selected": true,
+                      "display_name": "yard_location",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Fabrication yard or work location of the project.",
+                      "children": []
+                    },
+                    {
+                      "id": "7dde504c-2dd3-5118-b802-bca5383af756",
+                      "is_selected": true,
+                      "display_name": "country_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Two-letter country code where the work is delivered.",
+                      "children": []
+                    },
+                    {
+                      "id": "d8fb5123-3c7e-59ad-a692-31ff40b380f3",
+                      "is_selected": true,
+                      "display_name": "contract_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Commercial form of the contract, for example EPC, EPCI, Reimbursable or Frame agreement.",
+                      "children": []
+                    },
+                    {
+                      "id": "00a952ef-0600-5d93-9b59-b74fc0241b0f",
+                      "is_selected": true,
+                      "display_name": "contract_value_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Contract value in Norwegian kroner. One value per project, so do not sum it across rows of other tables.",
+                      "children": []
+                    },
+                    {
+                      "id": "d4683e4a-09b0-56ac-ba16-3cf006a39e29",
+                      "is_selected": true,
+                      "display_name": "start_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Planned start date of the project.",
+                      "children": []
+                    },
+                    {
+                      "id": "ee402e01-c963-5d11-bd68-f11fb8c5e918",
+                      "is_selected": true,
+                      "display_name": "planned_finish_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Planned finish date of the project.",
+                      "children": []
+                    },
+                    {
+                      "id": "f905ba31-e234-56d9-a753-6a7466c06374",
+                      "is_selected": true,
+                      "display_name": "actual_finish_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Actual finish date. Empty while the project is not finished.",
+                      "children": []
+                    },
+                    {
+                      "id": "cb9fe4c3-29bb-5cf4-9048-346498b45198",
+                      "is_selected": true,
+                      "display_name": "project_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Current status: Planning, Execution, On Hold or Completed.",
+                      "children": []
+                    },
+                    {
+                      "id": "fff7f911-57ec-5c12-b6db-f2938f377fb3",
+                      "is_selected": true,
+                      "display_name": "project_manager_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the responsible project manager.",
+                      "children": []
+                    },
+                    {
+                      "id": "469309e7-5ba0-5e61-91b3-c0e3934229a7",
+                      "is_selected": true,
+                      "display_name": "planned_total_hours",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Total planned hours over all activities of the project.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "ed558f9b-7d93-58fe-8aed-818328fdd642",
+                  "is_selected": true,
+                  "display_name": "dim_supplier",
+                  "type": "lakehouse_tables.table",
+                  "description": "Suppliers and contractors with category, country and quality rating. Shared by procurement and maintenance.",
+                  "children": [
+                    {
+                      "id": "6352c33c-e9eb-5247-a5b7-f752955d3aac",
+                      "is_selected": true,
+                      "display_name": "supplier_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the supplier. Minus one is the Not applicable member.",
+                      "children": []
+                    },
+                    {
+                      "id": "444eb1ed-3f99-591f-a452-33b92184f38d",
+                      "is_selected": true,
+                      "display_name": "supplier_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the supplier, for example SUP-0087.",
+                      "children": []
+                    },
+                    {
+                      "id": "0a7d87eb-d791-5e33-81b6-2409e6f15f94",
+                      "is_selected": true,
+                      "display_name": "supplier_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Registered name of the supplier.",
+                      "children": []
+                    },
+                    {
+                      "id": "2e7b16d9-ec7b-5b55-8b85-b7cfa798b6cf",
+                      "is_selected": true,
+                      "display_name": "supplier_category",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Main category of goods or services the supplier provides.",
+                      "children": []
+                    },
+                    {
+                      "id": "9a0a5d37-32aa-519e-b999-cfd5b1a054c2",
+                      "is_selected": true,
+                      "display_name": "country_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Two-letter country code of the supplier.",
+                      "children": []
+                    },
+                    {
+                      "id": "8b59043c-c806-51ae-90c0-7632f68a6037",
+                      "is_selected": true,
+                      "display_name": "approval_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Approval status: Approved, Conditional or Suspended.",
+                      "children": []
+                    },
+                    {
+                      "id": "367be920-e91a-5f1a-941a-29df995953e4",
+                      "is_selected": true,
+                      "display_name": "quality_rating",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Supplier quality rating from 1.5 to 5.0. Higher is better.",
+                      "children": []
+                    },
+                    {
+                      "id": "3943ae15-6347-513a-8205-3b5e1fee87bf",
+                      "is_selected": true,
+                      "display_name": "payment_terms_days",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Agreed payment terms in days.",
+                      "children": []
+                    },
+                    {
+                      "id": "910fcc3d-e5ad-58ad-b459-2ef41cbe617c",
+                      "is_selected": true,
+                      "display_name": "is_preferred_supplier",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bit",
+                      "description": "True when the supplier is on the preferred supplier list.",
+                      "children": []
+                    },
+                    {
+                      "id": "e2e7babd-572e-5e89-a97e-f583d06100b0",
+                      "is_selected": true,
+                      "display_name": "onboarded_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Date the supplier was onboarded.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "52efd3d7-7c48-5bbc-9b1a-6df95719c47d",
+                  "is_selected": true,
+                  "display_name": "dim_material",
+                  "type": "lakehouse_tables.table",
+                  "description": "Materials and equipment that Contoso buys, with group, unit and standard price.",
+                  "children": [
+                    {
+                      "id": "0451e594-940a-5245-90ee-b1a81dd7f561",
+                      "is_selected": true,
+                      "display_name": "material_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the material.",
+                      "children": []
+                    },
+                    {
+                      "id": "b5928bd6-5fdb-5d78-9ec1-4db76c72bab9",
+                      "is_selected": true,
+                      "display_name": "material_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the material, for example MAT-00231.",
+                      "children": []
+                    },
+                    {
+                      "id": "836370af-d9ce-5b6d-b4c8-061c1302a926",
+                      "is_selected": true,
+                      "display_name": "material_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Material number used in the purchasing system.",
+                      "children": []
+                    },
+                    {
+                      "id": "4aed438b-caae-58b5-8566-4b4cc077ceaf",
+                      "is_selected": true,
+                      "display_name": "material_description",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Description of the material with size and specification.",
+                      "children": []
+                    },
+                    {
+                      "id": "6e47515e-4df4-5ac5-9e5d-6e317c35d8d8",
+                      "is_selected": true,
+                      "display_name": "material_group",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Purchasing group, for example Valves or Steel and Plate.",
+                      "children": []
+                    },
+                    {
+                      "id": "9e5a667b-c62a-5031-bf4c-0bb5e36a5941",
+                      "is_selected": true,
+                      "display_name": "equipment_class_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Equipment class the material belongs to. Not applicable for bulk materials.",
+                      "children": []
+                    },
+                    {
+                      "id": "73095a44-76af-5fcc-b104-141e27d5c1d2",
+                      "is_selected": true,
+                      "display_name": "unit_of_measure",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Unit the material is ordered in: ea, tonne, m or l.",
+                      "children": []
+                    },
+                    {
+                      "id": "347fd924-3ce0-5a08-987d-2a142ebfbd6c",
+                      "is_selected": true,
+                      "display_name": "standard_unit_price_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Standard price per unit in Norwegian kroner.",
+                      "children": []
+                    },
+                    {
+                      "id": "2bb651c1-1c22-5f9b-940b-0fef0435927f",
+                      "is_selected": true,
+                      "display_name": "standard_lead_time_days",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Typical lead time from order to delivery in days.",
+                      "children": []
+                    },
+                    {
+                      "id": "850b5231-e7d6-5125-9fc5-c9ad07e6d54e",
+                      "is_selected": true,
+                      "display_name": "is_critical_spare",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bit",
+                      "description": "True when the material is a critical spare part.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "6c8628c4-bae0-5912-856d-42e84cb2d92e",
+                  "is_selected": true,
+                  "display_name": "dim_cost_code",
+                  "type": "lakehouse_tables.table",
+                  "description": "Cost codes used to book purchase cost, grouped by category and cost type.",
+                  "children": [
+                    {
+                      "id": "d483eb7d-dbe6-594b-a160-af7eb26afa74",
+                      "is_selected": true,
+                      "display_name": "cost_code_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the cost code.",
+                      "children": []
+                    },
+                    {
+                      "id": "0f4e5463-d654-5305-89a4-4cd88ccfe676",
+                      "is_selected": true,
+                      "display_name": "cost_code_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the cost code, for example CC-004.",
+                      "children": []
+                    },
+                    {
+                      "id": "7fad5242-abf0-5401-adde-36852aff5555",
+                      "is_selected": true,
+                      "display_name": "cost_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Cost code number.",
+                      "children": []
+                    },
+                    {
+                      "id": "6a50cc7c-49fc-58db-b3cb-4174623fcb27",
+                      "is_selected": true,
+                      "display_name": "cost_code_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the cost code.",
+                      "children": []
+                    },
+                    {
+                      "id": "7c31a2fd-70c2-593c-a177-e4461d897329",
+                      "is_selected": true,
+                      "display_name": "cost_category",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Cost category, for example Materials or Subcontract.",
+                      "children": []
+                    },
+                    {
+                      "id": "07fb795d-53d3-5377-9c77-e69cdab0276c",
+                      "is_selected": true,
+                      "display_name": "cost_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Direct or Indirect cost.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "2d15aa71-4b43-5d31-9813-1c3613fcdcb7",
+                  "is_selected": true,
+                  "display_name": "fact_purchase_order_line",
+                  "type": "lakehouse_tables.table",
+                  "description": "One row per purchase order line: what was ordered from which supplier for which project, with value and delivery performance.",
+                  "children": [
+                    {
+                      "id": "959d3aa8-2cf2-57f0-ab61-e9d2ff028dfd",
+                      "is_selected": true,
+                      "display_name": "order_date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Date key of the order date. Joins to Date.",
+                      "children": []
+                    },
+                    {
+                      "id": "f61721be-fc6b-55ad-9762-e7bec4feb8f3",
+                      "is_selected": true,
+                      "display_name": "promised_delivery_date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Date key of the promised delivery date.",
+                      "children": []
+                    },
+                    {
+                      "id": "9f7cc8ed-bda0-5224-b816-5727d7801598",
+                      "is_selected": true,
+                      "display_name": "actual_delivery_date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Date key of the actual delivery date. Empty until delivered.",
+                      "children": []
+                    },
+                    {
+                      "id": "340ba73d-647e-5867-bf46-28ba2315813c",
+                      "is_selected": true,
+                      "display_name": "project_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the project the order is placed for.",
+                      "children": []
+                    },
+                    {
+                      "id": "4f8660a0-0cae-5f92-aeb3-4d2cef624609",
+                      "is_selected": true,
+                      "display_name": "supplier_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the supplier.",
+                      "children": []
+                    },
+                    {
+                      "id": "04afb988-ea2d-52a6-8731-9a01c2cf7abe",
+                      "is_selected": true,
+                      "display_name": "material_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the material.",
+                      "children": []
+                    },
+                    {
+                      "id": "99f8cc37-7301-5b2c-a294-346154e98c38",
+                      "is_selected": true,
+                      "display_name": "cost_code_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the cost code the line is booked on.",
+                      "children": []
+                    },
+                    {
+                      "id": "d4ccc0b9-9c73-5353-b604-7e1f845788ea",
+                      "is_selected": true,
+                      "display_name": "purchase_order_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the purchase order, for example PO-001204.",
+                      "children": []
+                    },
+                    {
+                      "id": "eb7b9c1e-d0c8-5f61-90c0-768a2c9f61c6",
+                      "is_selected": true,
+                      "display_name": "purchase_order_line_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the purchase order line.",
+                      "children": []
+                    },
+                    {
+                      "id": "160817d8-01d6-5758-8cd6-577c3e9c7142",
+                      "is_selected": true,
+                      "display_name": "line_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Line number within the purchase order.",
+                      "children": []
+                    },
+                    {
+                      "id": "a68d6ba4-9650-5f00-a012-7bd198384417",
+                      "is_selected": true,
+                      "display_name": "po_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Status of the purchase order: Open or Closed.",
+                      "children": []
+                    },
+                    {
+                      "id": "b8123086-68f1-56de-9689-ca965c60786d",
+                      "is_selected": true,
+                      "display_name": "line_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Status of the line: Open, Partially received, Delivered or Cancelled.",
+                      "children": []
+                    },
+                    {
+                      "id": "e56deb84-5e59-5cb8-b8c9-f3bdfe82aaff",
+                      "is_selected": true,
+                      "display_name": "currency_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Currency the order was placed in.",
+                      "children": []
+                    },
+                    {
+                      "id": "bc343a7b-09a7-5c62-b12a-d05eaf6c5767",
+                      "is_selected": true,
+                      "display_name": "exchange_rate_to_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Exchange rate used to convert the order currency to Norwegian kroner.",
+                      "children": []
+                    },
+                    {
+                      "id": "7a18ccfe-c0db-5036-810a-22aab9c3e095",
+                      "is_selected": true,
+                      "display_name": "incoterms",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Incoterms agreed for delivery.",
+                      "children": []
+                    },
+                    {
+                      "id": "89217626-a2f0-5e63-b0da-ca6636f3131b",
+                      "is_selected": true,
+                      "display_name": "buyer_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the buyer who placed the order.",
+                      "children": []
+                    },
+                    {
+                      "id": "e4b86f92-e361-5435-af90-40630eb5cd38",
+                      "is_selected": true,
+                      "display_name": "quantity_ordered",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Ordered quantity in the unit of measure of the material.",
+                      "children": []
+                    },
+                    {
+                      "id": "356d9c8f-b088-534b-83e0-dbf08db5b98e",
+                      "is_selected": true,
+                      "display_name": "quantity_received",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Quantity received so far.",
+                      "children": []
+                    },
+                    {
+                      "id": "4b04ce69-f1de-5b5e-a296-16d50450044d",
+                      "is_selected": true,
+                      "display_name": "quantity_rejected",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Received quantity rejected at inspection.",
+                      "children": []
+                    },
+                    {
+                      "id": "da1534b8-f3c4-5436-b2be-62c031e9af4c",
+                      "is_selected": true,
+                      "display_name": "unit_price_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Price per unit in Norwegian kroner before discount.",
+                      "children": []
+                    },
+                    {
+                      "id": "153c5817-c4b4-53bb-b8ab-673cd9de59d4",
+                      "is_selected": true,
+                      "display_name": "discount_percent",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Discount given on the line in percent.",
+                      "children": []
+                    },
+                    {
+                      "id": "09138258-bc0f-5d70-8a6e-840775a0642d",
+                      "is_selected": true,
+                      "display_name": "line_amount_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Line value in Norwegian kroner after discount.",
+                      "children": []
+                    },
+                    {
+                      "id": "101c2b24-ef46-51e2-ab77-886709c989ac",
+                      "is_selected": true,
+                      "display_name": "delivery_delay_days",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Actual minus promised delivery date in days. Positive is late. Empty until delivered.",
+                      "children": []
+                    },
+                    {
+                      "id": "4a375090-ce99-5001-86b7-3047c4a08586",
+                      "is_selected": true,
+                      "display_name": "is_delivered",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "1 when at least part of the line has been delivered, otherwise 0.",
+                      "children": []
+                    },
+                    {
+                      "id": "675ba9ff-60e0-575b-92f9-285da8c7978b",
+                      "is_selected": true,
+                      "display_name": "is_late_delivery",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "1 when the line was delivered after the promised date, otherwise 0.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

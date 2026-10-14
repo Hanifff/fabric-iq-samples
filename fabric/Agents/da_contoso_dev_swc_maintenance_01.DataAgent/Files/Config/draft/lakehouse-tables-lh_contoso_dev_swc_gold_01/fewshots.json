@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/fewShots/1.0.0/schema.json",
+  "fewShots": [
+    {
+      "id": "31e0fbe5-4397-59a1-8151-e936de2f2d31",
+      "question": "Show the work orders for tag 26-PM-1001 with failure mode and contractor.",
+      "query": "SELECT w.work_order_id, rd.date AS reported_date, w.work_order_type, w.work_order_status, w.priority,\n       w.failure_mode, w.work_order_description, s.supplier_name AS contractor, w.total_cost_nok\nFROM dbo.fact_work_order w\nJOIN dbo.dim_equipment e ON w.equipment_key = e.equipment_key\nJOIN dbo.dim_date rd ON w.reported_date_key = rd.date_key\nLEFT JOIN dbo.dim_supplier s ON w.contractor_supplier_key = s.supplier_key\nWHERE e.tag_number = '26-PM-1001'\nORDER BY rd.date DESC;"
+    },
+    {
+      "id": "f8ffcdde-587a-5dd7-ac65-2614cfa5d1a8",
+      "question": "Which failure modes caused the most downtime on corrective work orders?",
+      "query": "SELECT TOP 10 w.failure_mode, COUNT(*) AS work_orders, SUM(w.downtime_hours) AS downtime_hours\nFROM dbo.fact_work_order w\nWHERE w.is_corrective = 1\nGROUP BY w.failure_mode\nORDER BY downtime_hours DESC;"
+    }
+  ]
+}

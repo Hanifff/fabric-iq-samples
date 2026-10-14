@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataAgent",
+    "displayName": "da_contoso_dev_swc_planning_01",
+    "description": "Contoso project planning assistant. Answers questions about hours booked, progress against plan and forecast hours, by project, discipline and resource."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b8c892ef-cbfc-5b5d-83c6-92bce906af77"
+  }
+}

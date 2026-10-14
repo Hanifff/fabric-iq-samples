@@ -1,0 +1,795 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "__ID:lh_contoso_dev_swc_gold_01__",
+  "workspaceId": "__WORKSPACE_ID__",
+  "dataSourceInstructions": "Use for work-order-level detail: work order lists, descriptions, failure modes, priority and safety-critical flags. contractor_supplier_key joins to dim_supplier, the contractor that did the work.",
+  "displayName": "lh_contoso_dev_swc_gold_01",
+  "type": "lakehouse_tables",
+  "userDescription": "Gold star schema tables behind the semantic model, at row level.",
+  "metadata": {},
+  "elements": [
+    {
+      "id": "428ee2bd-0859-5e01-9966-7608b59f3422",
+      "is_selected": true,
+      "display_name": "Schemas",
+      "type": "schema_grouping",
+      "description": null,
+      "children": [
+        {
+          "id": "29cf444b-fbef-5786-9f38-055b37d13049",
+          "is_selected": true,
+          "display_name": "dbo",
+          "type": "lakehouse_tables.schema",
+          "description": null,
+          "children": [
+            {
+              "id": "6901bb0b-8c9b-52a8-8d2f-142ea064fc0a",
+              "is_selected": true,
+              "display_name": "Tables",
+              "type": "table_grouping",
+              "description": null,
+              "children": [
+                {
+                  "id": "c158eea3-ef3a-5213-9952-aff471bd5c86",
+                  "is_selected": true,
+                  "display_name": "dim_date",
+                  "type": "lakehouse_tables.table",
+                  "description": "Calendar table with one row per day from 2022 to 2029. Use it to slice every fact by day, week, month, quarter and year.",
+                  "children": [
+                    {
+                      "id": "6ff13647-f297-573e-be80-fe93a2216845",
+                      "is_selected": true,
+                      "display_name": "date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key for the day in yyyymmdd form. Used by fact tables to join to the calendar.",
+                      "children": []
+                    },
+                    {
+                      "id": "f353a513-40f4-5e48-8288-82debbb31634",
+                      "is_selected": true,
+                      "display_name": "date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Calendar date.",
+                      "children": []
+                    },
+                    {
+                      "id": "47d47418-9231-59cd-bd8f-d7057f80abd6",
+                      "is_selected": true,
+                      "display_name": "year",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar year, for example 2026.",
+                      "children": []
+                    },
+                    {
+                      "id": "50e7a949-6a85-5b88-bee0-aed802abfe67",
+                      "is_selected": true,
+                      "display_name": "quarter_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar quarter number from 1 to 4.",
+                      "children": []
+                    },
+                    {
+                      "id": "51c05b26-3a36-5956-b163-0d67759d7847",
+                      "is_selected": true,
+                      "display_name": "quarter_label",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Calendar quarter label such as 2026 Q3.",
+                      "children": []
+                    },
+                    {
+                      "id": "da5715c3-706d-52dc-934d-e41e6076c106",
+                      "is_selected": true,
+                      "display_name": "month_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar month number from 1 (January) to 12 (December).",
+                      "children": []
+                    },
+                    {
+                      "id": "936461e5-714d-55b9-b161-5a364097a066",
+                      "is_selected": true,
+                      "display_name": "month_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Full month name, for example September.",
+                      "children": []
+                    },
+                    {
+                      "id": "12a137bf-853c-5919-8963-7e914b935cb0",
+                      "is_selected": true,
+                      "display_name": "month_short_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Three-letter month name, for example Sep.",
+                      "children": []
+                    },
+                    {
+                      "id": "27290ff1-1c62-515c-9576-bce0a63539fa",
+                      "is_selected": true,
+                      "display_name": "year_month",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Year and month in yyyy-mm form. Sorts correctly as text.",
+                      "children": []
+                    },
+                    {
+                      "id": "f0794fa1-46d7-5d13-87d1-b5be4798d488",
+                      "is_selected": true,
+                      "display_name": "week_of_year",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "ISO week number from 1 to 53.",
+                      "children": []
+                    },
+                    {
+                      "id": "e4709502-cf33-56b9-9d96-f7367bbb9d87",
+                      "is_selected": true,
+                      "display_name": "day_of_week_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Day of week where Monday is 1 and Sunday is 7.",
+                      "children": []
+                    },
+                    {
+                      "id": "60bc70dd-c571-5248-a3db-5849c479b5b2",
+                      "is_selected": true,
+                      "display_name": "day_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Day name, for example Monday.",
+                      "children": []
+                    },
+                    {
+                      "id": "da025ef5-338b-54fc-961a-e2ce8d352edd",
+                      "is_selected": true,
+                      "display_name": "is_weekend",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bit",
+                      "description": "True when the day is a Saturday or Sunday.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "9f1a1c39-3099-5fa2-9720-419610768ada",
+                  "is_selected": true,
+                  "display_name": "dim_installation",
+                  "type": "lakehouse_tables.table",
+                  "description": "Producing assets that Contoso maintains, such as platforms, floating units and subsea templates.",
+                  "children": [
+                    {
+                      "id": "b90fb261-9e69-5336-8953-3c7d60c4c958",
+                      "is_selected": true,
+                      "display_name": "installation_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the installation.",
+                      "children": []
+                    },
+                    {
+                      "id": "3ac4d5a9-f1f9-55c8-bb1c-7e198b55452c",
+                      "is_selected": true,
+                      "display_name": "installation_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the installation, for example INS-004.",
+                      "children": []
+                    },
+                    {
+                      "id": "28a330c3-31df-590b-98fc-d9cc025de6c7",
+                      "is_selected": true,
+                      "display_name": "installation_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Short code of the installation.",
+                      "children": []
+                    },
+                    {
+                      "id": "7705ee38-58f8-5205-b0ae-13ffe137f2f1",
+                      "is_selected": true,
+                      "display_name": "installation_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the installation.",
+                      "children": []
+                    },
+                    {
+                      "id": "1f1cb1fb-45ce-5123-8e2f-eba851963503",
+                      "is_selected": true,
+                      "display_name": "installation_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Type of installation, for example Fixed Platform or Floating Production Unit.",
+                      "children": []
+                    },
+                    {
+                      "id": "b700586e-6f2f-572d-a84b-3c35d742334c",
+                      "is_selected": true,
+                      "display_name": "field_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the field the installation produces from.",
+                      "children": []
+                    },
+                    {
+                      "id": "91da768c-7a15-54c4-af6b-402c521c2125",
+                      "is_selected": true,
+                      "display_name": "operator_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the operator of the installation.",
+                      "children": []
+                    },
+                    {
+                      "id": "9cb0ce5d-c116-54d7-a328-319742980340",
+                      "is_selected": true,
+                      "display_name": "country_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Two-letter country code of the continental shelf the installation is on.",
+                      "children": []
+                    },
+                    {
+                      "id": "a221d8d5-71ba-52b5-888a-789ad00b5518",
+                      "is_selected": true,
+                      "display_name": "water_depth_m",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Water depth at the installation in metres. Zero for onshore terminals.",
+                      "children": []
+                    },
+                    {
+                      "id": "37d6bca1-2720-5fa4-9fb2-50ba7cf4ebdb",
+                      "is_selected": true,
+                      "display_name": "year_in_service",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Year the installation started production.",
+                      "children": []
+                    },
+                    {
+                      "id": "435317b9-a59e-52b9-862d-849e806d1c32",
+                      "is_selected": true,
+                      "display_name": "operating_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Operating status: Producing, Shut in or Late life.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "30cece83-fad0-5997-90cb-9b5bc24e6476",
+                  "is_selected": true,
+                  "display_name": "dim_equipment",
+                  "type": "lakehouse_tables.table",
+                  "description": "Tagged equipment items with their class, system, manufacturer and design data. Classes follow a CFIHOS-style hierarchy.",
+                  "children": [
+                    {
+                      "id": "d9cddce8-552a-5dca-8632-2a1e8aae6961",
+                      "is_selected": true,
+                      "display_name": "equipment_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the equipment tag.",
+                      "children": []
+                    },
+                    {
+                      "id": "9cf980b5-d024-552e-82a6-e9771af2ea2a",
+                      "is_selected": true,
+                      "display_name": "tag_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the tag, for example TAG-000412.",
+                      "children": []
+                    },
+                    {
+                      "id": "351ab112-b84f-550e-a260-acff0cadafd6",
+                      "is_selected": true,
+                      "display_name": "tag_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Tag number built from system, class abbreviation and sequence, for example 23-KA-1004.",
+                      "children": []
+                    },
+                    {
+                      "id": "c943ffb4-e2a0-5587-b7bb-dcc6fc1e7d65",
+                      "is_selected": true,
+                      "display_name": "tag_description",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Description of the tagged item.",
+                      "children": []
+                    },
+                    {
+                      "id": "aca7f45b-58a7-5f54-b91e-00b5e15ee17c",
+                      "is_selected": true,
+                      "display_name": "equipment_class_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Identifier of the equipment class in a CFIHOS-style class hierarchy, for example CF-30000156.",
+                      "children": []
+                    },
+                    {
+                      "id": "63aca09a-f482-584e-b210-1f0b21612561",
+                      "is_selected": true,
+                      "display_name": "equipment_class_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the equipment class, for example Centrifugal Pump.",
+                      "children": []
+                    },
+                    {
+                      "id": "e1ae1ff0-fbd0-5445-ad34-6b619180e406",
+                      "is_selected": true,
+                      "display_name": "equipment_class_group",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Group of equipment classes, for example Pumps, Valves or Instrumentation.",
+                      "children": []
+                    },
+                    {
+                      "id": "9b57fc67-9d28-5f21-96be-218c949cebfb",
+                      "is_selected": true,
+                      "display_name": "system_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Two-digit code of the technical system the item belongs to.",
+                      "children": []
+                    },
+                    {
+                      "id": "d3a63ae6-16cf-5044-a469-19a2831e8ec7",
+                      "is_selected": true,
+                      "display_name": "system_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the technical system, for example Gas Compression.",
+                      "children": []
+                    },
+                    {
+                      "id": "b3be30f7-55c6-5e15-8bd8-510d3d3e6ed7",
+                      "is_selected": true,
+                      "display_name": "manufacturer_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Manufacturer of the equipment.",
+                      "children": []
+                    },
+                    {
+                      "id": "2dc18085-f866-5895-aad4-98342af46e78",
+                      "is_selected": true,
+                      "display_name": "weight_kg",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Dry weight of the item in kilograms.",
+                      "children": []
+                    },
+                    {
+                      "id": "a155ab1a-8e95-5bd0-9ac6-1f2296b3e3a1",
+                      "is_selected": true,
+                      "display_name": "design_pressure_bar",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Design pressure in bar. Empty for items that do not contain pressure.",
+                      "children": []
+                    },
+                    {
+                      "id": "b961f531-92a7-537f-8a9e-19f056c3af5f",
+                      "is_selected": true,
+                      "display_name": "design_temperature_c",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Design temperature in degrees Celsius. Empty for items that do not contain pressure.",
+                      "children": []
+                    },
+                    {
+                      "id": "4ddb50c0-a596-565e-9e3d-4800d84fcd9b",
+                      "is_selected": true,
+                      "display_name": "criticality_class",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Criticality of the item: A is highest, C is lowest.",
+                      "children": []
+                    },
+                    {
+                      "id": "14044abc-6efa-579a-8201-72a873b6865e",
+                      "is_selected": true,
+                      "display_name": "equipment_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Lifecycle status: Planned, Fabricated, Installed, Commissioned, Operating, Out of service or Decommissioned.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "1fefa445-7076-5d0b-8667-b42941beb653",
+                  "is_selected": true,
+                  "display_name": "dim_discipline",
+                  "type": "lakehouse_tables.table",
+                  "description": "Engineering and construction disciplines such as Piping or Electrical. Shared by planning and maintenance.",
+                  "children": [
+                    {
+                      "id": "b73c0806-60b5-5846-b399-9e0e17ce5982",
+                      "is_selected": true,
+                      "display_name": "discipline_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the discipline.",
+                      "children": []
+                    },
+                    {
+                      "id": "bbdc2f68-f7c9-54c9-a01c-d3c21390da6f",
+                      "is_selected": true,
+                      "display_name": "discipline_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the discipline, for example DSC-04.",
+                      "children": []
+                    },
+                    {
+                      "id": "9225bad9-fd1e-54bf-b786-32ec978ae9f1",
+                      "is_selected": true,
+                      "display_name": "discipline_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Three-letter discipline code, for example PIP.",
+                      "children": []
+                    },
+                    {
+                      "id": "eac6ca44-e5aa-5ad9-b46b-657c298ae013",
+                      "is_selected": true,
+                      "display_name": "discipline_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Full name of the discipline.",
+                      "children": []
+                    },
+                    {
+                      "id": "22fe4f45-7bc9-5cb4-93c7-0b733fd838db",
+                      "is_selected": true,
+                      "display_name": "discipline_group",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Higher level grouping: Engineering, Fabrication, Construction, Commissioning or Project Support.",
+                      "children": []
+                    },
+                    {
+                      "id": "e7eed047-7ae6-5094-89da-c4474322ca00",
+                      "is_selected": true,
+                      "display_name": "standard_hourly_rate_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Standard cost rate per hour for the discipline in Norwegian kroner.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "cc4fee5e-6dcf-5093-8d37-82a684dd1690",
+                  "is_selected": true,
+                  "display_name": "dim_supplier",
+                  "type": "lakehouse_tables.table",
+                  "description": "Suppliers and contractors with category, country and quality rating. Shared by procurement and maintenance.",
+                  "children": [
+                    {
+                      "id": "0dfcb0bb-e290-566b-9ead-72ebd5bc6506",
+                      "is_selected": true,
+                      "display_name": "supplier_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the supplier. Minus one is the Not applicable member.",
+                      "children": []
+                    },
+                    {
+                      "id": "895408a0-f650-5358-8d59-fdf54b99c5f1",
+                      "is_selected": true,
+                      "display_name": "supplier_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the supplier, for example SUP-0087.",
+                      "children": []
+                    },
+                    {
+                      "id": "f543773f-3566-5381-917f-71de02da8186",
+                      "is_selected": true,
+                      "display_name": "supplier_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Registered name of the supplier.",
+                      "children": []
+                    },
+                    {
+                      "id": "1bb9f97f-e7ac-5e9d-9b32-625766696d1b",
+                      "is_selected": true,
+                      "display_name": "supplier_category",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Main category of goods or services the supplier provides.",
+                      "children": []
+                    },
+                    {
+                      "id": "b40d8e20-d678-5ad7-9ccd-82bef69a5169",
+                      "is_selected": true,
+                      "display_name": "country_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Two-letter country code of the supplier.",
+                      "children": []
+                    },
+                    {
+                      "id": "c2f87726-0938-5754-8050-8cd174cae92c",
+                      "is_selected": true,
+                      "display_name": "approval_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Approval status: Approved, Conditional or Suspended.",
+                      "children": []
+                    },
+                    {
+                      "id": "8b3d4e6b-fac9-5206-a96a-7be97bdb30ce",
+                      "is_selected": true,
+                      "display_name": "quality_rating",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Supplier quality rating from 1.5 to 5.0. Higher is better.",
+                      "children": []
+                    },
+                    {
+                      "id": "ecb964d7-9105-5808-9db4-b91e3f03a9c0",
+                      "is_selected": true,
+                      "display_name": "payment_terms_days",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Agreed payment terms in days.",
+                      "children": []
+                    },
+                    {
+                      "id": "e7b86747-46f9-5096-b9f7-5e3904fbe6eb",
+                      "is_selected": true,
+                      "display_name": "is_preferred_supplier",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bit",
+                      "description": "True when the supplier is on the preferred supplier list.",
+                      "children": []
+                    },
+                    {
+                      "id": "0736f861-158f-531a-a4f9-46d714ee9bfc",
+                      "is_selected": true,
+                      "display_name": "onboarded_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Date the supplier was onboarded.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "7ee9a45c-ba5e-5267-8fca-7057c3723b2e",
+                  "is_selected": true,
+                  "display_name": "fact_work_order",
+                  "type": "lakehouse_tables.table",
+                  "description": "One row per maintenance or modification work order on an installation, with effort, cost and downtime.",
+                  "children": [
+                    {
+                      "id": "d746269e-8276-5855-ba8d-f4794cd48c3d",
+                      "is_selected": true,
+                      "display_name": "reported_date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Date key of the day the work order was reported. Joins to Date.",
+                      "children": []
+                    },
+                    {
+                      "id": "6fa2a196-d1ba-536e-95ce-b46e97b30bc0",
+                      "is_selected": true,
+                      "display_name": "actual_finish_date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Date key of the actual finish date. Empty until the work order is finished.",
+                      "children": []
+                    },
+                    {
+                      "id": "8ff15f8f-3484-5300-a7cd-8727172ccb73",
+                      "is_selected": true,
+                      "display_name": "installation_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the installation the work is done on.",
+                      "children": []
+                    },
+                    {
+                      "id": "06e1385c-88e9-531d-ba8d-1d902564cb19",
+                      "is_selected": true,
+                      "display_name": "equipment_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the equipment tag the work is done on.",
+                      "children": []
+                    },
+                    {
+                      "id": "36fe9d74-1ab4-5799-86fe-44c9c16eefcf",
+                      "is_selected": true,
+                      "display_name": "discipline_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the discipline responsible for the work.",
+                      "children": []
+                    },
+                    {
+                      "id": "845d0761-9141-5202-861a-d8f97d01c44f",
+                      "is_selected": true,
+                      "display_name": "contractor_supplier_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the contractor that does the work. Minus one when the work is done in-house.",
+                      "children": []
+                    },
+                    {
+                      "id": "617799e2-02a4-5220-af7c-bae3d7c57d79",
+                      "is_selected": true,
+                      "display_name": "work_order_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the work order, for example WO-0004211.",
+                      "children": []
+                    },
+                    {
+                      "id": "30857f14-dcbe-5a32-85e1-b95b894a3a53",
+                      "is_selected": true,
+                      "display_name": "work_order_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Type of work: Preventive, Corrective, Inspection, Modification or Shutdown.",
+                      "children": []
+                    },
+                    {
+                      "id": "3c149764-0700-59cd-a438-f12183a81b00",
+                      "is_selected": true,
+                      "display_name": "priority",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Priority from 1 (highest) to 4 (lowest).",
+                      "children": []
+                    },
+                    {
+                      "id": "25a83da1-416c-57d8-aba6-84edaead94e2",
+                      "is_selected": true,
+                      "display_name": "work_order_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Status: Planned, In progress, Completed or Cancelled.",
+                      "children": []
+                    },
+                    {
+                      "id": "848fc715-e3aa-5562-8601-771e955c2fe9",
+                      "is_selected": true,
+                      "display_name": "failure_mode",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Failure mode for corrective work, for example Seal failure. Not applicable for other types.",
+                      "children": []
+                    },
+                    {
+                      "id": "82d6e9d3-89d2-5e04-8c14-125cbf8ecfcf",
+                      "is_selected": true,
+                      "display_name": "work_order_description",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Short description of the work.",
+                      "children": []
+                    },
+                    {
+                      "id": "fe7e1220-2187-5584-9a8d-2c5f1d09964d",
+                      "is_selected": true,
+                      "display_name": "is_safety_critical",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bit",
+                      "description": "True when the work concerns safety critical equipment.",
+                      "children": []
+                    },
+                    {
+                      "id": "ce15845c-e992-59e9-91a8-5cb83d580ec6",
+                      "is_selected": true,
+                      "display_name": "planned_hours",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Planned labour hours.",
+                      "children": []
+                    },
+                    {
+                      "id": "841b5bae-f5a0-55c6-9eac-9c47b3539b8e",
+                      "is_selected": true,
+                      "display_name": "actual_hours",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Labour hours booked so far.",
+                      "children": []
+                    },
+                    {
+                      "id": "ee52995b-7184-5c50-82b0-46ba9d8c4528",
+                      "is_selected": true,
+                      "display_name": "hours_variance",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Actual minus planned hours for completed work orders. Zero for others.",
+                      "children": []
+                    },
+                    {
+                      "id": "c0af0d00-f3a2-5f54-8334-93ac13cad45a",
+                      "is_selected": true,
+                      "display_name": "labour_cost_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Labour cost in Norwegian kroner.",
+                      "children": []
+                    },
+                    {
+                      "id": "80cbc994-cfcc-50a5-b005-0e4aa0a28096",
+                      "is_selected": true,
+                      "display_name": "material_cost_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Material cost in Norwegian kroner.",
+                      "children": []
+                    },
+                    {
+                      "id": "857c0784-405d-5108-83e4-9e8585bc001f",
+                      "is_selected": true,
+                      "display_name": "total_cost_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Labour plus material cost in Norwegian kroner.",
+                      "children": []
+                    },
+                    {
+                      "id": "87767748-1da8-5f98-9c1d-e3d2f8abf94e",
+                      "is_selected": true,
+                      "display_name": "downtime_hours",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Production downtime caused by the work order in hours.",
+                      "children": []
+                    },
+                    {
+                      "id": "ff6361d7-9d80-5603-b634-f6ec694f83f8",
+                      "is_selected": true,
+                      "display_name": "days_to_complete",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Days from reported date to actual finish date. Empty until finished.",
+                      "children": []
+                    },
+                    {
+                      "id": "e9a4f572-2f10-5ec4-8283-46a23edc79e6",
+                      "is_selected": true,
+                      "display_name": "is_completed",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "1 when the work order is completed, otherwise 0.",
+                      "children": []
+                    },
+                    {
+                      "id": "7ab105cb-4e6f-5b46-bce2-37ca8bbc616e",
+                      "is_selected": true,
+                      "display_name": "is_corrective",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "1 when the work order is corrective, otherwise 0.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

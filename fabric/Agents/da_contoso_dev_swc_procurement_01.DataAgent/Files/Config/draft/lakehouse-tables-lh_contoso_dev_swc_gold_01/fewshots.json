@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/fewShots/1.0.0/schema.json",
+  "fewShots": [
+    {
+      "id": "a303b2ea-df36-5886-bba2-9cba3efdf1b3",
+      "question": "Which open purchase order lines are past their promised delivery date?",
+      "query": "SELECT TOP 25 l.purchase_order_id, l.line_number, s.supplier_name, p.project_name, m.material_description,\n       pd.date AS promised_delivery_date, l.line_amount_nok\nFROM dbo.fact_purchase_order_line l\nJOIN dbo.dim_date pd ON l.promised_delivery_date_key = pd.date_key\nJOIN dbo.dim_supplier s ON l.supplier_key = s.supplier_key\nJOIN dbo.dim_project p ON l.project_key = p.project_key\nJOIN dbo.dim_material m ON l.material_key = m.material_key\nWHERE l.line_status IN ('Open', 'Partially received') AND pd.date < '2026-10-08'\nORDER BY pd.date;"
+    },
+    {
+      "id": "085b152a-230d-5212-9632-61c14c584be1",
+      "question": "List the late deliveries for critical spare parts.",
+      "query": "SELECT l.purchase_order_id, l.line_number, s.supplier_name, m.material_description, l.delivery_delay_days\nFROM dbo.fact_purchase_order_line l\nJOIN dbo.dim_material m ON l.material_key = m.material_key\nJOIN dbo.dim_supplier s ON l.supplier_key = s.supplier_key\nWHERE l.is_late_delivery = 1 AND m.is_critical_spare = 1\nORDER BY l.delivery_delay_days DESC;"
+    }
+  ]
+}

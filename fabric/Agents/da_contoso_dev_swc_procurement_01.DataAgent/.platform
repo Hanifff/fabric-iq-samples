@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataAgent",
+    "displayName": "da_contoso_dev_swc_procurement_01",
+    "description": "Contoso procurement assistant. Answers questions about purchase orders, order value, suppliers and delivery performance."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b381e4cc-da80-5e36-9f9f-29997b34d475"
+  }
+}

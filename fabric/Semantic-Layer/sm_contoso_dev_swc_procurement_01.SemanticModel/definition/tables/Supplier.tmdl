@@ -1,0 +1,114 @@
+/// Suppliers and contractors with category, country and quality rating. Shared by procurement and maintenance.
+table Supplier
+	lineageTag: 14c0a1db-056b-5379-973d-6741e21f9800
+	sourceLineageTag: [dbo].[dim_supplier]
+
+	/// Surrogate key of the supplier. Minus one is the Not applicable member.
+	column 'Supplier Key'
+		dataType: int64
+		isHidden
+		lineageTag: a26f2cb9-c011-51b9-9730-a9650bdabaab
+		sourceLineageTag: supplier_key
+		summarizeBy: none
+		sourceColumn: supplier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the supplier, for example SUP-0087.
+	column 'Supplier ID'
+		dataType: string
+		lineageTag: 7119ada1-a459-51a9-9c82-c1e3eb696de1
+		sourceLineageTag: supplier_id
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Registered name of the supplier.
+	column 'Supplier Name'
+		dataType: string
+		lineageTag: 2dc6f171-c19c-5cad-b02b-fffe90abd96e
+		sourceLineageTag: supplier_name
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Main category of goods or services the supplier provides.
+	column 'Supplier Category'
+		dataType: string
+		lineageTag: 79623109-932c-539f-8920-e30ab5dec9c2
+		sourceLineageTag: supplier_category
+		summarizeBy: none
+		sourceColumn: supplier_category
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Two-letter country code of the supplier.
+	column 'Country Code'
+		dataType: string
+		lineageTag: b0d6b8ef-6f29-5a71-82e9-dc83696d6225
+		sourceLineageTag: country_code
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Approval status: Approved, Conditional or Suspended.
+	column 'Approval Status'
+		dataType: string
+		lineageTag: 7ac71a95-0259-52d7-a876-5dd1fd09e6a1
+		sourceLineageTag: approval_status
+		summarizeBy: none
+		sourceColumn: approval_status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Supplier quality rating from 1.5 to 5.0. Higher is better.
+	column 'Quality Rating'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 00f8e747-b647-5f82-9afc-03e01efc856b
+		sourceLineageTag: quality_rating
+		summarizeBy: none
+		sourceColumn: quality_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Agreed payment terms in days.
+	column 'Payment Terms (days)'
+		dataType: int64
+		formatString: 0
+		lineageTag: a604ae82-ffa4-5870-a048-e18148b7b891
+		sourceLineageTag: payment_terms_days
+		summarizeBy: none
+		sourceColumn: payment_terms_days
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True when the supplier is on the preferred supplier list.
+	column 'Is Preferred Supplier'
+		dataType: boolean
+		lineageTag: 9b4d201a-c507-5474-b577-c725e6fd9c23
+		sourceLineageTag: is_preferred_supplier
+		summarizeBy: none
+		sourceColumn: is_preferred_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date the supplier was onboarded.
+	column 'Onboarded Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 13795592-1e91-5a51-acea-4e7e9f1e4349
+		sourceLineageTag: onboarded_date
+		summarizeBy: none
+		sourceColumn: onboarded_date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Supplier = entity
+		mode: directLake
+		source
+			entityName: dim_supplier
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

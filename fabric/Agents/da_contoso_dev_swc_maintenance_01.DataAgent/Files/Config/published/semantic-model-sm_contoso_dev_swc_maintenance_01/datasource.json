@@ -1,0 +1,757 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "__ID:sm_contoso_dev_swc_maintenance_01__",
+  "workspaceId": "__WORKSPACE_ID__",
+  "dataSourceInstructions": "Use for work orders, maintenance cost, downtime and contractors. The Contractor table holds the supplier that did the work.",
+  "displayName": "sm_contoso_dev_swc_maintenance_01",
+  "type": "semantic_model",
+  "userDescription": "Maintenance: work orders on installations and equipment, with cost, downtime and contractor.",
+  "metadata": {},
+  "elements": [
+    {
+      "id": "792d1f59-b265-5e24-99a8-60b8b6adb68e",
+      "is_selected": true,
+      "display_name": "Date",
+      "type": "semantic_model.table",
+      "description": "Calendar table with one row per day from 2022 to 2029. Use it to slice every fact by day, week, month, quarter and year.",
+      "children": [
+        {
+          "id": "b77b8e84-3016-5a70-b906-e41f3edea044",
+          "is_selected": true,
+          "display_name": "Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Calendar date.",
+          "children": []
+        },
+        {
+          "id": "bec16bcf-e5a9-5003-82b1-0594272d1c21",
+          "is_selected": true,
+          "display_name": "Year",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar year, for example 2026.",
+          "children": []
+        },
+        {
+          "id": "eaf1c8b6-358e-5cad-9c5c-50a83944c753",
+          "is_selected": true,
+          "display_name": "Quarter Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar quarter number from 1 to 4.",
+          "children": []
+        },
+        {
+          "id": "836ee6c5-35a4-5b7d-8497-40f9a174bd37",
+          "is_selected": true,
+          "display_name": "Quarter",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Calendar quarter label such as 2026 Q3.",
+          "children": []
+        },
+        {
+          "id": "6402e6b0-325d-53b1-a0e4-1c2f36466b82",
+          "is_selected": true,
+          "display_name": "Month Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar month number from 1 (January) to 12 (December).",
+          "children": []
+        },
+        {
+          "id": "fb2f1a37-c438-5083-91f6-7975f91d02bc",
+          "is_selected": true,
+          "display_name": "Month",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Full month name, for example September.",
+          "children": []
+        },
+        {
+          "id": "f1431db9-480f-585c-ad32-8ff02251fdcf",
+          "is_selected": true,
+          "display_name": "Month Short Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Three-letter month name, for example Sep.",
+          "children": []
+        },
+        {
+          "id": "810d3b5e-b4f7-58c5-b8ca-0763f2094a46",
+          "is_selected": true,
+          "display_name": "Year Month",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Year and month in yyyy-mm form. Sorts correctly as text.",
+          "children": []
+        },
+        {
+          "id": "687ead56-433a-53e1-bd88-4aab841433eb",
+          "is_selected": true,
+          "display_name": "Week Of Year",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "ISO week number from 1 to 53.",
+          "children": []
+        },
+        {
+          "id": "d244dc3d-eba7-5f86-9024-a9fae90f06f0",
+          "is_selected": true,
+          "display_name": "Day Of Week Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Day of week where Monday is 1 and Sunday is 7.",
+          "children": []
+        },
+        {
+          "id": "5467dba2-5ef0-5fb0-86a6-5481eb4b8640",
+          "is_selected": true,
+          "display_name": "Day",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Day name, for example Monday.",
+          "children": []
+        },
+        {
+          "id": "ee709a0c-7b39-56c3-846f-97ac9ee7c761",
+          "is_selected": true,
+          "display_name": "Is Weekend",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": "True when the day is a Saturday or Sunday.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "3793bd37-e046-5b7c-b710-cfe516ea34eb",
+      "is_selected": true,
+      "display_name": "Installation",
+      "type": "semantic_model.table",
+      "description": "Producing assets that Contoso maintains, such as platforms, floating units and subsea templates.",
+      "children": [
+        {
+          "id": "2a1e4076-7cfe-5cba-900e-029c60076584",
+          "is_selected": true,
+          "display_name": "Installation ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the installation, for example INS-004.",
+          "children": []
+        },
+        {
+          "id": "2655a583-5a34-5159-a4bc-cb1027f9e3de",
+          "is_selected": true,
+          "display_name": "Installation Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Short code of the installation.",
+          "children": []
+        },
+        {
+          "id": "bfc5bf02-c634-5d1d-81b3-a1c6e7958bed",
+          "is_selected": true,
+          "display_name": "Installation Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the installation.",
+          "children": []
+        },
+        {
+          "id": "983fed53-c663-56cd-8f8b-dd845020d19e",
+          "is_selected": true,
+          "display_name": "Installation Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Type of installation, for example Fixed Platform or Floating Production Unit.",
+          "children": []
+        },
+        {
+          "id": "d767de4f-3e6e-549c-9477-f7dd07031e2f",
+          "is_selected": true,
+          "display_name": "Field Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the field the installation produces from.",
+          "children": []
+        },
+        {
+          "id": "a9fe8a43-0526-5ac8-b016-36849e306e09",
+          "is_selected": true,
+          "display_name": "Operator Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the operator of the installation.",
+          "children": []
+        },
+        {
+          "id": "3c5a6fcc-3219-5512-aded-5c3c5b3376d6",
+          "is_selected": true,
+          "display_name": "Country Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Two-letter country code of the continental shelf the installation is on.",
+          "children": []
+        },
+        {
+          "id": "862344cb-f9e7-5c2e-88c1-8b080bcee9a2",
+          "is_selected": true,
+          "display_name": "Water Depth (m)",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Water depth at the installation in metres. Zero for onshore terminals.",
+          "children": []
+        },
+        {
+          "id": "6e6f436c-9512-5740-941c-cb34daf8bc4a",
+          "is_selected": true,
+          "display_name": "Year In Service",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Year the installation started production.",
+          "children": []
+        },
+        {
+          "id": "9ed48f50-7704-5329-8297-954520561c28",
+          "is_selected": true,
+          "display_name": "Operating Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Operating status: Producing, Shut in or Late life.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "b1c41b6f-0b1f-588d-a14a-2e8b0f3776d8",
+      "is_selected": true,
+      "display_name": "Equipment",
+      "type": "semantic_model.table",
+      "description": "Tagged equipment items with their class, system, manufacturer and design data. Classes follow a CFIHOS-style hierarchy.",
+      "children": [
+        {
+          "id": "30e6b364-c1e2-5807-9898-6c5ec9810c96",
+          "is_selected": true,
+          "display_name": "Tag ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the tag, for example TAG-000412.",
+          "children": []
+        },
+        {
+          "id": "65b53a33-776d-5e58-8d95-60480e55ff79",
+          "is_selected": true,
+          "display_name": "Tag Number",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Tag number built from system, class abbreviation and sequence, for example 23-KA-1004.",
+          "children": []
+        },
+        {
+          "id": "1eb30cad-dd49-553a-9f00-65a27abaef64",
+          "is_selected": true,
+          "display_name": "Tag Description",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Description of the tagged item.",
+          "children": []
+        },
+        {
+          "id": "da3b7548-8ac0-5f48-94ec-6c63177b5d11",
+          "is_selected": true,
+          "display_name": "Equipment Class ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Identifier of the equipment class in a CFIHOS-style class hierarchy, for example CF-30000156.",
+          "children": []
+        },
+        {
+          "id": "0e1ab3ba-f2e2-5783-832f-9e01f64b7683",
+          "is_selected": true,
+          "display_name": "Equipment Class Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the equipment class, for example Centrifugal Pump.",
+          "children": []
+        },
+        {
+          "id": "6792c5f0-2768-5ba4-a8e9-db18d21aa77a",
+          "is_selected": true,
+          "display_name": "Equipment Class Group",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Group of equipment classes, for example Pumps, Valves or Instrumentation.",
+          "children": []
+        },
+        {
+          "id": "93fcf610-3ed6-58d1-87a1-f95df17fefb5",
+          "is_selected": true,
+          "display_name": "System Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Two-digit code of the technical system the item belongs to.",
+          "children": []
+        },
+        {
+          "id": "6f2d59e9-d5b4-57e0-af90-e1749d7bd625",
+          "is_selected": true,
+          "display_name": "System Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the technical system, for example Gas Compression.",
+          "children": []
+        },
+        {
+          "id": "a0770f8b-f6ac-5b4e-b0f2-560fe6036c85",
+          "is_selected": true,
+          "display_name": "Manufacturer Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Manufacturer of the equipment.",
+          "children": []
+        },
+        {
+          "id": "6018369c-f630-50ed-b28e-cb3e77d23497",
+          "is_selected": true,
+          "display_name": "Weight (kg)",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Dry weight of the item in kilograms.",
+          "children": []
+        },
+        {
+          "id": "c6102d24-af7b-5764-a19f-a1015465aa55",
+          "is_selected": true,
+          "display_name": "Design Pressure (bar)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Design pressure in bar. Empty for items that do not contain pressure.",
+          "children": []
+        },
+        {
+          "id": "704eb6f2-02ac-5314-8862-63f84eed21b3",
+          "is_selected": true,
+          "display_name": "Design Temperature (C)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Design temperature in degrees Celsius. Empty for items that do not contain pressure.",
+          "children": []
+        },
+        {
+          "id": "09943afa-da9b-552d-8160-c5af71ca5f6d",
+          "is_selected": true,
+          "display_name": "Criticality Class",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Criticality of the item: A is highest, C is lowest.",
+          "children": []
+        },
+        {
+          "id": "7e1bc25c-eb02-54fd-b681-4028dd6f267d",
+          "is_selected": true,
+          "display_name": "Equipment Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Lifecycle status: Planned, Fabricated, Installed, Commissioned, Operating, Out of service or Decommissioned.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "178e3a6d-357d-562d-97fc-ffcf916ed06b",
+      "is_selected": true,
+      "display_name": "Discipline",
+      "type": "semantic_model.table",
+      "description": "Engineering and construction disciplines such as Piping or Electrical. Shared by planning and maintenance.",
+      "children": [
+        {
+          "id": "d436fca5-e178-5ff8-9ccf-d0d33ca1abe3",
+          "is_selected": true,
+          "display_name": "Discipline ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the discipline, for example DSC-04.",
+          "children": []
+        },
+        {
+          "id": "a9a68838-7df4-55b6-ad9a-61211440c78a",
+          "is_selected": true,
+          "display_name": "Discipline Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Three-letter discipline code, for example PIP.",
+          "children": []
+        },
+        {
+          "id": "6c665bec-f563-52a7-a7f0-6d9d1768d9d3",
+          "is_selected": true,
+          "display_name": "Discipline Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Full name of the discipline.",
+          "children": []
+        },
+        {
+          "id": "6bf64136-93a4-5a96-a6d1-0eff5a225370",
+          "is_selected": true,
+          "display_name": "Discipline Group",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Higher level grouping: Engineering, Fabrication, Construction, Commissioning or Project Support.",
+          "children": []
+        },
+        {
+          "id": "a7df9c8a-f888-5acb-b0d2-e06320ec036a",
+          "is_selected": true,
+          "display_name": "Standard Hourly Rate (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Standard cost rate per hour for the discipline in Norwegian kroner.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "4a3d2e22-0062-5224-a23a-a9b39e79d2ba",
+      "is_selected": true,
+      "display_name": "Contractor",
+      "type": "semantic_model.table",
+      "description": "Suppliers and contractors with category, country and quality rating. Shared by procurement and maintenance.",
+      "children": [
+        {
+          "id": "5ec559f8-1e4b-52e9-9180-18fb7a9b2c45",
+          "is_selected": true,
+          "display_name": "Supplier ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the supplier, for example SUP-0087.",
+          "children": []
+        },
+        {
+          "id": "b8a0fa53-6c41-5de9-a5a8-0e66ffadb54e",
+          "is_selected": true,
+          "display_name": "Supplier Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Registered name of the supplier.",
+          "children": []
+        },
+        {
+          "id": "d2140f10-649b-5cfa-86ec-f80b45d4a5a2",
+          "is_selected": true,
+          "display_name": "Supplier Category",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Main category of goods or services the supplier provides.",
+          "children": []
+        },
+        {
+          "id": "94744bf0-4ad4-5183-9eed-8ac47f0c2faa",
+          "is_selected": true,
+          "display_name": "Country Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Two-letter country code of the supplier.",
+          "children": []
+        },
+        {
+          "id": "ccd67737-344a-5d2a-b55a-a6e73d662086",
+          "is_selected": true,
+          "display_name": "Approval Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Approval status: Approved, Conditional or Suspended.",
+          "children": []
+        },
+        {
+          "id": "94315ac1-dd2c-5f2c-8a9c-8a613784bb17",
+          "is_selected": true,
+          "display_name": "Quality Rating",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Supplier quality rating from 1.5 to 5.0. Higher is better.",
+          "children": []
+        },
+        {
+          "id": "4bea5b9b-ada9-5461-8eaf-05726d4401a4",
+          "is_selected": true,
+          "display_name": "Payment Terms (days)",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Agreed payment terms in days.",
+          "children": []
+        },
+        {
+          "id": "5835e5e0-baf6-5824-a10e-f670563b9fa8",
+          "is_selected": true,
+          "display_name": "Is Preferred Supplier",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": "True when the supplier is on the preferred supplier list.",
+          "children": []
+        },
+        {
+          "id": "01b0ead9-5f8f-50bb-8624-8d80eb3d1443",
+          "is_selected": true,
+          "display_name": "Onboarded Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Date the supplier was onboarded.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "8d4b02d8-bdb0-51b4-bb7d-7962f434e33c",
+      "is_selected": true,
+      "display_name": "Work Orders",
+      "type": "semantic_model.table",
+      "description": "One row per maintenance or modification work order on an installation, with effort, cost and downtime.",
+      "children": [
+        {
+          "id": "75ec00cc-31de-52f6-950f-82dd47668332",
+          "is_selected": true,
+          "display_name": "Work Order ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the work order, for example WO-0004211.",
+          "children": []
+        },
+        {
+          "id": "341beccf-f8ad-5f9c-9b32-739377092aca",
+          "is_selected": true,
+          "display_name": "Work Order Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Type of work: Preventive, Corrective, Inspection, Modification or Shutdown.",
+          "children": []
+        },
+        {
+          "id": "d972d331-768c-5ccf-872f-50ee1aa6dc15",
+          "is_selected": true,
+          "display_name": "Priority",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Priority from 1 (highest) to 4 (lowest).",
+          "children": []
+        },
+        {
+          "id": "664a32b6-b45f-51dd-bd0a-52c80d71c98c",
+          "is_selected": true,
+          "display_name": "Work Order Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Status: Planned, In progress, Completed or Cancelled.",
+          "children": []
+        },
+        {
+          "id": "c1943b7a-55d6-572a-8651-34c44f6947f7",
+          "is_selected": true,
+          "display_name": "Failure Mode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Failure mode for corrective work, for example Seal failure. Not applicable for other types.",
+          "children": []
+        },
+        {
+          "id": "7c654fb0-8cf4-5ac5-89d6-6ac74bc42b94",
+          "is_selected": true,
+          "display_name": "Work Order Description",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Short description of the work.",
+          "children": []
+        },
+        {
+          "id": "488b9604-b630-5e10-be31-b79d1e0ebcd6",
+          "is_selected": true,
+          "display_name": "Is Safety Critical",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": "True when the work concerns safety critical equipment.",
+          "children": []
+        },
+        {
+          "id": "f15bec1a-c559-50f5-bfe1-57b84913925b",
+          "is_selected": true,
+          "display_name": "Planned Hours",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Planned labour hours.",
+          "children": []
+        },
+        {
+          "id": "dc12c34b-761a-5929-a7f5-029c39e127ad",
+          "is_selected": true,
+          "display_name": "Actual Hours",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Labour hours booked so far.",
+          "children": []
+        },
+        {
+          "id": "8af58ec1-d9ad-54cf-9d73-2d7b8179f723",
+          "is_selected": true,
+          "display_name": "Hours Variance",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Actual minus planned hours for completed work orders. Zero for others.",
+          "children": []
+        },
+        {
+          "id": "85528eea-68f6-599b-ac84-0402b4d86d70",
+          "is_selected": true,
+          "display_name": "Labour Cost (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Labour cost in Norwegian kroner.",
+          "children": []
+        },
+        {
+          "id": "4d12034a-d0bb-58ea-8e65-08289e05f2b1",
+          "is_selected": true,
+          "display_name": "Material Cost (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Material cost in Norwegian kroner.",
+          "children": []
+        },
+        {
+          "id": "0b0018c5-6483-5f13-a8ec-322e68827b95",
+          "is_selected": true,
+          "display_name": "Total Cost (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Labour plus material cost in Norwegian kroner.",
+          "children": []
+        },
+        {
+          "id": "ad2d0a29-6b56-5b26-9f45-613b21d81f7f",
+          "is_selected": true,
+          "display_name": "Downtime Hours",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Production downtime caused by the work order in hours.",
+          "children": []
+        },
+        {
+          "id": "84f68921-c05f-597b-8564-0478a2454781",
+          "is_selected": true,
+          "display_name": "Days To Complete",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Days from reported date to actual finish date. Empty until finished.",
+          "children": []
+        },
+        {
+          "id": "4050b2b3-8983-584a-b558-c030dde442df",
+          "is_selected": true,
+          "display_name": "Is Completed",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "1 when the work order is completed, otherwise 0.",
+          "children": []
+        },
+        {
+          "id": "9a080569-603e-543f-9d02-fb493478a747",
+          "is_selected": true,
+          "display_name": "Is Corrective",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "1 when the work order is corrective, otherwise 0.",
+          "children": []
+        },
+        {
+          "id": "49fc16fc-ac4e-519d-8b40-5638727e8f47",
+          "is_selected": true,
+          "display_name": "Work Order Count",
+          "type": "semantic_model.measure",
+          "description": "Number of work orders in the selection.",
+          "children": []
+        },
+        {
+          "id": "39f2b683-aee8-5ea0-ba3b-9170e06a3cdc",
+          "is_selected": true,
+          "display_name": "Completed Work Orders",
+          "type": "semantic_model.measure",
+          "description": "Number of completed work orders.",
+          "children": []
+        },
+        {
+          "id": "68afb67e-d7e5-5349-8903-bfc7b094d75f",
+          "is_selected": true,
+          "display_name": "Corrective Work Orders",
+          "type": "semantic_model.measure",
+          "description": "Number of corrective work orders.",
+          "children": []
+        },
+        {
+          "id": "b8b6ad57-6a97-5174-84e3-fc9499a3a060",
+          "is_selected": true,
+          "display_name": "Corrective Share",
+          "type": "semantic_model.measure",
+          "description": "Share of work orders that are corrective.",
+          "children": []
+        },
+        {
+          "id": "698fc7f3-ae0f-500c-85b1-a47aa405fec2",
+          "is_selected": true,
+          "display_name": "Total Cost NOK",
+          "type": "semantic_model.measure",
+          "description": "Labour plus material cost in Norwegian kroner.",
+          "children": []
+        },
+        {
+          "id": "79db7433-1dfe-51ba-9a25-2f4a2bf41f72",
+          "is_selected": true,
+          "display_name": "Labour Cost NOK",
+          "type": "semantic_model.measure",
+          "description": "Labour cost in Norwegian kroner.",
+          "children": []
+        },
+        {
+          "id": "e6945813-cfee-51e2-8289-528e868503f5",
+          "is_selected": true,
+          "display_name": "Material Cost NOK",
+          "type": "semantic_model.measure",
+          "description": "Material cost in Norwegian kroner.",
+          "children": []
+        },
+        {
+          "id": "e52b0a68-7422-5b85-9781-1cd6cde90756",
+          "is_selected": true,
+          "display_name": "Hours Variance Percent",
+          "type": "semantic_model.measure",
+          "description": "Actual versus planned hours for completed work orders. Positive means overrun.",
+          "children": []
+        },
+        {
+          "id": "e1c04c98-fc77-5429-817a-dd0033fa4226",
+          "is_selected": true,
+          "display_name": "Total Downtime Hours",
+          "type": "semantic_model.measure",
+          "description": "Production downtime caused by work orders.",
+          "children": []
+        },
+        {
+          "id": "d9ce83c6-f7eb-59c6-8749-be25c1028824",
+          "is_selected": true,
+          "display_name": "Average Days To Complete",
+          "type": "semantic_model.measure",
+          "description": "Average days from report to finish for finished work orders.",
+          "children": []
+        },
+        {
+          "id": "05adf0f4-400c-504a-9d83-fc05b9cd5898",
+          "is_selected": true,
+          "display_name": "Completed Work Orders By Finish Date",
+          "type": "semantic_model.measure",
+          "description": "Completed work orders counted on the date they finished instead of the date they were reported. Uses the inactive finish date relationship.",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

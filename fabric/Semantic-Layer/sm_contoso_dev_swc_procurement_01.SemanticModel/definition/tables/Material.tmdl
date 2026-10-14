@@ -1,0 +1,113 @@
+/// Materials and equipment that Contoso buys, with group, unit and standard price.
+table Material
+	lineageTag: 1dc8a9b8-d634-575a-8c03-2bd578c52ec3
+	sourceLineageTag: [dbo].[dim_material]
+
+	/// Surrogate key of the material.
+	column 'Material Key'
+		dataType: int64
+		isHidden
+		lineageTag: c5f4c9f4-f139-50fc-b758-dd4e10cce612
+		sourceLineageTag: material_key
+		summarizeBy: none
+		sourceColumn: material_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the material, for example MAT-00231.
+	column 'Material ID'
+		dataType: string
+		lineageTag: 61b0339a-d453-5176-9d86-f8e946ad343a
+		sourceLineageTag: material_id
+		summarizeBy: none
+		sourceColumn: material_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Material number used in the purchasing system.
+	column 'Material Code'
+		dataType: string
+		lineageTag: 01bd57fa-8ebe-5cbd-8957-ac8fba3ee972
+		sourceLineageTag: material_code
+		summarizeBy: none
+		sourceColumn: material_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Description of the material with size and specification.
+	column 'Material Description'
+		dataType: string
+		lineageTag: d3c79959-9ce9-52ba-8860-46661a922d40
+		sourceLineageTag: material_description
+		summarizeBy: none
+		sourceColumn: material_description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Purchasing group, for example Valves or Steel and Plate.
+	column 'Material Group'
+		dataType: string
+		lineageTag: c6e89871-f105-57cf-a20c-6f2dae811f4d
+		sourceLineageTag: material_group
+		summarizeBy: none
+		sourceColumn: material_group
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Equipment class the material belongs to. Not applicable for bulk materials.
+	column 'Equipment Class Name'
+		dataType: string
+		lineageTag: 0e1c7732-a591-563b-b79b-593a8164cb52
+		sourceLineageTag: equipment_class_name
+		summarizeBy: none
+		sourceColumn: equipment_class_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unit the material is ordered in: ea, tonne, m or l.
+	column 'Unit Of Measure'
+		dataType: string
+		lineageTag: 767d99ca-ee38-51b2-8eff-8106b60620d9
+		sourceLineageTag: unit_of_measure
+		summarizeBy: none
+		sourceColumn: unit_of_measure
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Standard price per unit in Norwegian kroner.
+	column 'Standard Unit Price (NOK)'
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 4073a00c-54df-5e9b-9ad5-2f623c24c9f4
+		sourceLineageTag: standard_unit_price_nok
+		summarizeBy: none
+		sourceColumn: standard_unit_price_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Typical lead time from order to delivery in days.
+	column 'Standard Lead Time (days)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 17f44704-b4fe-56ab-ba0b-2927d8411992
+		sourceLineageTag: standard_lead_time_days
+		summarizeBy: none
+		sourceColumn: standard_lead_time_days
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True when the material is a critical spare part.
+	column 'Is Critical Spare'
+		dataType: boolean
+		lineageTag: b28b54c1-30dd-57de-9321-497dd49af545
+		sourceLineageTag: is_critical_spare
+		summarizeBy: none
+		sourceColumn: is_critical_spare
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Material = entity
+		mode: directLake
+		source
+			entityName: dim_material
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

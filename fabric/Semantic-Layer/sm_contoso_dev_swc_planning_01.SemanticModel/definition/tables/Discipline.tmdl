@@ -1,0 +1,72 @@
+/// Engineering and construction disciplines such as Piping or Electrical. Shared by planning and maintenance.
+table Discipline
+	lineageTag: 030a8ef9-ffec-547d-8e56-624428ff42bb
+	sourceLineageTag: [dbo].[dim_discipline]
+
+	/// Surrogate key of the discipline.
+	column 'Discipline Key'
+		dataType: int64
+		isHidden
+		lineageTag: 14170584-9b0a-5ebb-987c-36060f63a9a5
+		sourceLineageTag: discipline_key
+		summarizeBy: none
+		sourceColumn: discipline_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the discipline, for example DSC-04.
+	column 'Discipline ID'
+		dataType: string
+		lineageTag: e5322ecb-93d5-565a-a14e-88e27bb1b8ce
+		sourceLineageTag: discipline_id
+		summarizeBy: none
+		sourceColumn: discipline_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Three-letter discipline code, for example PIP.
+	column 'Discipline Code'
+		dataType: string
+		lineageTag: 6188f543-ed4d-595c-ba80-f8f3208b2305
+		sourceLineageTag: discipline_code
+		summarizeBy: none
+		sourceColumn: discipline_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Full name of the discipline.
+	column 'Discipline Name'
+		dataType: string
+		lineageTag: 8db73067-51a9-5d81-adf2-34b665cae32e
+		sourceLineageTag: discipline_name
+		summarizeBy: none
+		sourceColumn: discipline_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Higher level grouping: Engineering, Fabrication, Construction, Commissioning or Project Support.
+	column 'Discipline Group'
+		dataType: string
+		lineageTag: 834ff3ba-65fd-5eb4-bbf3-d854b928bbcf
+		sourceLineageTag: discipline_group
+		summarizeBy: none
+		sourceColumn: discipline_group
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Standard cost rate per hour for the discipline in Norwegian kroner.
+	column 'Standard Hourly Rate (NOK)'
+		dataType: double
+		formatString: #,0
+		lineageTag: 78125411-eb22-5191-9b3e-eae57318dab6
+		sourceLineageTag: standard_hourly_rate_nok
+		summarizeBy: none
+		sourceColumn: standard_hourly_rate_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Discipline = entity
+		mode: directLake
+		source
+			entityName: dim_discipline
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

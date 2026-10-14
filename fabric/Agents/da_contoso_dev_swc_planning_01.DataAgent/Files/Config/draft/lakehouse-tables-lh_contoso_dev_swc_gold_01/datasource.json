@@ -1,0 +1,813 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "__ID:lh_contoso_dev_swc_gold_01__",
+  "workspaceId": "__WORKSPACE_ID__",
+  "dataSourceInstructions": "Use for activity-level detail: activity and work package lists, critical path, planned and actual dates, and tag numbers on activities. dim_activity holds the current state of each activity (planned_hours, actual_hours, percent_complete). fact_activity_progress has one row per activity per week; never add up cumulative_hours_booked across weeks.",
+  "displayName": "lh_contoso_dev_swc_gold_01",
+  "type": "lakehouse_tables",
+  "userDescription": "Gold star schema tables behind the semantic model, at row level.",
+  "metadata": {},
+  "elements": [
+    {
+      "id": "e4abf0a0-e919-54e9-8a0d-cd4b267c4f7a",
+      "is_selected": true,
+      "display_name": "Schemas",
+      "type": "schema_grouping",
+      "description": null,
+      "children": [
+        {
+          "id": "fce7392e-1eec-52a7-ae70-be1e27af2977",
+          "is_selected": true,
+          "display_name": "dbo",
+          "type": "lakehouse_tables.schema",
+          "description": null,
+          "children": [
+            {
+              "id": "9375348f-54a0-561c-9c43-bb165771c669",
+              "is_selected": true,
+              "display_name": "Tables",
+              "type": "table_grouping",
+              "description": null,
+              "children": [
+                {
+                  "id": "4099f6b6-ecfc-5f1b-bfef-8710e86e5a6a",
+                  "is_selected": true,
+                  "display_name": "dim_date",
+                  "type": "lakehouse_tables.table",
+                  "description": "Calendar table with one row per day from 2022 to 2029. Use it to slice every fact by day, week, month, quarter and year.",
+                  "children": [
+                    {
+                      "id": "e147ad79-282c-5355-a8e9-c4d3c5ea622d",
+                      "is_selected": true,
+                      "display_name": "date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key for the day in yyyymmdd form. Used by fact tables to join to the calendar.",
+                      "children": []
+                    },
+                    {
+                      "id": "d814db00-5564-5db4-a1a8-08d4e87d5bda",
+                      "is_selected": true,
+                      "display_name": "date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Calendar date.",
+                      "children": []
+                    },
+                    {
+                      "id": "b8f7a836-66f3-5cab-93eb-51e8d949a41b",
+                      "is_selected": true,
+                      "display_name": "year",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar year, for example 2026.",
+                      "children": []
+                    },
+                    {
+                      "id": "afccb9af-c110-5b8e-a228-8946107df800",
+                      "is_selected": true,
+                      "display_name": "quarter_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar quarter number from 1 to 4.",
+                      "children": []
+                    },
+                    {
+                      "id": "dade3ada-18eb-536c-a11d-fbd98c51c82c",
+                      "is_selected": true,
+                      "display_name": "quarter_label",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Calendar quarter label such as 2026 Q3.",
+                      "children": []
+                    },
+                    {
+                      "id": "1ab580fa-1406-5a9d-b268-2dd33b8f02b4",
+                      "is_selected": true,
+                      "display_name": "month_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Calendar month number from 1 (January) to 12 (December).",
+                      "children": []
+                    },
+                    {
+                      "id": "193a06ba-e4e1-5faa-ae60-3b53d865c602",
+                      "is_selected": true,
+                      "display_name": "month_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Full month name, for example September.",
+                      "children": []
+                    },
+                    {
+                      "id": "3a4419d0-66cf-51b2-8448-013ebc4d77da",
+                      "is_selected": true,
+                      "display_name": "month_short_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Three-letter month name, for example Sep.",
+                      "children": []
+                    },
+                    {
+                      "id": "0d3bde62-6ce7-511f-bf5c-081e7c4a6e91",
+                      "is_selected": true,
+                      "display_name": "year_month",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Year and month in yyyy-mm form. Sorts correctly as text.",
+                      "children": []
+                    },
+                    {
+                      "id": "89ca84e1-e63a-5d45-8ee1-2cc464cb9371",
+                      "is_selected": true,
+                      "display_name": "week_of_year",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "ISO week number from 1 to 53.",
+                      "children": []
+                    },
+                    {
+                      "id": "2e6ae6e3-8f88-54c0-930b-a2896d53e881",
+                      "is_selected": true,
+                      "display_name": "day_of_week_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Day of week where Monday is 1 and Sunday is 7.",
+                      "children": []
+                    },
+                    {
+                      "id": "10fda563-afc4-5a4a-b1fb-7285e7fe5daa",
+                      "is_selected": true,
+                      "display_name": "day_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Day name, for example Monday.",
+                      "children": []
+                    },
+                    {
+                      "id": "ea8ca3a1-c0db-5c4b-9303-9ce20c2f8fdd",
+                      "is_selected": true,
+                      "display_name": "is_weekend",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bit",
+                      "description": "True when the day is a Saturday or Sunday.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "da26de8f-7d53-58b0-adc5-ac1837b76b7f",
+                  "is_selected": true,
+                  "display_name": "dim_project",
+                  "type": "lakehouse_tables.table",
+                  "description": "One row per Contoso project: a fabrication, modification, maintenance or study contract for a client. Shared by planning and procurement.",
+                  "children": [
+                    {
+                      "id": "b58f842d-f4eb-5e61-b300-935b0438cacc",
+                      "is_selected": true,
+                      "display_name": "project_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the project.",
+                      "children": []
+                    },
+                    {
+                      "id": "908ae71c-c54d-5197-aec4-2f5955f4b6cd",
+                      "is_selected": true,
+                      "display_name": "project_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the project in the source system, for example PRJ-2210.",
+                      "children": []
+                    },
+                    {
+                      "id": "67fba4e0-126b-587e-b820-3b4bf7fd795e",
+                      "is_selected": true,
+                      "display_name": "project_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Short project code used on documents and work packages, for example CON-2403.",
+                      "children": []
+                    },
+                    {
+                      "id": "12b5446a-3771-523f-ae6c-cc388d633eac",
+                      "is_selected": true,
+                      "display_name": "project_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the project, built from the asset name and the project type.",
+                      "children": []
+                    },
+                    {
+                      "id": "d01646c5-2dd9-53ff-9271-16837e05beb9",
+                      "is_selected": true,
+                      "display_name": "segment",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business segment: New Build for new facilities or Life Cycle for work on producing assets.",
+                      "children": []
+                    },
+                    {
+                      "id": "cbf56c49-6854-5716-8615-653a5332dba1",
+                      "is_selected": true,
+                      "display_name": "project_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Kind of project, for example Jacket Fabrication, Subsea Tie-in or Maintenance Frame Agreement.",
+                      "children": []
+                    },
+                    {
+                      "id": "c5ccd464-b6fd-5dfb-901b-63adda0f675c",
+                      "is_selected": true,
+                      "display_name": "client_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the client that owns the facility and awards the contract.",
+                      "children": []
+                    },
+                    {
+                      "id": "b2c077be-a58b-5da0-8416-063195f482a0",
+                      "is_selected": true,
+                      "display_name": "installation_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Installation the project works on. Not applicable for new build projects.",
+                      "children": []
+                    },
+                    {
+                      "id": "51aaa088-ca40-53cd-ac6e-4f0f73b43e40",
+                      "is_selected": true,
+                      "display_name": "yard_location",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Fabrication yard or work location of the project.",
+                      "children": []
+                    },
+                    {
+                      "id": "cebc4700-3fde-5cf3-98c0-8105905e7e03",
+                      "is_selected": true,
+                      "display_name": "country_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Two-letter country code where the work is delivered.",
+                      "children": []
+                    },
+                    {
+                      "id": "d70cd175-85ba-5356-97cb-a29aca1d8ab4",
+                      "is_selected": true,
+                      "display_name": "contract_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Commercial form of the contract, for example EPC, EPCI, Reimbursable or Frame agreement.",
+                      "children": []
+                    },
+                    {
+                      "id": "120f3313-7bbe-5fa5-8465-2808ec4bb253",
+                      "is_selected": true,
+                      "display_name": "contract_value_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Contract value in Norwegian kroner. One value per project, so do not sum it across rows of other tables.",
+                      "children": []
+                    },
+                    {
+                      "id": "55acce7d-1cb7-51c9-8654-c599647430a3",
+                      "is_selected": true,
+                      "display_name": "start_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Planned start date of the project.",
+                      "children": []
+                    },
+                    {
+                      "id": "f0b7b4a0-37cf-5e2e-9e19-49799ab4bd6c",
+                      "is_selected": true,
+                      "display_name": "planned_finish_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Planned finish date of the project.",
+                      "children": []
+                    },
+                    {
+                      "id": "df237427-ed21-5f73-a4f6-429252b89cc1",
+                      "is_selected": true,
+                      "display_name": "actual_finish_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Actual finish date. Empty while the project is not finished.",
+                      "children": []
+                    },
+                    {
+                      "id": "075bf138-774e-535c-826d-9204c5138263",
+                      "is_selected": true,
+                      "display_name": "project_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Current status: Planning, Execution, On Hold or Completed.",
+                      "children": []
+                    },
+                    {
+                      "id": "f42f3222-83d5-553a-bd8d-90bb2ca0e0d3",
+                      "is_selected": true,
+                      "display_name": "project_manager_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the responsible project manager.",
+                      "children": []
+                    },
+                    {
+                      "id": "59394ed2-d4f9-5d81-a75b-dec78d815110",
+                      "is_selected": true,
+                      "display_name": "planned_total_hours",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Total planned hours over all activities of the project.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "0dd93b23-80cd-5ddd-8f19-598b76d7cf10",
+                  "is_selected": true,
+                  "display_name": "dim_discipline",
+                  "type": "lakehouse_tables.table",
+                  "description": "Engineering and construction disciplines such as Piping or Electrical. Shared by planning and maintenance.",
+                  "children": [
+                    {
+                      "id": "547c4beb-c1a6-5302-a247-bb92822d901d",
+                      "is_selected": true,
+                      "display_name": "discipline_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the discipline.",
+                      "children": []
+                    },
+                    {
+                      "id": "1b6809f8-e19d-564d-abce-c6c6356ddd37",
+                      "is_selected": true,
+                      "display_name": "discipline_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the discipline, for example DSC-04.",
+                      "children": []
+                    },
+                    {
+                      "id": "39851035-6e43-5dc2-8fd1-57f2cc6b9fdb",
+                      "is_selected": true,
+                      "display_name": "discipline_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Three-letter discipline code, for example PIP.",
+                      "children": []
+                    },
+                    {
+                      "id": "dd826c7d-8a79-59be-8155-4eaa5a7253a4",
+                      "is_selected": true,
+                      "display_name": "discipline_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Full name of the discipline.",
+                      "children": []
+                    },
+                    {
+                      "id": "6a07be7d-0d03-5564-99a3-e23c12321504",
+                      "is_selected": true,
+                      "display_name": "discipline_group",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Higher level grouping: Engineering, Fabrication, Construction, Commissioning or Project Support.",
+                      "children": []
+                    },
+                    {
+                      "id": "54372faf-94f5-5179-8ba2-f95d8721dd25",
+                      "is_selected": true,
+                      "display_name": "standard_hourly_rate_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Standard cost rate per hour for the discipline in Norwegian kroner.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "fd480c84-a98b-5085-b63b-cdd7b90629f2",
+                  "is_selected": true,
+                  "display_name": "dim_resource",
+                  "type": "lakehouse_tables.table",
+                  "description": "People who plan and execute work, with role, discipline and rate.",
+                  "children": [
+                    {
+                      "id": "90b78f07-703d-51d8-977d-9dd3f7c01128",
+                      "is_selected": true,
+                      "display_name": "resource_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the resource. Minus one is the Unassigned member.",
+                      "children": []
+                    },
+                    {
+                      "id": "61be0245-6ac0-5dba-929f-b614a20a8339",
+                      "is_selected": true,
+                      "display_name": "resource_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the resource, for example RES-0042. Unassigned for activities without an owner.",
+                      "children": []
+                    },
+                    {
+                      "id": "9f72aeaf-f6e8-521c-a386-b703453c685e",
+                      "is_selected": true,
+                      "display_name": "resource_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Full name of the person.",
+                      "children": []
+                    },
+                    {
+                      "id": "6abe9484-a38b-5ab5-b335-3dd716a7d283",
+                      "is_selected": true,
+                      "display_name": "role_title",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Role title combining seniority, discipline and role.",
+                      "children": []
+                    },
+                    {
+                      "id": "07d77e07-3e9c-5e13-8fdc-86f364395485",
+                      "is_selected": true,
+                      "display_name": "discipline_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Discipline the resource belongs to.",
+                      "children": []
+                    },
+                    {
+                      "id": "c5bbcbbd-5c71-57cc-b67f-b39861070c62",
+                      "is_selected": true,
+                      "display_name": "seniority_level",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Seniority: Junior, Intermediate, Senior or Lead.",
+                      "children": []
+                    },
+                    {
+                      "id": "bac6eb14-cc07-5623-837b-ac3c970a470a",
+                      "is_selected": true,
+                      "display_name": "employment_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Employee or Contractor.",
+                      "children": []
+                    },
+                    {
+                      "id": "e3433b5e-dd40-56fa-9c68-4e57f1d7d6e5",
+                      "is_selected": true,
+                      "display_name": "home_location",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Home office or yard of the resource.",
+                      "children": []
+                    },
+                    {
+                      "id": "0a48270c-ed6f-59ee-8146-ad756bda4ea0",
+                      "is_selected": true,
+                      "display_name": "hourly_rate_nok",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Hourly cost rate in Norwegian kroner.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "255cac32-7fdf-5942-86f1-ada438106e94",
+                  "is_selected": true,
+                  "display_name": "dim_activity",
+                  "type": "lakehouse_tables.table",
+                  "description": "Planned work activity within a work package, with its schedule, type and status. Work package attributes are included.",
+                  "children": [
+                    {
+                      "id": "fc1c7916-b9c7-5c4b-9f9d-c0fe800b195d",
+                      "is_selected": true,
+                      "display_name": "activity_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Surrogate key of the activity.",
+                      "children": []
+                    },
+                    {
+                      "id": "4fd58812-4d25-5933-8091-1640969edadf",
+                      "is_selected": true,
+                      "display_name": "project_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the project the activity belongs to. Joins to Project. For the ontology; not used by the semantic model relationships.",
+                      "children": []
+                    },
+                    {
+                      "id": "be5c6417-7417-5b79-b2c1-dde16b4323c0",
+                      "is_selected": true,
+                      "display_name": "discipline_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the discipline that does the activity. Joins to Discipline. For the ontology; not used by the semantic model relationships.",
+                      "children": []
+                    },
+                    {
+                      "id": "5e791536-a23c-56d9-bbae-e5f7372a8d03",
+                      "is_selected": true,
+                      "display_name": "resource_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the resource assigned to the activity. Minus one when unassigned. Joins to Resource. For the ontology; not used by the semantic model relationships.",
+                      "children": []
+                    },
+                    {
+                      "id": "3a8167e7-36ee-5396-8e41-544f74d46d8b",
+                      "is_selected": true,
+                      "display_name": "activity_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the activity, for example ACT-004512.",
+                      "children": []
+                    },
+                    {
+                      "id": "99ebad1b-4506-5ef5-b0a8-5928444499ea",
+                      "is_selected": true,
+                      "display_name": "activity_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Structured activity code made of the work package code and a sequence number.",
+                      "children": []
+                    },
+                    {
+                      "id": "bc4c8c39-f45d-5b86-8639-1ae395c50230",
+                      "is_selected": true,
+                      "display_name": "activity_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Short description of the work, for example Weld spool 21-PA-1043.",
+                      "children": []
+                    },
+                    {
+                      "id": "f7baf023-2879-59f3-9e2a-b73536e3b0ad",
+                      "is_selected": true,
+                      "display_name": "activity_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Type of work: Design, Document, Procure, Fabricate, Install, Test or Inspect.",
+                      "children": []
+                    },
+                    {
+                      "id": "c485b1d7-4484-56d9-b406-99734729477d",
+                      "is_selected": true,
+                      "display_name": "activity_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Current status: Not started, In progress or Completed.",
+                      "children": []
+                    },
+                    {
+                      "id": "9c85e532-22b3-5d7c-98dc-eca9f5402442",
+                      "is_selected": true,
+                      "display_name": "is_critical_path",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bit",
+                      "description": "True when the activity is on the critical path of the schedule.",
+                      "children": []
+                    },
+                    {
+                      "id": "88e31ede-11e4-50a3-8435-4c4f7b503df9",
+                      "is_selected": true,
+                      "display_name": "planned_start_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Planned start date of the activity.",
+                      "children": []
+                    },
+                    {
+                      "id": "b342b806-9a88-5e2e-9544-0bb5fb73e0e1",
+                      "is_selected": true,
+                      "display_name": "planned_finish_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Planned finish date of the activity.",
+                      "children": []
+                    },
+                    {
+                      "id": "eb1c2d96-f0cb-5038-9bb8-745d762e799f",
+                      "is_selected": true,
+                      "display_name": "actual_start_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Actual start date. Empty when the activity has not started.",
+                      "children": []
+                    },
+                    {
+                      "id": "57e11895-10ef-5d5c-8446-f94c7f29afb4",
+                      "is_selected": true,
+                      "display_name": "actual_finish_date",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "date",
+                      "description": "Actual finish date. Empty when the activity has not finished.",
+                      "children": []
+                    },
+                    {
+                      "id": "44422a13-c6b8-5462-bd24-f1f5c150fa79",
+                      "is_selected": true,
+                      "display_name": "planned_hours",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Planned hours for the activity. One value per activity.",
+                      "children": []
+                    },
+                    {
+                      "id": "dc38eb1b-5877-57b4-b651-445e155b250b",
+                      "is_selected": true,
+                      "display_name": "actual_hours",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Hours booked on the activity up to the as-of date. One value per activity.",
+                      "children": []
+                    },
+                    {
+                      "id": "6e949dd7-e855-5762-92f7-4d473eaeaa95",
+                      "is_selected": true,
+                      "display_name": "percent_complete",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Latest reported percent complete from 0 to 100.",
+                      "children": []
+                    },
+                    {
+                      "id": "f84c182e-500a-545e-bdf4-83115ce28bbd",
+                      "is_selected": true,
+                      "display_name": "tag_number",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Tag number of the equipment the activity works on. Not applicable when the work is not tied to a tag.",
+                      "children": []
+                    },
+                    {
+                      "id": "31d8553f-de58-5a0d-b0a0-8640a8158987",
+                      "is_selected": true,
+                      "display_name": "work_package_id",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Business identifier of the work package the activity belongs to.",
+                      "children": []
+                    },
+                    {
+                      "id": "2ec36b6b-a3b5-5200-b4d7-20f9558c5c61",
+                      "is_selected": true,
+                      "display_name": "work_package_code",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Structured code of the work package.",
+                      "children": []
+                    },
+                    {
+                      "id": "c015e2e6-3eb0-52c2-83ea-98086a17be78",
+                      "is_selected": true,
+                      "display_name": "work_package_name",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Name of the work package.",
+                      "children": []
+                    },
+                    {
+                      "id": "9687e29d-83a5-5cce-9773-95f24b881a64",
+                      "is_selected": true,
+                      "display_name": "work_package_type",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Work package type: Engineering, Procurement, Fabrication, Installation, Hook-up, Commissioning, Inspection or Project Controls.",
+                      "children": []
+                    },
+                    {
+                      "id": "722cdfba-5cba-5379-8dd5-dc83487b1321",
+                      "is_selected": true,
+                      "display_name": "work_package_status",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "varchar",
+                      "description": "Status of the work package derived from its activities.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "d945d40d-2615-552e-a11c-cca93889cc0b",
+                  "is_selected": true,
+                  "display_name": "fact_activity_progress",
+                  "type": "lakehouse_tables.table",
+                  "description": "Weekly progress snapshot per activity: planned versus actual percent complete and hours booked. One row per activity and week ending date.",
+                  "children": [
+                    {
+                      "id": "8d757606-fe5c-5e4b-9f01-2f6535833c23",
+                      "is_selected": true,
+                      "display_name": "week_ending_date_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Date key of the week ending date (Sunday). Joins to Date.",
+                      "children": []
+                    },
+                    {
+                      "id": "e4b17665-6db6-5cec-9d48-2211cc1fa438",
+                      "is_selected": true,
+                      "display_name": "project_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the project the activity belongs to.",
+                      "children": []
+                    },
+                    {
+                      "id": "f0b3b772-ccda-53b9-993c-963708d4dde6",
+                      "is_selected": true,
+                      "display_name": "activity_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the activity.",
+                      "children": []
+                    },
+                    {
+                      "id": "f153720b-2091-5051-8c67-a1806c95ea34",
+                      "is_selected": true,
+                      "display_name": "discipline_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the discipline of the activity.",
+                      "children": []
+                    },
+                    {
+                      "id": "b18eb02f-2fb9-5e23-b91f-8078b671d60a",
+                      "is_selected": true,
+                      "display_name": "resource_key",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "Key of the resource assigned to the activity.",
+                      "children": []
+                    },
+                    {
+                      "id": "1d976425-141f-5a19-9db0-4b2bc21a03b9",
+                      "is_selected": true,
+                      "display_name": "planned_percent_complete",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Percent complete according to the baseline plan at the week ending date, from 0 to 100.",
+                      "children": []
+                    },
+                    {
+                      "id": "3849e65f-c3fb-5a49-ae57-fba7cb6b42dd",
+                      "is_selected": true,
+                      "display_name": "actual_percent_complete",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Reported percent complete at the week ending date, from 0 to 100.",
+                      "children": []
+                    },
+                    {
+                      "id": "b1e190f5-b4f9-592a-af19-7dd47cea3b30",
+                      "is_selected": true,
+                      "display_name": "percent_complete_variance",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Actual minus planned percent complete. Negative values mean behind plan.",
+                      "children": []
+                    },
+                    {
+                      "id": "87c71bba-3897-54fc-8fdc-e8b8064dee8a",
+                      "is_selected": true,
+                      "display_name": "is_behind_plan",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "bigint",
+                      "description": "1 when actual percent complete is more than 15 points below plan at the week ending date, otherwise 0.",
+                      "children": []
+                    },
+                    {
+                      "id": "131108ee-4c05-557b-b354-abc9481b5ed3",
+                      "is_selected": true,
+                      "display_name": "hours_booked_in_week",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Hours booked on the activity during the week.",
+                      "children": []
+                    },
+                    {
+                      "id": "279fb613-a8dd-5496-8b6c-2c2ea6804d8e",
+                      "is_selected": true,
+                      "display_name": "cumulative_hours_booked",
+                      "type": "lakehouse_tables.column",
+                      "data_type": "float",
+                      "description": "Hours booked on the activity from the start up to the week ending date. Not additive over weeks.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

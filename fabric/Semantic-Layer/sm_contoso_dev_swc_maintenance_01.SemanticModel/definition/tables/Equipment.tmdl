@@ -1,0 +1,164 @@
+/// Tagged equipment items with their class, system, manufacturer and design data. Classes follow a CFIHOS-style hierarchy.
+table Equipment
+	lineageTag: a8f88a10-b654-5e00-9fb0-a5f073679dc7
+	sourceLineageTag: [dbo].[dim_equipment]
+
+	/// Surrogate key of the equipment tag.
+	column 'Equipment Key'
+		dataType: int64
+		isHidden
+		lineageTag: e3285cc4-d5aa-5d62-b8a1-0cb940079020
+		sourceLineageTag: equipment_key
+		summarizeBy: none
+		sourceColumn: equipment_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the tag, for example TAG-000412.
+	column 'Tag ID'
+		dataType: string
+		lineageTag: ade237dc-a512-5cb3-8c03-4ae786434d74
+		sourceLineageTag: tag_id
+		summarizeBy: none
+		sourceColumn: tag_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Tag number built from system, class abbreviation and sequence, for example 23-KA-1004.
+	column 'Tag Number'
+		dataType: string
+		lineageTag: 33da85d6-6cfc-5e53-aca2-dd929ed36dec
+		sourceLineageTag: tag_number
+		summarizeBy: none
+		sourceColumn: tag_number
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Description of the tagged item.
+	column 'Tag Description'
+		dataType: string
+		lineageTag: d3c6bb9b-2718-5442-822b-c595ddfa9ef4
+		sourceLineageTag: tag_description
+		summarizeBy: none
+		sourceColumn: tag_description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identifier of the equipment class in a CFIHOS-style class hierarchy, for example CF-30000156.
+	column 'Equipment Class ID'
+		dataType: string
+		lineageTag: 1e8468de-f566-5709-83c7-957665ba8c05
+		sourceLineageTag: equipment_class_id
+		summarizeBy: none
+		sourceColumn: equipment_class_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the equipment class, for example Centrifugal Pump.
+	column 'Equipment Class Name'
+		dataType: string
+		lineageTag: 4172ab8f-02af-5453-a88e-09b32304f850
+		sourceLineageTag: equipment_class_name
+		summarizeBy: none
+		sourceColumn: equipment_class_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Group of equipment classes, for example Pumps, Valves or Instrumentation.
+	column 'Equipment Class Group'
+		dataType: string
+		lineageTag: 55788a49-7d41-5fc3-b869-845c53bc1ac3
+		sourceLineageTag: equipment_class_group
+		summarizeBy: none
+		sourceColumn: equipment_class_group
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Two-digit code of the technical system the item belongs to.
+	column 'System Code'
+		dataType: string
+		lineageTag: 5f442b29-f60a-5d70-a19c-20f15a0a4e1e
+		sourceLineageTag: system_code
+		summarizeBy: none
+		sourceColumn: system_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the technical system, for example Gas Compression.
+	column 'System Name'
+		dataType: string
+		lineageTag: c72ac5d4-15a6-5366-80cb-6edbbe95e09d
+		sourceLineageTag: system_name
+		summarizeBy: none
+		sourceColumn: system_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Manufacturer of the equipment.
+	column 'Manufacturer Name'
+		dataType: string
+		lineageTag: 1f97aada-5cf5-59e9-95b0-b2a3055de9ac
+		sourceLineageTag: manufacturer_name
+		summarizeBy: none
+		sourceColumn: manufacturer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dry weight of the item in kilograms.
+	column 'Weight (kg)'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 375fcb8a-5e27-5bdc-bf40-eb387c987d2d
+		sourceLineageTag: weight_kg
+		summarizeBy: none
+		sourceColumn: weight_kg
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Design pressure in bar. Empty for items that do not contain pressure.
+	column 'Design Pressure (bar)'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 7033412d-20d0-5512-a0f6-2b1ace93ae61
+		sourceLineageTag: design_pressure_bar
+		summarizeBy: none
+		sourceColumn: design_pressure_bar
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Design temperature in degrees Celsius. Empty for items that do not contain pressure.
+	column 'Design Temperature (C)'
+		dataType: double
+		formatString: #,0
+		lineageTag: 56275756-ad09-517b-9db4-44f61cfa9933
+		sourceLineageTag: design_temperature_c
+		summarizeBy: none
+		sourceColumn: design_temperature_c
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Criticality of the item: A is highest, C is lowest.
+	column 'Criticality Class'
+		dataType: string
+		lineageTag: 76a7a142-f3b4-5643-842f-3af28f5d687f
+		sourceLineageTag: criticality_class
+		summarizeBy: none
+		sourceColumn: criticality_class
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Lifecycle status: Planned, Fabricated, Installed, Commissioned, Operating, Out of service or Decommissioned.
+	column 'Equipment Status'
+		dataType: string
+		lineageTag: 8d21f7dc-eca2-50e7-be46-b0c29de644ee
+		sourceLineageTag: equipment_status
+		summarizeBy: none
+		sourceColumn: equipment_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Equipment = entity
+		mode: directLake
+		source
+			entityName: dim_equipment
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

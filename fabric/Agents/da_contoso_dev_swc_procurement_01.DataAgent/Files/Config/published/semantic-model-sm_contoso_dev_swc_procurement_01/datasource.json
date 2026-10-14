@@ -1,0 +1,792 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "__ID:sm_contoso_dev_swc_procurement_01__",
+  "workspaceId": "__WORKSPACE_ID__",
+  "dataSourceInstructions": "Use for order value, open order value, suppliers and delivery performance (late deliveries, on-time percent, delay days).",
+  "displayName": "sm_contoso_dev_swc_procurement_01",
+  "type": "semantic_model",
+  "userDescription": "Procurement: purchase order lines by project, supplier, material and cost code, with delivery performance.",
+  "metadata": {},
+  "elements": [
+    {
+      "id": "9ad1cbf3-f4ee-5934-aede-1ca9fe56fbc1",
+      "is_selected": true,
+      "display_name": "Date",
+      "type": "semantic_model.table",
+      "description": "Calendar table with one row per day from 2022 to 2029. Use it to slice every fact by day, week, month, quarter and year.",
+      "children": [
+        {
+          "id": "3067f13c-dd76-5268-bc5b-7d4be6426b5f",
+          "is_selected": true,
+          "display_name": "Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Calendar date.",
+          "children": []
+        },
+        {
+          "id": "4497f28e-113f-5021-ab24-36422fc1c190",
+          "is_selected": true,
+          "display_name": "Year",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar year, for example 2026.",
+          "children": []
+        },
+        {
+          "id": "5410ebae-0ff3-5288-9b58-8e47aeef2819",
+          "is_selected": true,
+          "display_name": "Quarter Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar quarter number from 1 to 4.",
+          "children": []
+        },
+        {
+          "id": "6d2080bc-47ab-5305-9e6f-8e4fa5762de8",
+          "is_selected": true,
+          "display_name": "Quarter",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Calendar quarter label such as 2026 Q3.",
+          "children": []
+        },
+        {
+          "id": "24ae2c9d-207b-5d32-ae31-0e5946268a86",
+          "is_selected": true,
+          "display_name": "Month Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Calendar month number from 1 (January) to 12 (December).",
+          "children": []
+        },
+        {
+          "id": "5b2d652f-cdad-543e-94b4-dee0d167ca72",
+          "is_selected": true,
+          "display_name": "Month",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Full month name, for example September.",
+          "children": []
+        },
+        {
+          "id": "c0b57ff7-ac7d-5eb2-9a91-ed10f9e89ca1",
+          "is_selected": true,
+          "display_name": "Month Short Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Three-letter month name, for example Sep.",
+          "children": []
+        },
+        {
+          "id": "1f467961-09cf-5cb2-8d25-0e14f0a382c3",
+          "is_selected": true,
+          "display_name": "Year Month",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Year and month in yyyy-mm form. Sorts correctly as text.",
+          "children": []
+        },
+        {
+          "id": "83c18940-b268-51bd-a10a-d15214325b15",
+          "is_selected": true,
+          "display_name": "Week Of Year",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "ISO week number from 1 to 53.",
+          "children": []
+        },
+        {
+          "id": "6fb1c435-4b26-5ccd-961c-d97943b1cc3b",
+          "is_selected": true,
+          "display_name": "Day Of Week Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Day of week where Monday is 1 and Sunday is 7.",
+          "children": []
+        },
+        {
+          "id": "d067bfbd-30d2-562d-9747-a8fbd2e6a3d1",
+          "is_selected": true,
+          "display_name": "Day",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Day name, for example Monday.",
+          "children": []
+        },
+        {
+          "id": "5dc1c7fd-703e-545c-90c7-e29d9da31395",
+          "is_selected": true,
+          "display_name": "Is Weekend",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": "True when the day is a Saturday or Sunday.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "f621ebb0-bd27-5c3a-8b0b-d416ab83360c",
+      "is_selected": true,
+      "display_name": "Project",
+      "type": "semantic_model.table",
+      "description": "One row per Contoso project: a fabrication, modification, maintenance or study contract for a client. Shared by planning and procurement.",
+      "children": [
+        {
+          "id": "71bf3047-0c73-5d04-87ec-ad3de184974f",
+          "is_selected": true,
+          "display_name": "Project ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the project in the source system, for example PRJ-2210.",
+          "children": []
+        },
+        {
+          "id": "4e5e9991-6c5a-573f-902d-987825ff8101",
+          "is_selected": true,
+          "display_name": "Project Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Short project code used on documents and work packages, for example CON-2403.",
+          "children": []
+        },
+        {
+          "id": "41728296-3891-5aec-a6bf-73a77a475ecd",
+          "is_selected": true,
+          "display_name": "Project Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the project, built from the asset name and the project type.",
+          "children": []
+        },
+        {
+          "id": "f263e72b-5198-5813-a5a8-eeb311e75355",
+          "is_selected": true,
+          "display_name": "Segment",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business segment: New Build for new facilities or Life Cycle for work on producing assets.",
+          "children": []
+        },
+        {
+          "id": "75125192-d871-5a4c-9a83-1bd38e10935c",
+          "is_selected": true,
+          "display_name": "Project Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Kind of project, for example Jacket Fabrication, Subsea Tie-in or Maintenance Frame Agreement.",
+          "children": []
+        },
+        {
+          "id": "c8e68ac6-267e-5e34-99b9-1b1fac3338d6",
+          "is_selected": true,
+          "display_name": "Client Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the client that owns the facility and awards the contract.",
+          "children": []
+        },
+        {
+          "id": "e55a142e-17b8-5e6a-89ad-5eb21636dd40",
+          "is_selected": true,
+          "display_name": "Installation Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Installation the project works on. Not applicable for new build projects.",
+          "children": []
+        },
+        {
+          "id": "bed4821f-b1e6-5995-9254-ecae3fd5ff83",
+          "is_selected": true,
+          "display_name": "Yard Location",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Fabrication yard or work location of the project.",
+          "children": []
+        },
+        {
+          "id": "16521006-bc75-561d-a6cf-b26db3d793ac",
+          "is_selected": true,
+          "display_name": "Country Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Two-letter country code where the work is delivered.",
+          "children": []
+        },
+        {
+          "id": "40940fb4-ea8e-5b4d-a886-1ddfa076dc46",
+          "is_selected": true,
+          "display_name": "Contract Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Commercial form of the contract, for example EPC, EPCI, Reimbursable or Frame agreement.",
+          "children": []
+        },
+        {
+          "id": "db3cd65d-6803-5786-9249-a9b47d82af91",
+          "is_selected": true,
+          "display_name": "Contract Value (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Contract value in Norwegian kroner. One value per project, so do not sum it across rows of other tables.",
+          "children": []
+        },
+        {
+          "id": "0f872f77-52dc-52fb-a7eb-504fdd842845",
+          "is_selected": true,
+          "display_name": "Project Start Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Planned start date of the project.",
+          "children": []
+        },
+        {
+          "id": "dafb7178-0edd-58bc-b69d-2ff6df6e657f",
+          "is_selected": true,
+          "display_name": "Planned Finish Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Planned finish date of the project.",
+          "children": []
+        },
+        {
+          "id": "bc1d279c-2d5c-5dd2-aaa5-dff6c1205ac9",
+          "is_selected": true,
+          "display_name": "Actual Finish Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Actual finish date. Empty while the project is not finished.",
+          "children": []
+        },
+        {
+          "id": "9555b9df-e35a-5b57-8e7d-9033732609fc",
+          "is_selected": true,
+          "display_name": "Project Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Current status: Planning, Execution, On Hold or Completed.",
+          "children": []
+        },
+        {
+          "id": "ae4891ac-04e8-5e29-8ec6-a32bacc507dc",
+          "is_selected": true,
+          "display_name": "Project Manager Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the responsible project manager.",
+          "children": []
+        },
+        {
+          "id": "f1dc49c8-467f-5241-9e84-0d2afb9d2487",
+          "is_selected": true,
+          "display_name": "Planned Total Hours",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Total planned hours over all activities of the project.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "7736f250-f726-57a5-83dd-58229358b2fe",
+      "is_selected": true,
+      "display_name": "Supplier",
+      "type": "semantic_model.table",
+      "description": "Suppliers and contractors with category, country and quality rating. Shared by procurement and maintenance.",
+      "children": [
+        {
+          "id": "e67a2361-4910-5339-b464-256c2b860c7f",
+          "is_selected": true,
+          "display_name": "Supplier ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the supplier, for example SUP-0087.",
+          "children": []
+        },
+        {
+          "id": "9c7dc5a7-870d-56f6-92d0-dc4f35eeb41d",
+          "is_selected": true,
+          "display_name": "Supplier Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Registered name of the supplier.",
+          "children": []
+        },
+        {
+          "id": "b05513f9-f338-5f37-8790-7e1284105fcc",
+          "is_selected": true,
+          "display_name": "Supplier Category",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Main category of goods or services the supplier provides.",
+          "children": []
+        },
+        {
+          "id": "bec0f753-fa26-5602-9368-501f78f32ac7",
+          "is_selected": true,
+          "display_name": "Country Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Two-letter country code of the supplier.",
+          "children": []
+        },
+        {
+          "id": "2dec06cf-44e9-55d2-bbcd-b6a66e763da1",
+          "is_selected": true,
+          "display_name": "Approval Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Approval status: Approved, Conditional or Suspended.",
+          "children": []
+        },
+        {
+          "id": "33bf97dc-b645-5d7e-afc1-3ccbc83db84e",
+          "is_selected": true,
+          "display_name": "Quality Rating",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Supplier quality rating from 1.5 to 5.0. Higher is better.",
+          "children": []
+        },
+        {
+          "id": "1771a080-bf0a-5ee7-b5d9-d2805ca3c3d3",
+          "is_selected": true,
+          "display_name": "Payment Terms (days)",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Agreed payment terms in days.",
+          "children": []
+        },
+        {
+          "id": "499712c7-b91a-5785-88a3-8eafc90a82b0",
+          "is_selected": true,
+          "display_name": "Is Preferred Supplier",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": "True when the supplier is on the preferred supplier list.",
+          "children": []
+        },
+        {
+          "id": "78f15302-28d2-5cb6-b583-f29fd2bb9c54",
+          "is_selected": true,
+          "display_name": "Onboarded Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": "Date the supplier was onboarded.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "e2526b52-d809-5316-a217-43c2618a5bbc",
+      "is_selected": true,
+      "display_name": "Material",
+      "type": "semantic_model.table",
+      "description": "Materials and equipment that Contoso buys, with group, unit and standard price.",
+      "children": [
+        {
+          "id": "5042ef97-797b-5946-8948-07f07ec22e5d",
+          "is_selected": true,
+          "display_name": "Material ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the material, for example MAT-00231.",
+          "children": []
+        },
+        {
+          "id": "2a98932c-c487-5d12-aebb-cba888851b25",
+          "is_selected": true,
+          "display_name": "Material Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Material number used in the purchasing system.",
+          "children": []
+        },
+        {
+          "id": "7e02723f-3639-571d-a767-d5e19d00c3cb",
+          "is_selected": true,
+          "display_name": "Material Description",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Description of the material with size and specification.",
+          "children": []
+        },
+        {
+          "id": "e888f873-6b44-589c-af62-d8ff25242cd5",
+          "is_selected": true,
+          "display_name": "Material Group",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Purchasing group, for example Valves or Steel and Plate.",
+          "children": []
+        },
+        {
+          "id": "99e9f0f4-572b-5113-96c2-94b6664f708a",
+          "is_selected": true,
+          "display_name": "Equipment Class Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Equipment class the material belongs to. Not applicable for bulk materials.",
+          "children": []
+        },
+        {
+          "id": "80898161-c147-5af7-818d-71fb950de7d3",
+          "is_selected": true,
+          "display_name": "Unit Of Measure",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Unit the material is ordered in: ea, tonne, m or l.",
+          "children": []
+        },
+        {
+          "id": "47e85236-ffa8-538a-bdd6-12493ed15820",
+          "is_selected": true,
+          "display_name": "Standard Unit Price (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Standard price per unit in Norwegian kroner.",
+          "children": []
+        },
+        {
+          "id": "25aaae16-e89c-5ad5-9125-62a6a0af299d",
+          "is_selected": true,
+          "display_name": "Standard Lead Time (days)",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Typical lead time from order to delivery in days.",
+          "children": []
+        },
+        {
+          "id": "4dc955fe-a7f8-5fcf-9ab7-c5260aad8488",
+          "is_selected": true,
+          "display_name": "Is Critical Spare",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": "True when the material is a critical spare part.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "8e666187-b4fe-5227-b905-b1e84e35db9d",
+      "is_selected": true,
+      "display_name": "Cost Code",
+      "type": "semantic_model.table",
+      "description": "Cost codes used to book purchase cost, grouped by category and cost type.",
+      "children": [
+        {
+          "id": "1d633752-0779-5f05-ab98-e854109ac83d",
+          "is_selected": true,
+          "display_name": "Cost Code ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the cost code, for example CC-004.",
+          "children": []
+        },
+        {
+          "id": "731b0f83-9985-5fd5-845f-cbf5c55878f9",
+          "is_selected": true,
+          "display_name": "Cost Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Cost code number.",
+          "children": []
+        },
+        {
+          "id": "d718ccb2-8d9c-57ae-bba3-eaaca0b8e377",
+          "is_selected": true,
+          "display_name": "Cost Code Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the cost code.",
+          "children": []
+        },
+        {
+          "id": "30229219-c632-5d73-ab62-36ded33be8c4",
+          "is_selected": true,
+          "display_name": "Cost Category",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Cost category, for example Materials or Subcontract.",
+          "children": []
+        },
+        {
+          "id": "31760753-6532-5ae7-a48f-f11a6a9864d6",
+          "is_selected": true,
+          "display_name": "Cost Type",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Direct or Indirect cost.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "ede1ac7f-02b7-5cb7-bd39-6678e4584263",
+      "is_selected": true,
+      "display_name": "Purchase Order Lines",
+      "type": "semantic_model.table",
+      "description": "One row per purchase order line: what was ordered from which supplier for which project, with value and delivery performance.",
+      "children": [
+        {
+          "id": "c5511cab-8078-5324-ad5a-ab62325c0651",
+          "is_selected": true,
+          "display_name": "Purchase Order ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the purchase order, for example PO-001204.",
+          "children": []
+        },
+        {
+          "id": "bf39d8aa-245b-5a1c-93d2-b3d6f8fd6dfd",
+          "is_selected": true,
+          "display_name": "Purchase Order Line ID",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Business identifier of the purchase order line.",
+          "children": []
+        },
+        {
+          "id": "0ae09d96-0c84-5dd6-98bc-2880ce3dd2e3",
+          "is_selected": true,
+          "display_name": "Line Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Line number within the purchase order.",
+          "children": []
+        },
+        {
+          "id": "07f4cdbc-2207-55eb-ac53-9be199ebf878",
+          "is_selected": true,
+          "display_name": "PO Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Status of the purchase order: Open or Closed.",
+          "children": []
+        },
+        {
+          "id": "cd48ef0a-452d-5717-aea7-5ed4df5d8f45",
+          "is_selected": true,
+          "display_name": "Line Status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Status of the line: Open, Partially received, Delivered or Cancelled.",
+          "children": []
+        },
+        {
+          "id": "02f0454d-1284-52dd-8120-8277f67e8635",
+          "is_selected": true,
+          "display_name": "Currency Code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Currency the order was placed in.",
+          "children": []
+        },
+        {
+          "id": "5b381c2e-9b25-5f1b-aed0-0cc84a5de330",
+          "is_selected": true,
+          "display_name": "Exchange Rate To NOK",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Exchange rate used to convert the order currency to Norwegian kroner.",
+          "children": []
+        },
+        {
+          "id": "7b6dfe02-96bb-558a-9fc0-d8b79056a34b",
+          "is_selected": true,
+          "display_name": "Incoterms",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Incoterms agreed for delivery.",
+          "children": []
+        },
+        {
+          "id": "6152e3bf-892f-53aa-a300-926aee817b77",
+          "is_selected": true,
+          "display_name": "Buyer Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": "Name of the buyer who placed the order.",
+          "children": []
+        },
+        {
+          "id": "9bcf8c31-42a9-5e00-84bc-4c928c0bf869",
+          "is_selected": true,
+          "display_name": "Quantity Ordered",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Ordered quantity in the unit of measure of the material.",
+          "children": []
+        },
+        {
+          "id": "38ea41c3-3c0d-5204-87e7-d87b27ec19e2",
+          "is_selected": true,
+          "display_name": "Quantity Received",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Quantity received so far.",
+          "children": []
+        },
+        {
+          "id": "f4923d48-865e-51c0-bf0b-36c400282780",
+          "is_selected": true,
+          "display_name": "Quantity Rejected",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Received quantity rejected at inspection.",
+          "children": []
+        },
+        {
+          "id": "d3ec5c25-2cbb-5d2f-aa96-e90227fc6270",
+          "is_selected": true,
+          "display_name": "Unit Price (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Price per unit in Norwegian kroner before discount.",
+          "children": []
+        },
+        {
+          "id": "cd416a20-9425-5ded-b543-f585eeb95377",
+          "is_selected": true,
+          "display_name": "Discount Percent",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Discount given on the line in percent.",
+          "children": []
+        },
+        {
+          "id": "24348c0c-60c1-5813-a90d-da3f6ac9b140",
+          "is_selected": true,
+          "display_name": "Line Amount (NOK)",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": "Line value in Norwegian kroner after discount.",
+          "children": []
+        },
+        {
+          "id": "7fff4776-17c4-5f1d-a12c-09f87d7abcc5",
+          "is_selected": true,
+          "display_name": "Delivery Delay Days",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "Actual minus promised delivery date in days. Positive is late. Empty until delivered.",
+          "children": []
+        },
+        {
+          "id": "b6ed9c84-1f17-54d6-82dc-cc7e8dc3e6a0",
+          "is_selected": true,
+          "display_name": "Is Delivered",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "1 when at least part of the line has been delivered, otherwise 0.",
+          "children": []
+        },
+        {
+          "id": "c41b67e4-0c14-5f9e-9a41-b96c46c6c645",
+          "is_selected": true,
+          "display_name": "Is Late Delivery",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": "1 when the line was delivered after the promised date, otherwise 0.",
+          "children": []
+        },
+        {
+          "id": "c8d54f0b-b1fe-5ac3-948e-8a1a748ae3b6",
+          "is_selected": true,
+          "display_name": "Order Value NOK",
+          "type": "semantic_model.measure",
+          "description": "Ordered value in Norwegian kroner after discount.",
+          "children": []
+        },
+        {
+          "id": "527e9927-a833-50fd-ab41-5e5ec7603758",
+          "is_selected": true,
+          "display_name": "Open Order Value NOK",
+          "type": "semantic_model.measure",
+          "description": "Value of lines that are still open.",
+          "children": []
+        },
+        {
+          "id": "7ae2f1bf-1d9f-5ffa-bba9-59dc683cefb3",
+          "is_selected": true,
+          "display_name": "Order Lines",
+          "type": "semantic_model.measure",
+          "description": "Number of purchase order lines.",
+          "children": []
+        },
+        {
+          "id": "34725cc8-0dbe-5a39-a13b-52420b0b7d81",
+          "is_selected": true,
+          "display_name": "Purchase Orders",
+          "type": "semantic_model.measure",
+          "description": "Number of distinct purchase orders.",
+          "children": []
+        },
+        {
+          "id": "5380f707-70be-5781-968c-0c66aa12fcf9",
+          "is_selected": true,
+          "display_name": "Delivered Lines",
+          "type": "semantic_model.measure",
+          "description": "Number of lines delivered.",
+          "children": []
+        },
+        {
+          "id": "62cb5f46-81f4-56f5-ab6e-a04ac7e88648",
+          "is_selected": true,
+          "display_name": "Late Delivered Lines",
+          "type": "semantic_model.measure",
+          "description": "Number of lines delivered after the promised date.",
+          "children": []
+        },
+        {
+          "id": "7b9fad09-51dd-56d5-b26e-186427b816aa",
+          "is_selected": true,
+          "display_name": "On Time Delivery Percent",
+          "type": "semantic_model.measure",
+          "description": "Share of delivered lines that arrived on or before the promised date.",
+          "children": []
+        },
+        {
+          "id": "801ff0ba-fdd6-5e55-9842-29966ff2ef63",
+          "is_selected": true,
+          "display_name": "Average Delivery Delay Days",
+          "type": "semantic_model.measure",
+          "description": "Average days between promised and actual delivery. Positive is late.",
+          "children": []
+        },
+        {
+          "id": "33fc19cb-c8fb-58f1-982a-13cfe33dd666",
+          "is_selected": true,
+          "display_name": "Rejection Rate",
+          "type": "semantic_model.measure",
+          "description": "Share of received quantity rejected at inspection.",
+          "children": []
+        },
+        {
+          "id": "cb45b3a7-561a-57bb-bf34-d42379176a50",
+          "is_selected": true,
+          "display_name": "Average Discount Percent",
+          "type": "semantic_model.measure",
+          "description": "Average discount given on order lines.",
+          "children": []
+        },
+        {
+          "id": "d73ffe44-e598-5d94-9a7f-573d3cc30640",
+          "is_selected": true,
+          "display_name": "Order Value By Promised Date NOK",
+          "type": "semantic_model.measure",
+          "description": "Order value counted on the promised delivery date instead of the order date. Shows what is due for delivery in a period. Uses the inactive promised date relationship.",
+          "children": []
+        },
+        {
+          "id": "8e189072-f552-50a8-8047-cbff78d663f8",
+          "is_selected": true,
+          "display_name": "Delivered Lines By Delivery Date",
+          "type": "semantic_model.measure",
+          "description": "Delivered lines counted on the date they arrived instead of the order date. Uses the inactive actual delivery date relationship.",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

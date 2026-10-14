@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "sm_contoso_dev_swc_planning_01",
+    "description": "Project planning star schema: weekly progress of activities against plan, by project, discipline, resource and week."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ac706738-1950-5a53-8a0a-ddb21fb78893"
+  }
+}

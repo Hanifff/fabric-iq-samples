@@ -1,0 +1,8 @@
+expression 'DirectLake - lh_contoso_dev_swc_gold_01' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/__WORKSPACE_ID__/__GOLD_LAKEHOUSE_ID__", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: 10aac734-c4e4-52c3-84cb-bedf8fddd521
+
+	annotation PBI_IncludeFutureArtifacts = False

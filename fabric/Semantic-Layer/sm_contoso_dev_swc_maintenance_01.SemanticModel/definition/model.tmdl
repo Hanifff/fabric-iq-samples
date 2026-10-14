@@ -1,0 +1,20 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DirectLake - lh_contoso_dev_swc_gold_01"]
+
+annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb"]
+
+ref table Date
+ref table Installation
+ref table Equipment
+ref table Discipline
+ref table Contractor
+ref table 'Work Orders'
+
+ref cultureInfo en-US

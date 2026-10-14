@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataAgent",
+    "displayName": "da_contoso_dev_swc_maintenance_01",
+    "description": "Contoso maintenance assistant. Answers questions about work orders, maintenance cost, downtime, contractors and live equipment telemetry."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "88cff04f-171c-5f5c-8a33-62c1b4173266"
+  }
+}

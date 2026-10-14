@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_contoso_dev_swc_agent_eval_domains_01",
+    "description": "Evaluates the three domain data agents against ground truth computed from the gold lakehouse."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0461f3d2-98bc-575f-8bfc-ee28a63f8eb1"
+  }
+}

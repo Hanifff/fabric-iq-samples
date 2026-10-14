@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventstream",
+    "displayName": "es_contoso_dev_swc_telemetry_01",
+    "description": "Contoso notebook custom endpoint to Eventhouse; JSON direct ingestion."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9ca675f0-2e5d-5d5e-933a-b7b9abbf2a08"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_contoso_dev_swc_silver_to_gold_01",
+    "description": "Builds the gold star schemas from the silver tables."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4e63b0de-f69b-51d5-8406-6080196af759"
+  }
+}

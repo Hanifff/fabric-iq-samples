@@ -1,0 +1,30 @@
+{
+  "compatibilityLevel": "1.0",
+  "sources": [
+    {"name": "contoso_telemetry_input", "type": "CustomEndpoint", "properties": {}}
+  ],
+  "streams": [
+    {
+      "name": "contoso_telemetry_stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [{"name": "contoso_telemetry_input"}]
+    }
+  ],
+  "operators": [],
+  "destinations": [
+    {
+      "name": "contoso_telemetry_eventhouse",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "DirectIngestion",
+        "workspaceId": "__WORKSPACE_ID__",
+        "itemId": "__KQL_DATABASE_ID__",
+        "tableName": "EquipmentTelemetry",
+        "connectionName": "contoso_telemetry_ingestion",
+        "mappingRuleName": "TelemetryJson"
+      },
+      "inputNodes": [{"name": "contoso_telemetry_stream"}]
+    }
+  ]
+}

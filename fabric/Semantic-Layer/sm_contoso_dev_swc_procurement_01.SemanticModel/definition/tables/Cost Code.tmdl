@@ -1,0 +1,71 @@
+/// Cost codes used to book purchase cost, grouped by category and cost type.
+table 'Cost Code'
+	lineageTag: 94260268-2657-54a2-8a98-4eb742e0f46d
+	sourceLineageTag: [dbo].[dim_cost_code]
+
+	/// Surrogate key of the cost code.
+	column 'Cost Code Key'
+		dataType: int64
+		isHidden
+		lineageTag: f2e3f785-f62e-5937-a456-5b72eda3124d
+		sourceLineageTag: cost_code_key
+		summarizeBy: none
+		sourceColumn: cost_code_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the cost code, for example CC-004.
+	column 'Cost Code ID'
+		dataType: string
+		lineageTag: 99e7b87a-4dd5-5ef1-921a-7004057fa6fa
+		sourceLineageTag: cost_code_id
+		summarizeBy: none
+		sourceColumn: cost_code_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Cost code number.
+	column 'Cost Code'
+		dataType: string
+		lineageTag: 85bf7b0f-76d1-5b01-866a-81627a573c9d
+		sourceLineageTag: cost_code
+		summarizeBy: none
+		sourceColumn: cost_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the cost code.
+	column 'Cost Code Name'
+		dataType: string
+		lineageTag: 7e780f6b-8dd0-57a9-a14f-2ff0a28f3974
+		sourceLineageTag: cost_code_name
+		summarizeBy: none
+		sourceColumn: cost_code_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Cost category, for example Materials or Subcontract.
+	column 'Cost Category'
+		dataType: string
+		lineageTag: e0e9237c-1d05-584b-9fd0-eca576cb4b28
+		sourceLineageTag: cost_category
+		summarizeBy: none
+		sourceColumn: cost_category
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Direct or Indirect cost.
+	column 'Cost Type'
+		dataType: string
+		lineageTag: d0ee210f-5ad1-5531-b577-70891e56132c
+		sourceLineageTag: cost_type
+		summarizeBy: none
+		sourceColumn: cost_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Cost Code' = entity
+		mode: directLake
+		source
+			entityName: dim_cost_code
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

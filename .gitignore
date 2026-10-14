@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+*.env
+.azure/
+.DS_Store
+Thumbs.db
+
+# Documents for a particular delivery do not belong in this sample.
+*.docx
+*.doc
+*.pptx
+*.ppt
+*.pdf
+**/private/
+**/*handover*
+**/*agenda*

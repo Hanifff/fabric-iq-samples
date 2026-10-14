@@ -1,0 +1,251 @@
+/// Planned work activity within a work package, with its schedule, type and status. Work package attributes are included.
+table Activity
+	lineageTag: dfc5ee42-9631-5995-b592-c6ac72ef1180
+	sourceLineageTag: [dbo].[dim_activity]
+
+	/// Surrogate key of the activity.
+	column 'Activity Key'
+		dataType: int64
+		isHidden
+		lineageTag: 586514bb-857a-5d26-9cf8-a0889304fe3d
+		sourceLineageTag: activity_key
+		summarizeBy: none
+		sourceColumn: activity_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the project the activity belongs to. Joins to Project. For the ontology; not used by the semantic model relationships.
+	column 'Project Key'
+		dataType: int64
+		isHidden
+		lineageTag: b86c215d-0ba2-5f1a-ba1e-e2d4b83cdfe2
+		sourceLineageTag: project_key
+		summarizeBy: none
+		sourceColumn: project_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the discipline that does the activity. Joins to Discipline. For the ontology; not used by the semantic model relationships.
+	column 'Discipline Key'
+		dataType: int64
+		isHidden
+		lineageTag: cc07777b-8ba1-5eba-860b-1557b40beea2
+		sourceLineageTag: discipline_key
+		summarizeBy: none
+		sourceColumn: discipline_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the resource assigned to the activity. Minus one when unassigned. Joins to Resource. For the ontology; not used by the semantic model relationships.
+	column 'Resource Key'
+		dataType: int64
+		isHidden
+		lineageTag: 2cfb2156-58a0-5462-8a58-8780d775e9fc
+		sourceLineageTag: resource_key
+		summarizeBy: none
+		sourceColumn: resource_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the activity, for example ACT-004512.
+	column 'Activity ID'
+		dataType: string
+		lineageTag: 28ad0d2a-7ad3-52ad-bda3-e4df404e87e9
+		sourceLineageTag: activity_id
+		summarizeBy: none
+		sourceColumn: activity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Structured activity code made of the work package code and a sequence number.
+	column 'Activity Code'
+		dataType: string
+		lineageTag: 861a39fc-5ae3-52fe-b301-07c6d86ba32b
+		sourceLineageTag: activity_code
+		summarizeBy: none
+		sourceColumn: activity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Short description of the work, for example Weld spool 21-PA-1043.
+	column 'Activity Name'
+		dataType: string
+		lineageTag: 79a9bf50-0f05-5e47-8c66-7ab7aef9c2ec
+		sourceLineageTag: activity_name
+		summarizeBy: none
+		sourceColumn: activity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Type of work: Design, Document, Procure, Fabricate, Install, Test or Inspect.
+	column 'Activity Type'
+		dataType: string
+		lineageTag: 40316fe1-87e0-5884-b7ab-ba540ec48e1c
+		sourceLineageTag: activity_type
+		summarizeBy: none
+		sourceColumn: activity_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Current status: Not started, In progress or Completed.
+	column 'Activity Status'
+		dataType: string
+		lineageTag: 1bc29dd1-8e81-52aa-9af1-2dbf1c0873cc
+		sourceLineageTag: activity_status
+		summarizeBy: none
+		sourceColumn: activity_status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True when the activity is on the critical path of the schedule.
+	column 'Is Critical Path'
+		dataType: boolean
+		lineageTag: 36354ce8-482d-5ab3-b2e2-c9e33a3fb10d
+		sourceLineageTag: is_critical_path
+		summarizeBy: none
+		sourceColumn: is_critical_path
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Planned start date of the activity.
+	column 'Planned Start Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 587f890f-27b1-593c-9202-37d015120407
+		sourceLineageTag: planned_start_date
+		summarizeBy: none
+		sourceColumn: planned_start_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Planned finish date of the activity.
+	column 'Planned Finish Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 8b7448ed-9f2f-50b2-96f5-d039e6802b73
+		sourceLineageTag: planned_finish_date
+		summarizeBy: none
+		sourceColumn: planned_finish_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Actual start date. Empty when the activity has not started.
+	column 'Actual Start Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: c4fa1aec-1dbe-5cba-a31f-dd30068fc00d
+		sourceLineageTag: actual_start_date
+		summarizeBy: none
+		sourceColumn: actual_start_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Actual finish date. Empty when the activity has not finished.
+	column 'Actual Finish Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 5245d6b4-2d43-5f9d-8262-b9aa065d2c72
+		sourceLineageTag: actual_finish_date
+		summarizeBy: none
+		sourceColumn: actual_finish_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Planned hours for the activity. One value per activity.
+	column 'Planned Hours'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: d7a84209-58e8-517b-860c-f9c5694226e6
+		sourceLineageTag: planned_hours
+		summarizeBy: none
+		sourceColumn: planned_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Hours booked on the activity up to the as-of date. One value per activity.
+	column 'Actual Hours'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: b6c48b46-c778-5b84-89b7-cacb78cead53
+		sourceLineageTag: actual_hours
+		summarizeBy: none
+		sourceColumn: actual_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Latest reported percent complete from 0 to 100.
+	column 'Percent Complete'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 123d0922-054a-588f-b99a-97550dff67c0
+		sourceLineageTag: percent_complete
+		summarizeBy: none
+		sourceColumn: percent_complete
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Tag number of the equipment the activity works on. Not applicable when the work is not tied to a tag.
+	column 'Tag Number'
+		dataType: string
+		lineageTag: 9d2ed48a-852a-5d2f-8634-0309f7ba1ddd
+		sourceLineageTag: tag_number
+		summarizeBy: none
+		sourceColumn: tag_number
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the work package the activity belongs to.
+	column 'Work Package ID'
+		dataType: string
+		lineageTag: 7b848c07-527f-5e54-a63c-24a0875f33c4
+		sourceLineageTag: work_package_id
+		summarizeBy: none
+		sourceColumn: work_package_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Structured code of the work package.
+	column 'Work Package Code'
+		dataType: string
+		lineageTag: 0157b51d-2bf2-593c-8ffd-2c14220558ad
+		sourceLineageTag: work_package_code
+		summarizeBy: none
+		sourceColumn: work_package_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the work package.
+	column 'Work Package Name'
+		dataType: string
+		lineageTag: 4699a34f-5faa-5688-9122-fd83f6de7e40
+		sourceLineageTag: work_package_name
+		summarizeBy: none
+		sourceColumn: work_package_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Work package type: Engineering, Procurement, Fabrication, Installation, Hook-up, Commissioning, Inspection or Project Controls.
+	column 'Work Package Type'
+		dataType: string
+		lineageTag: 492b5bdf-9f56-540a-bf85-a05f9eabdf0c
+		sourceLineageTag: work_package_type
+		summarizeBy: none
+		sourceColumn: work_package_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Status of the work package derived from its activities.
+	column 'Work Package Status'
+		dataType: string
+		lineageTag: 2fb88fe6-29b1-5521-8013-31155404694e
+		sourceLineageTag: work_package_status
+		summarizeBy: none
+		sourceColumn: work_package_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Activity = entity
+		mode: directLake
+		source
+			entityName: dim_activity
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

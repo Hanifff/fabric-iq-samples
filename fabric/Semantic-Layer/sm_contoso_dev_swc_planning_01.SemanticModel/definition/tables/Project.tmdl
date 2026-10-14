@@ -1,0 +1,196 @@
+/// One row per Contoso project: a fabrication, modification, maintenance or study contract for a client. Shared by planning and procurement.
+table Project
+	lineageTag: f141aae2-80e1-581f-83c7-bd073e22056c
+	sourceLineageTag: [dbo].[dim_project]
+
+	/// Surrogate key of the project.
+	column 'Project Key'
+		dataType: int64
+		isHidden
+		lineageTag: 1e5cf167-9119-5daf-938c-701cc3877d26
+		sourceLineageTag: project_key
+		summarizeBy: none
+		sourceColumn: project_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the project in the source system, for example PRJ-2210.
+	column 'Project ID'
+		dataType: string
+		lineageTag: 1a73cd04-d799-5ef9-a8bd-2429476b2201
+		sourceLineageTag: project_id
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Short project code used on documents and work packages, for example CON-2403.
+	column 'Project Code'
+		dataType: string
+		lineageTag: 7a522282-4890-5ca4-a9f7-26acad940bf1
+		sourceLineageTag: project_code
+		summarizeBy: none
+		sourceColumn: project_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the project, built from the asset name and the project type.
+	column 'Project Name'
+		dataType: string
+		lineageTag: 5b188108-b5ee-587c-b94a-46bf7d1e9f1e
+		sourceLineageTag: project_name
+		summarizeBy: none
+		sourceColumn: project_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business segment: New Build for new facilities or Life Cycle for work on producing assets.
+	column Segment
+		dataType: string
+		lineageTag: 41a8bd61-7be7-5a06-aff5-c36191a0f23a
+		sourceLineageTag: segment
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Kind of project, for example Jacket Fabrication, Subsea Tie-in or Maintenance Frame Agreement.
+	column 'Project Type'
+		dataType: string
+		lineageTag: 8de2f11f-0905-59ce-bb15-a4be195ad2ba
+		sourceLineageTag: project_type
+		summarizeBy: none
+		sourceColumn: project_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the client that owns the facility and awards the contract.
+	column 'Client Name'
+		dataType: string
+		lineageTag: 07d0d4b6-2134-5524-b867-31a5ba6b9c5e
+		sourceLineageTag: client_name
+		summarizeBy: none
+		sourceColumn: client_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Installation the project works on. Not applicable for new build projects.
+	column 'Installation Name'
+		dataType: string
+		lineageTag: a0bc121a-b3bf-5c6f-9677-a93ef49a7cff
+		sourceLineageTag: installation_name
+		summarizeBy: none
+		sourceColumn: installation_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fabrication yard or work location of the project.
+	column 'Yard Location'
+		dataType: string
+		lineageTag: aba1fad7-8fb4-5669-a7e8-fcac87e60cfb
+		sourceLineageTag: yard_location
+		summarizeBy: none
+		sourceColumn: yard_location
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Two-letter country code where the work is delivered.
+	column 'Country Code'
+		dataType: string
+		lineageTag: 22017c58-6218-5529-93d0-8395889514bb
+		sourceLineageTag: country_code
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Commercial form of the contract, for example EPC, EPCI, Reimbursable or Frame agreement.
+	column 'Contract Type'
+		dataType: string
+		lineageTag: 1750cd9d-9fa3-56fa-8cde-ca584cc105cb
+		sourceLineageTag: contract_type
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Contract value in Norwegian kroner. One value per project, so do not sum it across rows of other tables.
+	column 'Contract Value (NOK)'
+		dataType: double
+		formatString: #,0
+		lineageTag: 44c5017d-5646-52b7-bee5-ed7f0cc4a810
+		sourceLineageTag: contract_value_nok
+		summarizeBy: none
+		sourceColumn: contract_value_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Planned start date of the project.
+	column 'Project Start Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: f27392cd-88b1-5e9b-a10e-07883f7a1419
+		sourceLineageTag: start_date
+		summarizeBy: none
+		sourceColumn: start_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Planned finish date of the project.
+	column 'Planned Finish Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 7ee829a6-4bf4-5981-b216-e9eab3c776fa
+		sourceLineageTag: planned_finish_date
+		summarizeBy: none
+		sourceColumn: planned_finish_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Actual finish date. Empty while the project is not finished.
+	column 'Actual Finish Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 1fa88cb0-4b25-596f-89b9-8d35700f8185
+		sourceLineageTag: actual_finish_date
+		summarizeBy: none
+		sourceColumn: actual_finish_date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Current status: Planning, Execution, On Hold or Completed.
+	column 'Project Status'
+		dataType: string
+		lineageTag: 256f7f9b-457a-576c-a0b2-1a5fdf417fcd
+		sourceLineageTag: project_status
+		summarizeBy: none
+		sourceColumn: project_status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the responsible project manager.
+	column 'Project Manager Name'
+		dataType: string
+		lineageTag: a04d24cf-337d-5d6b-a3f0-57ecc80e5bf9
+		sourceLineageTag: project_manager_name
+		summarizeBy: none
+		sourceColumn: project_manager_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Total planned hours over all activities of the project.
+	column 'Planned Total Hours'
+		dataType: double
+		formatString: #,0
+		lineageTag: f2b9cfd2-de1d-5a49-9b94-05bfec1d66f0
+		sourceLineageTag: planned_total_hours
+		summarizeBy: none
+		sourceColumn: planned_total_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Project = entity
+		mode: directLake
+		source
+			entityName: dim_project
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

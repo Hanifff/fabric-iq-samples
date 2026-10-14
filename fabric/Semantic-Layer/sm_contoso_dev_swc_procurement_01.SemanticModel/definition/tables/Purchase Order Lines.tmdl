@@ -1,0 +1,336 @@
+/// One row per purchase order line: what was ordered from which supplier for which project, with value and delivery performance.
+table 'Purchase Order Lines'
+	lineageTag: abc528fe-6c34-5e9c-9200-549f4b7b4fcf
+	sourceLineageTag: [dbo].[fact_purchase_order_line]
+
+	/// Ordered value in Norwegian kroner after discount.
+	measure 'Order Value NOK' = SUM('Purchase Order Lines'[Line Amount (NOK)])
+		formatString: #,0
+		lineageTag: 87afce64-ab49-5749-8adf-f4c19ae57a97
+
+	/// Value of lines that are still open.
+	measure 'Open Order Value NOK' = CALCULATE([Order Value NOK], 'Purchase Order Lines'[Line Status] = "Open")
+		formatString: #,0
+		lineageTag: 52df062d-9746-5ba6-b53f-afaa2aa956da
+
+	/// Number of purchase order lines.
+	measure 'Order Lines' = COUNTROWS('Purchase Order Lines')
+		formatString: #,0
+		lineageTag: 7002a2a4-fbee-51f4-a33d-c791a6758839
+
+	/// Number of distinct purchase orders.
+	measure 'Purchase Orders' = DISTINCTCOUNT('Purchase Order Lines'[Purchase Order ID])
+		formatString: #,0
+		lineageTag: baca94dd-c5b7-573e-ba1e-925d7551fe28
+
+	/// Number of lines delivered.
+	measure 'Delivered Lines' = CALCULATE(COUNTROWS('Purchase Order Lines'), 'Purchase Order Lines'[Is Delivered] = 1)
+		formatString: #,0
+		lineageTag: 0763b1fb-3009-550e-a375-fff913017aa3
+
+	/// Number of lines delivered after the promised date.
+	measure 'Late Delivered Lines' = CALCULATE(COUNTROWS('Purchase Order Lines'), 'Purchase Order Lines'[Is Late Delivery] = 1)
+		formatString: #,0
+		lineageTag: 08255d3e-707a-58ef-aaa0-7ed6a95a276f
+
+	/// Share of delivered lines that arrived on or before the promised date.
+	measure 'On Time Delivery Percent' = DIVIDE([Delivered Lines] - [Late Delivered Lines], [Delivered Lines])
+		formatString: 0.0%
+		lineageTag: c5514292-d6b2-5908-95fc-d4d5b895da73
+
+	/// Average days between promised and actual delivery. Positive is late.
+	measure 'Average Delivery Delay Days' = AVERAGE('Purchase Order Lines'[Delivery Delay Days])
+		formatString: 0.0
+		lineageTag: 03ebcb6f-116e-5d6d-ab82-0f3613ca222e
+
+	/// Share of received quantity rejected at inspection.
+	measure 'Rejection Rate' = DIVIDE(SUM('Purchase Order Lines'[Quantity Rejected]), SUM('Purchase Order Lines'[Quantity Received]))
+		formatString: 0.00%
+		lineageTag: 37d24713-ed97-5f81-b0f1-c2a23355f445
+
+	/// Average discount given on order lines.
+	measure 'Average Discount Percent' = AVERAGE('Purchase Order Lines'[Discount Percent])
+		formatString: 0.0
+		lineageTag: aad07dfc-07de-571d-92f2-b61a8d6dca3e
+
+	/// Order value counted on the promised delivery date instead of the order date. Shows what is due for delivery in a period. Uses the inactive promised date relationship.
+	measure 'Order Value By Promised Date NOK' = CALCULATE([Order Value NOK], USERELATIONSHIP('Purchase Order Lines'[Promised Delivery Date Key], 'Date'[Date Key]))
+		formatString: #,0
+		lineageTag: 6f29ee45-22ef-55ad-9328-e701e9acbd73
+
+	/// Delivered lines counted on the date they arrived instead of the order date. Uses the inactive actual delivery date relationship.
+	measure 'Delivered Lines By Delivery Date' = CALCULATE([Delivered Lines], USERELATIONSHIP('Purchase Order Lines'[Actual Delivery Date Key], 'Date'[Date Key]))
+		formatString: #,0
+		lineageTag: d8834617-12a2-50d4-854e-b52a92d1419f
+
+	/// Date key of the order date. Joins to Date.
+	column 'Order Date Key'
+		dataType: int64
+		isHidden
+		lineageTag: f9f46085-aa45-5f46-8379-91e7d9f6176c
+		sourceLineageTag: order_date_key
+		summarizeBy: none
+		sourceColumn: order_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date key of the promised delivery date.
+	column 'Promised Delivery Date Key'
+		dataType: int64
+		isHidden
+		lineageTag: e2bcc832-b378-5fbd-b0c1-b7b2ceee93e1
+		sourceLineageTag: promised_delivery_date_key
+		summarizeBy: none
+		sourceColumn: promised_delivery_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date key of the actual delivery date. Empty until delivered.
+	column 'Actual Delivery Date Key'
+		dataType: int64
+		isHidden
+		lineageTag: 6cd37c91-b53b-5bc0-abce-85861665fe97
+		sourceLineageTag: actual_delivery_date_key
+		summarizeBy: none
+		sourceColumn: actual_delivery_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the project the order is placed for.
+	column 'Project Key'
+		dataType: int64
+		isHidden
+		lineageTag: dc8eab1b-e782-5683-8cce-c613dcdc2af4
+		sourceLineageTag: project_key
+		summarizeBy: none
+		sourceColumn: project_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the supplier.
+	column 'Supplier Key'
+		dataType: int64
+		isHidden
+		lineageTag: 81c767ee-ae6b-5826-9d00-44428dc17701
+		sourceLineageTag: supplier_key
+		summarizeBy: none
+		sourceColumn: supplier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the material.
+	column 'Material Key'
+		dataType: int64
+		isHidden
+		lineageTag: aeaf38c0-99b9-5e4c-98d6-04438d7709a0
+		sourceLineageTag: material_key
+		summarizeBy: none
+		sourceColumn: material_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the cost code the line is booked on.
+	column 'Cost Code Key'
+		dataType: int64
+		isHidden
+		lineageTag: e9fdbc6c-19b8-56cd-b491-0c2d827ac903
+		sourceLineageTag: cost_code_key
+		summarizeBy: none
+		sourceColumn: cost_code_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the purchase order, for example PO-001204.
+	column 'Purchase Order ID'
+		dataType: string
+		lineageTag: c8706fb2-6259-5bba-9187-ed93d631f6de
+		sourceLineageTag: purchase_order_id
+		summarizeBy: none
+		sourceColumn: purchase_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the purchase order line.
+	column 'Purchase Order Line ID'
+		dataType: string
+		lineageTag: 03cc3afe-fd99-5f93-a84f-969582ae0cd5
+		sourceLineageTag: purchase_order_line_id
+		summarizeBy: none
+		sourceColumn: purchase_order_line_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Line number within the purchase order.
+	column 'Line Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 233ca911-1973-50d3-9e76-2130d1b78942
+		sourceLineageTag: line_number
+		summarizeBy: none
+		sourceColumn: line_number
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Status of the purchase order: Open or Closed.
+	column 'PO Status'
+		dataType: string
+		lineageTag: 525acabb-bd6f-5669-835b-5c21c9497187
+		sourceLineageTag: po_status
+		summarizeBy: none
+		sourceColumn: po_status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Status of the line: Open, Partially received, Delivered or Cancelled.
+	column 'Line Status'
+		dataType: string
+		lineageTag: 0ae70d35-47ea-5841-bd3f-5d198f1ccc24
+		sourceLineageTag: line_status
+		summarizeBy: none
+		sourceColumn: line_status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Currency the order was placed in.
+	column 'Currency Code'
+		dataType: string
+		lineageTag: 9ec71a08-fb94-5fd6-a770-f6d277eecf15
+		sourceLineageTag: currency_code
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Exchange rate used to convert the order currency to Norwegian kroner.
+	column 'Exchange Rate To NOK'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 2085e61b-1ea0-5028-89ed-ec2d32501fe9
+		sourceLineageTag: exchange_rate_to_nok
+		summarizeBy: none
+		sourceColumn: exchange_rate_to_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Incoterms agreed for delivery.
+	column Incoterms
+		dataType: string
+		lineageTag: aab7a014-09f7-5699-a6ef-7d5ecc84fd34
+		sourceLineageTag: incoterms
+		summarizeBy: none
+		sourceColumn: incoterms
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the buyer who placed the order.
+	column 'Buyer Name'
+		dataType: string
+		lineageTag: c4ac13b3-2607-5e52-9374-b142db57a16b
+		sourceLineageTag: buyer_name
+		summarizeBy: none
+		sourceColumn: buyer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Ordered quantity in the unit of measure of the material.
+	column 'Quantity Ordered'
+		dataType: double
+		formatString: #,0
+		lineageTag: fc9f8f4d-9bee-5a17-bad0-0b838c64a464
+		sourceLineageTag: quantity_ordered
+		summarizeBy: sum
+		sourceColumn: quantity_ordered
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Quantity received so far.
+	column 'Quantity Received'
+		dataType: double
+		formatString: #,0
+		lineageTag: 2a8a1901-5d31-5ee6-bebb-695a34bf6df2
+		sourceLineageTag: quantity_received
+		summarizeBy: sum
+		sourceColumn: quantity_received
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Received quantity rejected at inspection.
+	column 'Quantity Rejected'
+		dataType: double
+		formatString: #,0
+		lineageTag: 3eba10dc-8081-5754-ac06-9a6e37dcca59
+		sourceLineageTag: quantity_rejected
+		summarizeBy: sum
+		sourceColumn: quantity_rejected
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Price per unit in Norwegian kroner before discount.
+	column 'Unit Price (NOK)'
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 94def9c2-41e8-5765-96fc-3d256021ac32
+		sourceLineageTag: unit_price_nok
+		summarizeBy: none
+		sourceColumn: unit_price_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Discount given on the line in percent.
+	column 'Discount Percent'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 24950f3b-b917-5f1d-a4fb-3214792753e4
+		sourceLineageTag: discount_percent
+		summarizeBy: none
+		sourceColumn: discount_percent
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Line value in Norwegian kroner after discount.
+	column 'Line Amount (NOK)'
+		dataType: double
+		formatString: #,0
+		lineageTag: d53d006d-9804-56e1-b37f-9f5682b66e0c
+		sourceLineageTag: line_amount_nok
+		summarizeBy: sum
+		sourceColumn: line_amount_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Actual minus promised delivery date in days. Positive is late. Empty until delivered.
+	column 'Delivery Delay Days'
+		dataType: int64
+		formatString: 0
+		lineageTag: 982b2c3a-408f-579e-86d3-3d591f18b3cd
+		sourceLineageTag: delivery_delay_days
+		summarizeBy: none
+		sourceColumn: delivery_delay_days
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 1 when at least part of the line has been delivered, otherwise 0.
+	column 'Is Delivered'
+		dataType: int64
+		lineageTag: 46584543-dfbf-5b3a-994c-4af02bf55a17
+		sourceLineageTag: is_delivered
+		summarizeBy: none
+		sourceColumn: is_delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 1 when the line was delivered after the promised date, otherwise 0.
+	column 'Is Late Delivery'
+		dataType: int64
+		lineageTag: 3349f00f-e5c9-5ab9-b730-7cbcba3040b1
+		sourceLineageTag: is_late_delivery
+		summarizeBy: none
+		sourceColumn: is_late_delivery
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Purchase Order Lines' = entity
+		mode: directLake
+		source
+			entityName: fact_purchase_order_line
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

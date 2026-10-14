@@ -1,0 +1,195 @@
+/// Weekly progress snapshot per activity: planned versus actual percent complete and hours booked. One row per activity and week ending date.
+table 'Activity Progress'
+	lineageTag: f0966812-1dc7-5807-9ce8-94789660a12d
+	sourceLineageTag: [dbo].[fact_activity_progress]
+
+	/// Hours booked on activities in the selected period.
+	measure 'Total Hours Booked' = SUM('Activity Progress'[Hours Booked In Week])
+		formatString: #,0
+		lineageTag: 7275f17a-d320-51b8-8fd1-1cc75938fa6a
+
+	/// Number of distinct activities with a progress snapshot in the selection.
+	measure 'Activities Tracked' = DISTINCTCOUNT('Activity Progress'[Activity Key])
+		formatString: #,0
+		lineageTag: 35e24188-7afe-5145-9b43-e2f5ac1b4100
+
+	/// Number of distinct activities more than 15 percentage points behind plan in the selection.
+	measure 'Activities Behind Plan' = CALCULATE(DISTINCTCOUNT('Activity Progress'[Activity Key]), 'Activity Progress'[Is Behind Plan] = 1)
+		formatString: #,0
+		lineageTag: 37a67e89-a3ee-5e7e-9a3d-f8599e46a472
+
+	/// Share of tracked activities that are behind plan.
+	measure 'Percent Activities Behind Plan' = DIVIDE([Activities Behind Plan], [Activities Tracked])
+		formatString: 0.0%
+		lineageTag: b7c6dacb-e65a-57ce-b893-eb5f224d162c
+
+	/// Average baseline percent complete over the selected snapshots.
+	measure 'Average Planned Percent Complete' = AVERAGE('Activity Progress'[Planned Percent Complete])
+		formatString: 0.0
+		lineageTag: 9fb3e9ef-baba-5b1f-8ad8-dc8e2ae96295
+
+	/// Average reported percent complete over the selected snapshots.
+	measure 'Average Actual Percent Complete' = AVERAGE('Activity Progress'[Actual Percent Complete])
+		formatString: 0.0
+		lineageTag: db575d7b-364c-50d5-a64d-2125513a5118
+
+	/// Average of actual minus planned percent complete. Negative means behind plan.
+	measure 'Average Percent Complete Variance' = AVERAGE('Activity Progress'[Percent Complete Variance])
+		formatString: 0.0
+		lineageTag: e7ad5632-31da-5b64-810c-0e31d1bb6612
+
+	/// Planned hours of the activities in the selection. The baseline budget. Counts each activity once, whatever the number of weekly snapshots.
+	measure 'Baseline Hours' = CALCULATE(SUM(Activity[Planned Hours]), CROSSFILTER('Activity Progress'[Activity Key], Activity[Activity Key], Both))
+		formatString: #,0
+		lineageTag: 41b8dd3b-3b6e-50ea-bf2f-474ef531accf
+
+	/// Hours booked on the activities in the selection up to the as-of date. Counts each activity once.
+	measure 'Hours Booked To Date' = CALCULATE(SUM(Activity[Actual Hours]), CROSSFILTER('Activity Progress'[Activity Key], Activity[Activity Key], Both))
+		formatString: #,0
+		lineageTag: c9a41892-ab5d-5eb6-a8da-0f13d1c80ff7
+
+	/// Planned hours times percent complete, added up over the activities. The planned value of the work done.
+	measure 'Earned Hours' = CALCULATE(SUMX(Activity, Activity[Planned Hours] * Activity[Percent Complete] / 100), CROSSFILTER('Activity Progress'[Activity Key], Activity[Activity Key], Both))
+		formatString: #,0
+		lineageTag: b92f228e-5207-560a-b0fe-7744a8eaf117
+
+	/// Earned hours divided by baseline hours. Weighted by planned hours.
+	measure 'Weighted Percent Complete' = DIVIDE([Earned Hours], [Baseline Hours])
+		formatString: 0.0%
+		lineageTag: 5a2424a0-554a-5583-8059-7d56d410fea6
+
+	/// Earned value forecast of total hours at completion: baseline hours times hours booked divided by earned hours. Equals the baseline when no work is done yet.
+	measure 'Forecast Hours At Completion' = VAR baseline = [Baseline Hours] VAR earned = [Earned Hours] RETURN IF(earned > 0, DIVIDE(baseline * [Hours Booked To Date], earned), baseline)
+		formatString: #,0
+		lineageTag: 25a14dd7-ed5b-57f0-ac0d-0496ebded58f
+
+	/// Forecast hours at completion minus baseline hours, as a share of baseline hours. Positive means overrun.
+	measure 'Forecast Overrun Rate' = DIVIDE([Forecast Hours At Completion] - [Baseline Hours], [Baseline Hours])
+		formatString: 0.0%
+		lineageTag: fbfe085b-eec9-5a65-9a5b-b7a0df05fb8e
+
+	/// Date key of the week ending date (Sunday). Joins to Date.
+	column 'Week Ending Date Key'
+		dataType: int64
+		isHidden
+		lineageTag: 56956dca-8db5-56a0-b0ea-83a18c443df2
+		sourceLineageTag: week_ending_date_key
+		summarizeBy: none
+		sourceColumn: week_ending_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the project the activity belongs to.
+	column 'Project Key'
+		dataType: int64
+		isHidden
+		lineageTag: 0486643d-0330-5a24-9eb0-90f668fc0588
+		sourceLineageTag: project_key
+		summarizeBy: none
+		sourceColumn: project_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the activity.
+	column 'Activity Key'
+		dataType: int64
+		isHidden
+		lineageTag: 418fb3d6-1297-55c1-a156-c58a6d69140f
+		sourceLineageTag: activity_key
+		summarizeBy: none
+		sourceColumn: activity_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the discipline of the activity.
+	column 'Discipline Key'
+		dataType: int64
+		isHidden
+		lineageTag: 0f19a97b-8252-504a-88ae-e3ca34682911
+		sourceLineageTag: discipline_key
+		summarizeBy: none
+		sourceColumn: discipline_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the resource assigned to the activity.
+	column 'Resource Key'
+		dataType: int64
+		isHidden
+		lineageTag: 85fc7907-12b7-5597-8e79-1beeec51bb62
+		sourceLineageTag: resource_key
+		summarizeBy: none
+		sourceColumn: resource_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Percent complete according to the baseline plan at the week ending date, from 0 to 100.
+	column 'Planned Percent Complete'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 97afe3d6-1f60-505d-8513-45c174e11f44
+		sourceLineageTag: planned_percent_complete
+		summarizeBy: none
+		sourceColumn: planned_percent_complete
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Reported percent complete at the week ending date, from 0 to 100.
+	column 'Actual Percent Complete'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 838149d6-9e1d-592a-b863-43dbd5ed7568
+		sourceLineageTag: actual_percent_complete
+		summarizeBy: none
+		sourceColumn: actual_percent_complete
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Actual minus planned percent complete. Negative values mean behind plan.
+	column 'Percent Complete Variance'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 595bff72-d2a6-54a9-b5e9-01f0e3106242
+		sourceLineageTag: percent_complete_variance
+		summarizeBy: none
+		sourceColumn: percent_complete_variance
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 1 when actual percent complete is more than 15 points below plan at the week ending date, otherwise 0.
+	column 'Is Behind Plan'
+		dataType: int64
+		lineageTag: 8436e677-9c33-59fc-aeec-c27880d6f20c
+		sourceLineageTag: is_behind_plan
+		summarizeBy: none
+		sourceColumn: is_behind_plan
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Hours booked on the activity during the week.
+	column 'Hours Booked In Week'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 289a50c8-3dc4-532d-a547-ccac642f2859
+		sourceLineageTag: hours_booked_in_week
+		summarizeBy: sum
+		sourceColumn: hours_booked_in_week
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Hours booked on the activity from the start up to the week ending date. Not additive over weeks.
+	column 'Cumulative Hours Booked'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: e579283c-e7ec-5675-8558-28affe868dfc
+		sourceLineageTag: cumulative_hours_booked
+		summarizeBy: none
+		sourceColumn: cumulative_hours_booked
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Activity Progress' = entity
+		mode: directLake
+		source
+			entityName: fact_activity_progress
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

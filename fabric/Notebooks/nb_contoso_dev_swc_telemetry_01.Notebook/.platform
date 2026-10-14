@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_contoso_dev_swc_telemetry_01",
+    "description": "Generate variable Contoso equipment readings, one per second by default, and send through Eventstream with Entra authentication."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a700b8df-731b-542a-a7f3-f6e219bea49f"
+  }
+}

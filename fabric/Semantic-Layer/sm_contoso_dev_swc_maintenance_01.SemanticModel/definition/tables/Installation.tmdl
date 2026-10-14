@@ -1,0 +1,123 @@
+/// Producing assets that Contoso maintains, such as platforms, floating units and subsea templates.
+table Installation
+	lineageTag: 6455b4b3-f970-56e8-bf66-8a4eeca8f9e9
+	sourceLineageTag: [dbo].[dim_installation]
+
+	/// Surrogate key of the installation.
+	column 'Installation Key'
+		dataType: int64
+		isHidden
+		lineageTag: 94aebbe1-5d08-5967-9509-5fc9c754af61
+		sourceLineageTag: installation_key
+		summarizeBy: none
+		sourceColumn: installation_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the installation, for example INS-004.
+	column 'Installation ID'
+		dataType: string
+		lineageTag: c1d668b9-587e-51c2-bbab-addff0a4e9d2
+		sourceLineageTag: installation_id
+		summarizeBy: none
+		sourceColumn: installation_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Short code of the installation.
+	column 'Installation Code'
+		dataType: string
+		lineageTag: c4282140-4c72-5220-97ea-36aecb4e47cc
+		sourceLineageTag: installation_code
+		summarizeBy: none
+		sourceColumn: installation_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the installation.
+	column 'Installation Name'
+		dataType: string
+		lineageTag: 6c3c3cf3-4932-56ca-b095-c6350aa12a99
+		sourceLineageTag: installation_name
+		summarizeBy: none
+		sourceColumn: installation_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Type of installation, for example Fixed Platform or Floating Production Unit.
+	column 'Installation Type'
+		dataType: string
+		lineageTag: 6ae41690-d2e6-5f08-8ec0-a1ac23e929c0
+		sourceLineageTag: installation_type
+		summarizeBy: none
+		sourceColumn: installation_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the field the installation produces from.
+	column 'Field Name'
+		dataType: string
+		lineageTag: 14a850b3-51cb-5c8a-aed4-d71f11eb4e95
+		sourceLineageTag: field_name
+		summarizeBy: none
+		sourceColumn: field_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the operator of the installation.
+	column 'Operator Name'
+		dataType: string
+		lineageTag: 222a13e6-4f6a-5317-97c4-cf8811633391
+		sourceLineageTag: operator_name
+		summarizeBy: none
+		sourceColumn: operator_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Two-letter country code of the continental shelf the installation is on.
+	column 'Country Code'
+		dataType: string
+		lineageTag: 2fd63b06-e4b9-50fc-bd95-d4edec960bb9
+		sourceLineageTag: country_code
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Water depth at the installation in metres. Zero for onshore terminals.
+	column 'Water Depth (m)'
+		dataType: int64
+		formatString: #,0
+		lineageTag: d4052052-e7d7-53f9-964e-b9bafca8f5be
+		sourceLineageTag: water_depth_m
+		summarizeBy: none
+		sourceColumn: water_depth_m
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Year the installation started production.
+	column 'Year In Service'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d6c2cae-7648-5973-8c85-8a9c2abde8f0
+		sourceLineageTag: year_in_service
+		summarizeBy: none
+		sourceColumn: year_in_service
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Operating status: Producing, Shut in or Late life.
+	column 'Operating Status'
+		dataType: string
+		lineageTag: 08a6ca20-6084-5fe8-b61f-973a67e60b8a
+		sourceLineageTag: operating_status
+		summarizeBy: none
+		sourceColumn: operating_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Installation = entity
+		mode: directLake
+		source
+			entityName: dim_installation
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

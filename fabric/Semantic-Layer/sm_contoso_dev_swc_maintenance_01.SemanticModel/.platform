@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "sm_contoso_dev_swc_maintenance_01",
+    "description": "Maintenance star schema: work orders on installations and equipment, with effort, cost, downtime and contractor."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4a5381f2-e09e-5d4e-be4c-22b898f7f61e"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "__ID:kdb_contoso_dev_swc_telemetry_01__",
+  "workspaceId": "__WORKSPACE_ID__",
+  "dataSourceInstructions": "## Telemetry (KQL database)\n- EquipmentTelemetry holds live sensor readings, one row per tag per second, kept for 7 days.\n- \"Right now\" or \"currently\" means the last 15 minutes. \"Latest reading\" means arg_max(event_time, *) per tag_id.\n- anomaly_type is \"BearingWear\" during a fault episode and \"None\" otherwise.\n- tag_id and tag_number identify the equipment, the same values as Equipment in the maintenance model.",
+  "displayName": "kdb_contoso_dev_swc_telemetry_01",
+  "type": "kusto",
+  "userDescription": "Live equipment telemetry streamed from the offshore installations.",
+  "metadata": {},
+  "elements": [
+    {
+      "id": "839d9df5-f36e-58f0-925f-ac9a964377e3",
+      "is_selected": true,
+      "display_name": "EquipmentTelemetry",
+      "type": "kusto.table",
+      "description": "Live equipment sensor readings from offshore installations: temperature, vibration, pressure and motor current per tag, with an anomaly flag.",
+      "children": [
+        {
+          "id": "8ea12758-3e99-5d1e-ac4d-021331ac6327",
+          "is_selected": true,
+          "display_name": "event_id",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "3ea871f7-5f50-5671-8c01-7753902da276",
+          "is_selected": true,
+          "display_name": "run_id",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fb15011d-d834-53f4-8332-8bf3987c926c",
+          "is_selected": true,
+          "display_name": "event_time",
+          "type": "kusto.column",
+          "data_type": "datetime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "156cc9d4-4547-5979-8319-7dce468a5cc1",
+          "is_selected": true,
+          "display_name": "sequence_number",
+          "type": "kusto.column",
+          "data_type": "long",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "169d1772-4a30-53c7-a414-3f878fbc5acc",
+          "is_selected": true,
+          "display_name": "installation_id",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "8995337a-2e1b-5e02-90ae-597f5f2a2211",
+          "is_selected": true,
+          "display_name": "installation_name",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "bc26f7ee-b994-5474-a281-917a49a1300d",
+          "is_selected": true,
+          "display_name": "tag_id",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "1143bbc5-8e99-5893-870e-ec0b7cb19577",
+          "is_selected": true,
+          "display_name": "tag_number",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "db1ad272-4970-56af-a54d-7a72cb42de9b",
+          "is_selected": true,
+          "display_name": "equipment_class_name",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "6433a7d3-0ff0-5997-8e4f-afe4fd958bec",
+          "is_selected": true,
+          "display_name": "operating_state",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "1fd7ba3c-06d8-571c-bc85-5c6647cea858",
+          "is_selected": true,
+          "display_name": "temperature_c",
+          "type": "kusto.column",
+          "data_type": "real",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "41d1c7ab-2585-517d-8650-c341230d0ba8",
+          "is_selected": true,
+          "display_name": "vibration_mm_s",
+          "type": "kusto.column",
+          "data_type": "real",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "23c2d139-d434-5efa-afe0-6b3b2b5fedf0",
+          "is_selected": true,
+          "display_name": "pressure_bar",
+          "type": "kusto.column",
+          "data_type": "real",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "b4d3b272-ebe6-5d6f-829e-050e42ea0789",
+          "is_selected": true,
+          "display_name": "motor_current_a",
+          "type": "kusto.column",
+          "data_type": "real",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "e45f2bf1-268f-553b-815a-fe1e285604c0",
+          "is_selected": true,
+          "display_name": "anomaly_type",
+          "type": "kusto.column",
+          "data_type": "string",
+          "description": null,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

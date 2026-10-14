@@ -1,0 +1,310 @@
+/// One row per maintenance or modification work order on an installation, with effort, cost and downtime.
+table 'Work Orders'
+	lineageTag: 449de1db-216f-5cc4-bcd1-006afb9d67f3
+	sourceLineageTag: [dbo].[fact_work_order]
+
+	/// Number of work orders in the selection.
+	measure 'Work Order Count' = COUNTROWS('Work Orders')
+		formatString: #,0
+		lineageTag: fb1d0d37-5cd4-5597-9a6c-1e3f85af3632
+
+	/// Number of completed work orders.
+	measure 'Completed Work Orders' = CALCULATE(COUNTROWS('Work Orders'), 'Work Orders'[Is Completed] = 1)
+		formatString: #,0
+		lineageTag: 501f7463-5261-5937-93dd-82398c9632cb
+
+	/// Number of corrective work orders.
+	measure 'Corrective Work Orders' = CALCULATE(COUNTROWS('Work Orders'), 'Work Orders'[Is Corrective] = 1)
+		formatString: #,0
+		lineageTag: 42bd583d-1048-57fb-8fa8-16aeef2d16bb
+
+	/// Share of work orders that are corrective.
+	measure 'Corrective Share' = DIVIDE([Corrective Work Orders], [Work Order Count])
+		formatString: 0.0%
+		lineageTag: 523d78fc-0545-5d76-824b-888184ebd862
+
+	/// Labour plus material cost in Norwegian kroner.
+	measure 'Total Cost NOK' = SUM('Work Orders'[Total Cost (NOK)])
+		formatString: #,0
+		lineageTag: 41c25ea5-4f02-5577-902f-a2458e9f1e32
+
+	/// Labour cost in Norwegian kroner.
+	measure 'Labour Cost NOK' = SUM('Work Orders'[Labour Cost (NOK)])
+		formatString: #,0
+		lineageTag: fe127467-f7fd-59f7-a446-78da7c4dff9a
+
+	/// Material cost in Norwegian kroner.
+	measure 'Material Cost NOK' = SUM('Work Orders'[Material Cost (NOK)])
+		formatString: #,0
+		lineageTag: b12278f9-103d-53f7-8019-989d6675fddc
+
+	/// Actual versus planned hours for completed work orders. Positive means overrun.
+	measure 'Hours Variance Percent' = DIVIDE(CALCULATE(SUM('Work Orders'[Actual Hours]), 'Work Orders'[Is Completed] = 1) - CALCULATE(SUM('Work Orders'[Planned Hours]), 'Work Orders'[Is Completed] = 1), CALCULATE(SUM('Work Orders'[Planned Hours]), 'Work Orders'[Is Completed] = 1))
+		formatString: 0.0%
+		lineageTag: 91351bde-5193-58cf-9741-8bbb8efb5004
+
+	/// Production downtime caused by work orders.
+	measure 'Total Downtime Hours' = SUM('Work Orders'[Downtime Hours])
+		formatString: #,0.0
+		lineageTag: 2671e5f7-65e0-52e8-96f3-d8368038a4e8
+
+	/// Average days from report to finish for finished work orders.
+	measure 'Average Days To Complete' = AVERAGE('Work Orders'[Days To Complete])
+		formatString: 0.0
+		lineageTag: 9b3b6284-6aa6-58f2-b046-a21839bdd3b1
+
+	/// Completed work orders counted on the date they finished instead of the date they were reported. Uses the inactive finish date relationship.
+	measure 'Completed Work Orders By Finish Date' = CALCULATE([Completed Work Orders], USERELATIONSHIP('Work Orders'[Actual Finish Date Key], 'Date'[Date Key]))
+		formatString: #,0
+		lineageTag: 9a0de343-d729-56b2-aafa-dcd19f582da4
+
+	/// Date key of the day the work order was reported. Joins to Date.
+	column 'Reported Date Key'
+		dataType: int64
+		isHidden
+		lineageTag: 089f40e6-9885-5bae-af35-8563a2ce9e06
+		sourceLineageTag: reported_date_key
+		summarizeBy: none
+		sourceColumn: reported_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date key of the actual finish date. Empty until the work order is finished.
+	column 'Actual Finish Date Key'
+		dataType: int64
+		isHidden
+		lineageTag: e8aaeccb-e65a-590d-ac91-69fd45efa889
+		sourceLineageTag: actual_finish_date_key
+		summarizeBy: none
+		sourceColumn: actual_finish_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the installation the work is done on.
+	column 'Installation Key'
+		dataType: int64
+		isHidden
+		lineageTag: 3196fdde-d984-5006-a41c-25f9703a75a9
+		sourceLineageTag: installation_key
+		summarizeBy: none
+		sourceColumn: installation_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the equipment tag the work is done on.
+	column 'Equipment Key'
+		dataType: int64
+		isHidden
+		lineageTag: afd6dc97-a079-5b94-8c3a-0c618e49bfcf
+		sourceLineageTag: equipment_key
+		summarizeBy: none
+		sourceColumn: equipment_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the discipline responsible for the work.
+	column 'Discipline Key'
+		dataType: int64
+		isHidden
+		lineageTag: 750f8604-5121-5955-a5a3-e87a363871c9
+		sourceLineageTag: discipline_key
+		summarizeBy: none
+		sourceColumn: discipline_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Key of the contractor that does the work. Minus one when the work is done in-house.
+	column 'Contractor Supplier Key'
+		dataType: int64
+		isHidden
+		lineageTag: 2916e3a5-aab2-59d3-ba7d-79ae576043b3
+		sourceLineageTag: contractor_supplier_key
+		summarizeBy: none
+		sourceColumn: contractor_supplier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the work order, for example WO-0004211.
+	column 'Work Order ID'
+		dataType: string
+		lineageTag: 5fef3a4e-c06a-54a5-ac55-bf86740b093e
+		sourceLineageTag: work_order_id
+		summarizeBy: none
+		sourceColumn: work_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Type of work: Preventive, Corrective, Inspection, Modification or Shutdown.
+	column 'Work Order Type'
+		dataType: string
+		lineageTag: ebb5078c-b6d1-5114-8279-d151225aa785
+		sourceLineageTag: work_order_type
+		summarizeBy: none
+		sourceColumn: work_order_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Priority from 1 (highest) to 4 (lowest).
+	column Priority
+		dataType: int64
+		formatString: 0
+		lineageTag: 46b76917-94d9-58f6-9526-19938e66f35b
+		sourceLineageTag: priority
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Status: Planned, In progress, Completed or Cancelled.
+	column 'Work Order Status'
+		dataType: string
+		lineageTag: c325a638-0c0a-5ead-9fc5-98bf2a874071
+		sourceLineageTag: work_order_status
+		summarizeBy: none
+		sourceColumn: work_order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Failure mode for corrective work, for example Seal failure. Not applicable for other types.
+	column 'Failure Mode'
+		dataType: string
+		lineageTag: 75a635f7-f9b9-550f-ab79-e2340fbd9cfb
+		sourceLineageTag: failure_mode
+		summarizeBy: none
+		sourceColumn: failure_mode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Short description of the work.
+	column 'Work Order Description'
+		dataType: string
+		lineageTag: 602f1433-a241-5629-aac3-e993f41c2dd3
+		sourceLineageTag: work_order_description
+		summarizeBy: none
+		sourceColumn: work_order_description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True when the work concerns safety critical equipment.
+	column 'Is Safety Critical'
+		dataType: boolean
+		lineageTag: c68d03d0-8291-592e-a159-35a81960220b
+		sourceLineageTag: is_safety_critical
+		summarizeBy: none
+		sourceColumn: is_safety_critical
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Planned labour hours.
+	column 'Planned Hours'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 7e448cd2-b557-531e-a88d-6111ddba3b4d
+		sourceLineageTag: planned_hours
+		summarizeBy: sum
+		sourceColumn: planned_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Labour hours booked so far.
+	column 'Actual Hours'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 5c260ac2-ec34-5551-a940-c18c7d5ff0db
+		sourceLineageTag: actual_hours
+		summarizeBy: sum
+		sourceColumn: actual_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Actual minus planned hours for completed work orders. Zero for others.
+	column 'Hours Variance'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 3f497d3a-7414-5687-b2f2-7412db42792b
+		sourceLineageTag: hours_variance
+		summarizeBy: sum
+		sourceColumn: hours_variance
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Labour cost in Norwegian kroner.
+	column 'Labour Cost (NOK)'
+		dataType: double
+		formatString: #,0
+		lineageTag: e8e3fe08-3fb5-500f-a9fc-d29f300f0c79
+		sourceLineageTag: labour_cost_nok
+		summarizeBy: sum
+		sourceColumn: labour_cost_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Material cost in Norwegian kroner.
+	column 'Material Cost (NOK)'
+		dataType: double
+		formatString: #,0
+		lineageTag: 327434ec-3343-5f56-bd52-d1934c1ef70f
+		sourceLineageTag: material_cost_nok
+		summarizeBy: sum
+		sourceColumn: material_cost_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Labour plus material cost in Norwegian kroner.
+	column 'Total Cost (NOK)'
+		dataType: double
+		formatString: #,0
+		lineageTag: 654db41a-a994-51aa-870d-c4b68c6c72ff
+		sourceLineageTag: total_cost_nok
+		summarizeBy: sum
+		sourceColumn: total_cost_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Production downtime caused by the work order in hours.
+	column 'Downtime Hours'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 019d0efc-e46f-5eed-af04-cb8af0f78ba5
+		sourceLineageTag: downtime_hours
+		summarizeBy: sum
+		sourceColumn: downtime_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Days from reported date to actual finish date. Empty until finished.
+	column 'Days To Complete'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e972847-f39f-56ff-9e32-fe5e04625f1a
+		sourceLineageTag: days_to_complete
+		summarizeBy: none
+		sourceColumn: days_to_complete
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 1 when the work order is completed, otherwise 0.
+	column 'Is Completed'
+		dataType: int64
+		lineageTag: 5a9c1015-4451-520a-9421-b8b28db3eae6
+		sourceLineageTag: is_completed
+		summarizeBy: none
+		sourceColumn: is_completed
+
+		annotation SummarizationSetBy = Automatic
+
+	/// 1 when the work order is corrective, otherwise 0.
+	column 'Is Corrective'
+		dataType: int64
+		lineageTag: 0c167089-ea53-5849-be8e-8824d8d23403
+		sourceLineageTag: is_corrective
+		summarizeBy: none
+		sourceColumn: is_corrective
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Work Orders' = entity
+		mode: directLake
+		source
+			entityName: fact_work_order
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDatabase",
+    "displayName": "kdb_contoso_dev_swc_telemetry_01",
+    "description": "Typed rotating-equipment telemetry with seven-day retention."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e77acffa-9c11-50d1-ba4d-998409b733ce"
+  }
+}

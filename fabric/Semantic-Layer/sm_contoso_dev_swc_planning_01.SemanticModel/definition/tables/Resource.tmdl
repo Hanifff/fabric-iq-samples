@@ -1,0 +1,102 @@
+/// People who plan and execute work, with role, discipline and rate.
+table Resource
+	lineageTag: 98ecbd26-037a-56da-b8fe-5f6bf97ff9c7
+	sourceLineageTag: [dbo].[dim_resource]
+
+	/// Surrogate key of the resource. Minus one is the Unassigned member.
+	column 'Resource Key'
+		dataType: int64
+		isHidden
+		lineageTag: 2562de67-cde5-5006-b029-b7f18206ce3f
+		sourceLineageTag: resource_key
+		summarizeBy: none
+		sourceColumn: resource_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier of the resource, for example RES-0042. Unassigned for activities without an owner.
+	column 'Resource ID'
+		dataType: string
+		lineageTag: 17731717-8ff2-5b38-b19b-edf2fd32b245
+		sourceLineageTag: resource_id
+		summarizeBy: none
+		sourceColumn: resource_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Full name of the person.
+	column 'Resource Name'
+		dataType: string
+		lineageTag: 19048fb4-6f10-5d62-aa24-98793c15cb74
+		sourceLineageTag: resource_name
+		summarizeBy: none
+		sourceColumn: resource_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Role title combining seniority, discipline and role.
+	column 'Role Title'
+		dataType: string
+		lineageTag: ed51ae5a-cdc0-5699-ba90-c77643bb85e2
+		sourceLineageTag: role_title
+		summarizeBy: none
+		sourceColumn: role_title
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Discipline the resource belongs to.
+	column 'Discipline Name'
+		dataType: string
+		lineageTag: 6bca7f8b-3ea2-5e4d-9e1a-ac83f0fcc69f
+		sourceLineageTag: discipline_name
+		summarizeBy: none
+		sourceColumn: discipline_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Seniority: Junior, Intermediate, Senior or Lead.
+	column 'Seniority Level'
+		dataType: string
+		lineageTag: 62f813ba-0ee6-5cea-b9db-49302810b4b8
+		sourceLineageTag: seniority_level
+		summarizeBy: none
+		sourceColumn: seniority_level
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Employee or Contractor.
+	column 'Employment Type'
+		dataType: string
+		lineageTag: c1efcd90-5e07-53cb-9896-a097c78a749e
+		sourceLineageTag: employment_type
+		summarizeBy: none
+		sourceColumn: employment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Home office or yard of the resource.
+	column 'Home Location'
+		dataType: string
+		lineageTag: f4a7dbad-3cc6-56cb-86c4-d70bfc07c3fd
+		sourceLineageTag: home_location
+		summarizeBy: none
+		sourceColumn: home_location
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Hourly cost rate in Norwegian kroner.
+	column 'Hourly Rate (NOK)'
+		dataType: double
+		formatString: #,0
+		lineageTag: e07d4169-0292-542b-a65a-086f596c2513
+		sourceLineageTag: hourly_rate_nok
+		summarizeBy: none
+		sourceColumn: hourly_rate_nok
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Resource = entity
+		mode: directLake
+		source
+			entityName: dim_resource
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

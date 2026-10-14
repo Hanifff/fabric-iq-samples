@@ -1,0 +1,29 @@
+relationship 251a4bc2-453c-5601-b1e8-77d62589f482
+	fromColumn: 'Purchase Order Lines'.'Order Date Key'
+	toColumn: Date.'Date Key'
+
+relationship 566937e4-3e15-5746-a35f-2a09c7ee39f6
+	isActive: false
+	fromColumn: 'Purchase Order Lines'.'Promised Delivery Date Key'
+	toColumn: Date.'Date Key'
+
+relationship a3500504-5bf4-50ee-b551-a8b2b4933860
+	isActive: false
+	fromColumn: 'Purchase Order Lines'.'Actual Delivery Date Key'
+	toColumn: Date.'Date Key'
+
+relationship adab28ad-b645-5503-9e38-552fc12e7dd5
+	fromColumn: 'Purchase Order Lines'.'Project Key'
+	toColumn: Project.'Project Key'
+
+relationship 8e970f12-4a96-53f4-8046-1b08a23a0e1d
+	fromColumn: 'Purchase Order Lines'.'Supplier Key'
+	toColumn: Supplier.'Supplier Key'
+
+relationship 5f43c520-e01e-5f06-b93e-04413c885e24
+	fromColumn: 'Purchase Order Lines'.'Material Key'
+	toColumn: Material.'Material Key'
+
+relationship a937641e-3582-5981-8a34-8dab331c89b0
+	fromColumn: 'Purchase Order Lines'.'Cost Code Key'
+	toColumn: 'Cost Code'.'Cost Code Key'

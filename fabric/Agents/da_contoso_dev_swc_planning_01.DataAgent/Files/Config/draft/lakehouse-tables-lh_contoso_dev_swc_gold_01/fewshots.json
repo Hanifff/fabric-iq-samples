@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/fewShots/1.0.0/schema.json",
+  "fewShots": [
+    {
+      "id": "97386378-8d75-5117-81cf-5e3e61c35abd",
+      "question": "Which critical path activities have the largest hours overrun?",
+      "query": "SELECT TOP 10 p.project_name, a.activity_code, a.activity_name, d.discipline_name,\n       a.planned_hours, a.actual_hours, a.actual_hours - a.planned_hours AS overrun_hours, a.percent_complete\nFROM dbo.dim_activity a\nJOIN dbo.dim_project p ON a.project_key = p.project_key\nJOIN dbo.dim_discipline d ON a.discipline_key = d.discipline_key\nWHERE a.is_critical_path = 1 AND a.actual_hours > a.planned_hours\nORDER BY overrun_hours DESC;"
+    },
+    {
+      "id": "15d51bd2-6436-5c66-bf58-3aba342ca3f9",
+      "question": "Which activities are due to finish in the next 30 days but are less than half complete?",
+      "query": "SELECT p.project_name, a.activity_code, a.activity_name, a.planned_finish_date, a.percent_complete\nFROM dbo.dim_activity a\nJOIN dbo.dim_project p ON a.project_key = p.project_key\nWHERE a.activity_status <> 'Completed' AND a.percent_complete < 50\n  AND a.planned_finish_date BETWEEN '2026-10-08' AND DATEADD(day, 30, '2026-10-08')\nORDER BY a.planned_finish_date;"
+    }
+  ]
+}

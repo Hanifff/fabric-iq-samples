@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDashboard",
+    "displayName": "rtd_contoso_dev_swc_operations_01",
+    "description": "Live Contoso equipment telemetry from the Eventhouse. Add ontology tiles in the UI."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "79b8e7c0-2261-5c59-9da0-415c297455fa"
+  }
+}

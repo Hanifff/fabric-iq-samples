@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "sm_contoso_dev_swc_procurement_01",
+    "description": "Procurement star schema: purchase order lines by project, supplier, material and cost code, with delivery performance."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a7b31b8b-57b2-51de-9e15-83a6b8b641b5"
+  }
+}

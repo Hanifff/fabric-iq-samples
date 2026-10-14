@@ -1,0 +1,149 @@
+/// Calendar table with one row per day from 2022 to 2029. Use it to slice every fact by day, week, month, quarter and year.
+table Date
+	dataCategory: Time
+	lineageTag: 5ea09e22-dac8-5f78-bb7a-0bb145775456
+	sourceLineageTag: [dbo].[dim_date]
+
+	/// Surrogate key for the day in yyyymmdd form. Used by fact tables to join to the calendar.
+	column 'Date Key'
+		dataType: int64
+		isHidden
+		lineageTag: 31a93f7b-b7dd-5f61-ae93-959e8088a31d
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar date.
+	column Date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		isKey
+		lineageTag: 8fb393ff-e218-5237-b1b0-eb4bdab19bd3
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar year, for example 2026.
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 474e2cae-44a9-5f71-8f37-3096e76107ed
+		sourceLineageTag: year
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar quarter number from 1 to 4.
+	column 'Quarter Number'
+		dataType: int64
+		lineageTag: 396935d3-7e9d-5fc7-8b55-ce5471f4cc48
+		sourceLineageTag: quarter_number
+		summarizeBy: none
+		sourceColumn: quarter_number
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar quarter label such as 2026 Q3.
+	column Quarter
+		dataType: string
+		lineageTag: 1bbd203b-48a9-53f3-91e3-315dca78d1d6
+		sourceLineageTag: quarter_label
+		summarizeBy: none
+		sourceColumn: quarter_label
+		sortByColumn: 'Quarter Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar month number from 1 (January) to 12 (December).
+	column 'Month Number'
+		dataType: int64
+		lineageTag: c01d71d0-fb14-5774-9810-9ce3f1b691d9
+		sourceLineageTag: month_number
+		summarizeBy: none
+		sourceColumn: month_number
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Full month name, for example September.
+	column Month
+		dataType: string
+		lineageTag: 8d8409a6-16ad-5326-8182-1296787d058e
+		sourceLineageTag: month_name
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Three-letter month name, for example Sep.
+	column 'Month Short Name'
+		dataType: string
+		lineageTag: a4b27279-1df7-5bbd-a857-400943edee21
+		sourceLineageTag: month_short_name
+		summarizeBy: none
+		sourceColumn: month_short_name
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Year and month in yyyy-mm form. Sorts correctly as text.
+	column 'Year Month'
+		dataType: string
+		lineageTag: 1742837f-5fe4-545d-9547-9f62f2beb726
+		sourceLineageTag: year_month
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	/// ISO week number from 1 to 53.
+	column 'Week Of Year'
+		dataType: int64
+		lineageTag: 2bb70b4c-0c6a-5583-a7d3-9a937fcfdcba
+		sourceLineageTag: week_of_year
+		summarizeBy: none
+		sourceColumn: week_of_year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Day of week where Monday is 1 and Sunday is 7.
+	column 'Day Of Week Number'
+		dataType: int64
+		lineageTag: 62c3e70b-71f1-5e78-b0d7-7b02e5c860f3
+		sourceLineageTag: day_of_week_number
+		summarizeBy: none
+		sourceColumn: day_of_week_number
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Day name, for example Monday.
+	column Day
+		dataType: string
+		lineageTag: 00e98889-f5db-5bb4-a1cf-7da11d15134d
+		sourceLineageTag: day_name
+		summarizeBy: none
+		sourceColumn: day_name
+		sortByColumn: 'Day Of Week Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True when the day is a Saturday or Sunday.
+	column 'Is Weekend'
+		dataType: boolean
+		lineageTag: b04d1b88-4684-51c2-b33f-674d70da0dbd
+		sourceLineageTag: is_weekend
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			expressionSource: 'DirectLake - lh_contoso_dev_swc_gold_01'

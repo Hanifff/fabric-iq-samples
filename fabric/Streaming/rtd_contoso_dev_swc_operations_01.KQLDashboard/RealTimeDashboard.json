@@ -1,0 +1,242 @@
+{
+  "schema_version": "52",
+  "title": "rtd_contoso_dev_swc_operations_01",
+  "autoRefresh": {
+    "enabled": true,
+    "defaultInterval": "30s",
+    "minInterval": "30s"
+  },
+  "baseQueries": [],
+  "tiles": [
+    {
+      "id": "c2dc2fd4-bb92-5267-a840-fc3e4315542c",
+      "title": "Latest reading per tag",
+      "visualType": "table",
+      "pageId": "1c599740-6a6f-5b2d-8470-189ca2daba75",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "77cec659-a724-5c82-a058-8a7c4c6b358d"
+      },
+      "visualOptions": {
+        "crossFilterDisabled": true,
+        "drillthroughDisabled": true,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "f9982e2c-6419-5912-bb82-8abf50f74ea0",
+      "title": "Temperature (C) by tag",
+      "visualType": "line",
+      "pageId": "1c599740-6a6f-5b2d-8470-189ca2daba75",
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 12,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "0951bef5-c022-5651-af2a-a4265a52c26f"
+      },
+      "visualOptions": {
+        "crossFilterDisabled": true,
+        "drillthroughDisabled": true,
+        "crossFilter": [],
+        "drillthrough": [],
+        "xColumn": "event_time",
+        "yColumns": [
+          "temperature_c"
+        ],
+        "seriesColumns": [
+          "tag_number"
+        ],
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xAxisScale": "linear"
+      }
+    },
+    {
+      "id": "c4392e55-d7c6-5cd1-9e8e-ba9ad2ae4cf7",
+      "title": "Vibration (mm/s) by tag",
+      "visualType": "line",
+      "pageId": "1c599740-6a6f-5b2d-8470-189ca2daba75",
+      "layout": {
+        "x": 12,
+        "y": 6,
+        "width": 12,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "a74463e6-3941-5bdc-b3fa-efc63fe73ac1"
+      },
+      "visualOptions": {
+        "crossFilterDisabled": true,
+        "drillthroughDisabled": true,
+        "crossFilter": [],
+        "drillthrough": [],
+        "xColumn": "event_time",
+        "yColumns": [
+          "vibration_mm_s"
+        ],
+        "seriesColumns": [
+          "tag_number"
+        ],
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xAxisScale": "linear"
+      }
+    },
+    {
+      "id": "3c3c86ab-6bce-56d2-8eb2-10a90b000106",
+      "title": "Bearing wear episodes (simulated)",
+      "visualType": "table",
+      "pageId": "1c599740-6a6f-5b2d-8470-189ca2daba75",
+      "layout": {
+        "x": 0,
+        "y": 13,
+        "width": 14,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "5266466a-7ddd-5e95-9d6c-3da70f86d0c6"
+      },
+      "visualOptions": {
+        "crossFilterDisabled": true,
+        "drillthroughDisabled": true,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "d248a6e4-f28a-597a-8636-9b9e8a6da48c",
+      "title": "Readings per minute",
+      "visualType": "column",
+      "pageId": "1c599740-6a6f-5b2d-8470-189ca2daba75",
+      "layout": {
+        "x": 14,
+        "y": 13,
+        "width": 10,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "ac3ac878-4e71-56fd-bff1-3ee1166d5c4f"
+      },
+      "visualOptions": {
+        "crossFilterDisabled": true,
+        "drillthroughDisabled": true,
+        "crossFilter": [],
+        "drillthrough": [],
+        "xColumn": "event_time",
+        "yColumns": [
+          "readings"
+        ],
+        "hideLegend": true
+      }
+    }
+  ],
+  "queries": [
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "b405ef26-6d8d-5965-b7b4-c56b574bc945"
+      },
+      "text": "EquipmentTelemetry\n| summarize arg_max(event_time, *) by tag_id\n| project event_time, installation_name, tag_number, equipment_class_name, temperature_c, vibration_mm_s, pressure_bar, motor_current_a, anomaly_type\n| order by tag_number asc",
+      "id": "77cec659-a724-5c82-a058-8a7c4c6b358d",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "b405ef26-6d8d-5965-b7b4-c56b574bc945"
+      },
+      "text": "EquipmentTelemetry | where event_time between (_startTime .. _endTime)\n| summarize temperature_c = avg(temperature_c) by bin(event_time, 10s), tag_number",
+      "id": "0951bef5-c022-5651-af2a-a4265a52c26f",
+      "usedVariables": [
+        "_startTime",
+        "_endTime"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "b405ef26-6d8d-5965-b7b4-c56b574bc945"
+      },
+      "text": "EquipmentTelemetry | where event_time between (_startTime .. _endTime)\n| summarize vibration_mm_s = avg(vibration_mm_s) by bin(event_time, 10s), tag_number",
+      "id": "a74463e6-3941-5bdc-b3fa-efc63fe73ac1",
+      "usedVariables": [
+        "_startTime",
+        "_endTime"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "b405ef26-6d8d-5965-b7b4-c56b574bc945"
+      },
+      "text": "EquipmentTelemetry | where event_time between (_startTime .. _endTime)\n| where anomaly_type != \"None\"\n| summarize readings = count(), peak_temperature_c = max(temperature_c), peak_vibration_mm_s = max(vibration_mm_s), first_seen = min(event_time), last_seen = max(event_time) by installation_name, tag_number, anomaly_type\n| order by last_seen desc",
+      "id": "5266466a-7ddd-5e95-9d6c-3da70f86d0c6",
+      "usedVariables": [
+        "_startTime",
+        "_endTime"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "b405ef26-6d8d-5965-b7b4-c56b574bc945"
+      },
+      "text": "EquipmentTelemetry | where event_time between (_startTime .. _endTime)\n| summarize readings = count() by bin(event_time, 1m)",
+      "id": "ac3ac878-4e71-56fd-bff1-3ee1166d5c4f",
+      "usedVariables": [
+        "_startTime",
+        "_endTime"
+      ]
+    }
+  ],
+  "dataSources": [
+    {
+      "kind": "kusto-trident",
+      "scopeId": "kusto-trident",
+      "clusterUri": "__KUSTO_QUERY_URI__",
+      "database": "__KQL_DATABASE_ID__",
+      "name": "kdb_contoso_dev_swc_telemetry_01",
+      "id": "b405ef26-6d8d-5965-b7b4-c56b574bc945",
+      "workspace": "__WORKSPACE_ID__",
+      "queryResultsCacheMaxAge": 0
+    }
+  ],
+  "pages": [
+    {
+      "name": "Live equipment telemetry",
+      "id": "1c599740-6a6f-5b2d-8470-189ca2daba75"
+    }
+  ],
+  "parameters": [
+    {
+      "kind": "duration",
+      "id": "ea0d39e5-9b46-5296-87a5-a96952fdfd2c",
+      "displayName": "Time range",
+      "description": "",
+      "beginVariableName": "_startTime",
+      "endVariableName": "_endTime",
+      "defaultValue": {
+        "kind": "dynamic",
+        "count": 30,
+        "unit": "minutes"
+      },
+      "showOnPages": {
+        "kind": "all"
+      }
+    }
+  ]
+}
