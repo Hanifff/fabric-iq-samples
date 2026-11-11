@@ -62,11 +62,12 @@ Then:
 2. **Point Ask the data at the agents.** At the top of
    `rayfin/functions/src/function_app.ts`, set `WORKSPACE_ID` and the three data agent
    IDs. For the optional Foundry agent, also set `FOUNDRY_PROJECT` and `FOUNDRY_AGENT`.
-   That agent needs the data agents as tools, and its Fabric tool runs as a user, not a
-   service principal, so the app owner must be a user.
+   Give that agent the data agents as tools through the
+   [Fabric IQ tool](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/fabric-iq).
+   With connections that pass on the caller's token, the agents answer as the app owner.
 3. **Name the approvers.** Create `rayfin/.env` with
    `RAYFIN_PUBLIC_APPROVERS=you@contoso.com` (comma-separated e-mail addresses). Without
-   it nobody can approve. Entra groups do not reach the app's rules.
+   it nobody can approve. In our tests, Entra groups did not reach the app's rules.
 4. **Build and deploy** from this folder:
 
    ```bash
