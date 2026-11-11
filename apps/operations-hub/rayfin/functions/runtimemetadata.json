@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "2.0",
+  "functions": [
+    {
+      "functionName": "askDataAgent",
+      "delegateParameters": [
+        {
+          "name": "ctx",
+          "type": "RayfinContext<Record<string, any>, AudienceType.Fabric>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "agent",
+          "type": "string",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        },
+        {
+          "name": "question",
+          "type": "string",
+          "optional": false,
+          "hasDefault": false,
+          "position": 2,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Fabric"
+      ]
+    },
+    {
+      "functionName": "askFoundryAgent",
+      "delegateParameters": [
+        {
+          "name": "ctx",
+          "type": "RayfinContext<Record<string, any>, AudienceType.AzureAI>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "question",
+          "type": "string",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "AzureAI"
+      ]
+    }
+  ]
+}

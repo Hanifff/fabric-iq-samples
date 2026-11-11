@@ -13,11 +13,13 @@ file allowlist keeps delivery documents separate.
 - Three subject-area data agents and an evaluation notebook.
 - [Prep for AI instructions](docs/ai-instructions/README.md) for the planning,
   maintenance and procurement semantic models.
+- [Operations Hub](apps/operations-hub/README.md), a Fabric app (preview) on the
+  three semantic models and data agents, with its own tables and access rules.
 - Deployment helpers, local tests and [setup instructions](docs/setup.md).
 
 No customer documents, slides, agendas, delivery notes or session recap are part
-of this repository. Plan, ontology, graph, Foundry and approval-flow configuration
-are not included in this repository.
+of this repository. Plan, ontology, graph, Foundry agent and Power Automate
+approval-flow configuration are not included in this repository.
 
 ## Setup
 
@@ -42,6 +44,7 @@ definitions unless `--update` is supplied.
 python -m unittest discover -s tests
 python tools/validate_silver_data.py
 python tools/check_package.py
+(cd apps/operations-hub && npm ci && npm run check)
 ```
 
 [public-files.txt](public-files.txt) lists every intended repository file.

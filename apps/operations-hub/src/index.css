@@ -1,0 +1,23 @@
+/* Markdown answers from the data agents */
+.md { font-size: 0.875rem; line-height: 1.55; color: #1e293b; }
+.md p { margin: 0.4rem 0; }
+.md strong { font-weight: 600; color: #0f172a; }
+.md ul, .md ol { margin: 0.4rem 0; padding-left: 1.25rem; }
+.md ul { list-style: disc; }
+.md ol { list-style: decimal; }
+.md li { margin: 0.15rem 0; }
+.md code { background: #f1f5f9; border-radius: 4px; padding: 0 4px; font-size: 0.8em; }
+.md h1, .md h2, .md h3, .md h4 { font-weight: 600; margin: 0.6rem 0 0.3rem; }
+.md table { border-collapse: collapse; margin: 0.5rem 0; font-size: 0.8rem; }
+.md th, .md td { border: 1px solid #e2e8f0; padding: 4px 8px; text-align: left; }
+.md th { background: #f8fafc; }
+.md a { color: #4f46e5; text-decoration: underline; }
+
+/* 3D viewer: src/three/viewer.ts creates these elements. */
+.viewer-canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.viewer-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.pin-label { position: absolute; left: 0; top: 0; background: #fff; border: 2px solid; border-radius: 999px; padding: 1px 7px; font-size: 11px; font-weight: 700; color: #0f172a; box-shadow: 0 1px 3px #0003; }
+.pin-label.selected { background: #0f172a; color: #fff; }
+.viewer-bg-offshore { background: linear-gradient(#cfe4ef, #eef4f6 60%, #b9cdd6); }
+.viewer-bg-subsea { background: radial-gradient(ellipse at 50% 15%, #2f7d9e, #0f3c56 55%, #082333); }
+.viewer-bg-yard { background: linear-gradient(#d6e6ef, #f2f5f6 65%, #c7ced2); }
